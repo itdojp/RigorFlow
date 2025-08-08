@@ -522,7 +522,7 @@ AIチャットに「○○ガイドを表示」と依頼すれば、該当文書
 ---
 
 **Framework Version**: 3.1  
-**Last Updated**: 2025-01-08  
+**Last Updated**: 2025-08-08  
 **License**: MIT
 
 ## まとめ
