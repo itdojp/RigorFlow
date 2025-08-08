@@ -1,109 +1,109 @@
-# AIチャット駆動開発統合ガイド v2.1
+# AI Chat-Driven Development Unified Guide v2.1
 
-## 📌 このガイドについて
+## 📌 About This Guide
 
-AIチャット（Claude等）との対話だけで、要求定義から本番デプロイまでを完結させる統合ガイドです。BDD+TDDを中心に、必要に応じて形式手法を選択的に使用します。
+A unified guide for completing everything from requirements definition to production deployment through dialogue with AI chat (Claude, etc.) only. Centered on BDD+TDD, with selective use of formal methods as needed.
 
-**v2.1の新機能**: プロジェクト診断ヒアリングシートによる効率的な開始 ⭐
+**v2.1 New Feature**: Efficient start with project diagnosis interview sheet ⭐
 
-## 🚀 クイックスタート
+## 🚀 Quick Start
 
-### 方法1: ヒアリングシート使用（推奨）⭐
-
-```markdown
-1. AIチャットで以下を入力：
-   「プロジェクト診断ヒアリングシートを表示」
-2. シートに記入（5-10分）
-3. 記入済みシートをAIに提出：
-   「このヒアリングシートに基づいて診断し、開発を開始してください」
-```
-
-### 方法2: 30秒で開始（対話形式）
+### Method 1: Using Interview Sheet (Recommended) ⭐
 
 ```markdown
-1. AIチャット（Claude/Claude Code）を開く
-2. このガイドを入力
-3. 以下を実行：
-
-「プロジェクトを開始します。
-[あなたのアイデア]を作りたいです。
-診断から始めてください。」
+1. Input the following to AI chat:
+   "Display project diagnosis interview sheet"
+2. Fill out the sheet (5-10 minutes)
+3. Submit completed sheet to AI:
+   "Please diagnose based on this interview sheet and start development"
 ```
 
-## 📊 プロジェクト診断フロー
+### Method 2: 30-Second Start (Dialogue Format)
 
-### Phase 0: 自動診断（5-30分）
-
-#### 方法1: ヒアリングシート使用（推奨）⭐
 ```markdown
-「プロジェクト診断ヒアリングシートを表示してください」
+1. Open AI chat (Claude/Claude Code)
+2. Input this guide
+3. Execute the following:
 
-→ シートに記入（5-10分）
-→ AIに提出
-→ 即座に診断結果
+"I want to start a project.
+I want to create [your idea].
+Please start with diagnosis."
 ```
 
-#### 方法2: 対話形式
+## 📊 Project Diagnosis Flow
+
+### Phase 0: Automatic Diagnosis (5-30 minutes)
+
+#### Method 1: Using Interview Sheet (Recommended) ⭐
 ```markdown
-「以下のプロジェクトを診断してください：
+"Please display the project diagnosis interview sheet"
 
-概要: [1-2文で説明]
-重要度: [趣味/業務/ミッションクリティカル]
-規模: [個人/チーム/大規模]」
+→ Fill out sheet (5-10 minutes)
+→ Submit to AI
+→ Immediate diagnosis results
 ```
 
-#### AIの診断項目
+#### Method 2: Dialogue Format
+```markdown
+"Please diagnose the following project:
+
+Overview: [1-2 sentence explanation]
+Importance: [hobby/business/mission-critical]
+Scale: [individual/team/large-scale]"
+```
+
+#### AI Diagnosis Items
 
 ```yaml
-診断結果:
-  リスクレベル: [低/中/高]
-  技術構成:
-    - タイプ: [CLI/API/Webアプリ/モバイル]
-    - DB必要性: [不要/軽量/本格的]
-    - UI必要性: [不要/シンプル/リッチ]
+diagnosis_result:
+  risk_level: [low/medium/high]
+  technical_configuration:
+    - type: [CLI/API/Web app/Mobile]
+    - db_necessity: [not needed/lightweight/full-featured]
+    - ui_necessity: [not needed/simple/rich]
   
-  推奨手法:
-    必須: 
-      - BDD（振る舞い仕様）
-      - TDD（テスト駆動開発）
-    オプション:
-      - 型システム（複雑なデータ）
-      - モデル検査（並行処理あり）
-      - 形式証明（暗号・金融のみ）
+  recommended_methods:
+    required: 
+      - BDD (behavior specification)
+      - TDD (test-driven development)
+    optional:
+      - Type system (complex data)
+      - Model checking (with concurrency)
+      - Formal proof (crypto/finance only)
   
-  技術スタック:
-    言語: [AIが提案 or チーム指定]
-    フレームワーク: [必要に応じて]
-    インフラ: [ローカル/クラウド]
+  technology_stack:
+    language: [AI suggests or team specifies]
+    framework: [as needed]
+    infrastructure: [local/cloud]
 ```
 
-### 診断による分岐
+### Branching by Diagnosis
 
 ```mermaid
 graph TD
-    A[プロジェクト診断] --> B{プロジェクトタイプ}
+    A[Project Diagnosis] --> B{Project Type}
     
-    B -->|CLI・スクリプト| C[最小構成]
-    B -->|API・サービス| D[バックエンド構成]
-    B -->|Webアプリ| E[フルスタック構成]
+    B -->|CLI/Script| C[Minimal Configuration]
+    B -->|API/Service| D[Backend Configuration]
+    B -->|Web App| E[Full Stack Configuration]
     
     C --> F[BDD+TDD]
     D --> G[BDD+TDD+DB]
     E --> H[BDD+TDD+DB+UI+CI/CD]
 ```
 
-## 🔄 開発サイクル
+## 🔄 Development Cycle
 
-### 基本サイクル（全プロジェクト共通）
+### Basic Cycle (Common to All Projects)
 
 ```mermaid
 graph LR
-    A[要求] --> B[BDDシナリオ]
-    B --> C[テスト作成]
-    C --> D[実装]
-    D --> E[リファクタリング]
-    E --> F[統合]
-    F --> G[デプロイ]
+    A[Requirements] --> B[BDD Scenarios]
+    B --> C[Create Tests]
+    C --> D[Implementation]
+    D --> E[Refactoring]
+    E --> F[Integration]
+    F --> G[Deploy]
     
     style B fill:#e1f5fe
     style C fill:#ffccbc
@@ -111,77 +111,77 @@ graph LR
     style E fill:#fff9c4
 ```
 
-### Phase 1: BDD要求定義
+### Phase 1: BDD Requirements Definition
 
-#### 基本テンプレート
+#### Basic Template
 ```gherkin
-Feature: [機能名]
-  As a [ユーザー種別]
-  I want [何をしたい]
-  So that [なぜ必要]
+Feature: [Feature name]
+  As a [User type]
+  I want [What to do]
+  So that [Why needed]
 
-  Scenario: [シナリオ名]
-    Given [前提条件]
-    When [アクション]
-    Then [期待結果]
+  Scenario: [Scenario name]
+    Given [Preconditions]
+    When [Action]
+    Then [Expected result]
 ```
 
-#### 層別BDDシナリオ
+#### Layered BDD Scenarios
 
-**ビジネスロジック層**
+**Business Logic Layer**
 ```gherkin
-Scenario: ゲーム勝敗判定
-  Given プレイヤー1が「グー」
-  And プレイヤー2が「チョキ」
-  When 勝敗を判定
-  Then プレイヤー1の勝利
+Scenario: Game win/loss judgment
+  Given Player 1 has "Rock"
+  And Player 2 has "Scissors"
+  When judgment is made
+  Then Player 1 wins
 ```
 
-**データベース層**（必要な場合）
+**Database Layer** (when needed)
 ```gherkin
-Scenario: 結果の永続化
-  Given ゲーム結果が確定
-  When データベースに保存
-  Then 履歴から参照可能
+Scenario: Result persistence
+  Given game result is determined
+  When saved to database
+  Then accessible from history
 ```
 
-**UI層**（必要な場合）
+**UI Layer** (when needed)
 ```gherkin
-Scenario: 結果表示
-  Given ゲームが終了
-  When 結果画面を表示
-  Then 勝敗がアニメーション表示
+Scenario: Result display
+  Given game is finished
+  When result screen is displayed
+  Then win/loss is shown with animation
 ```
 
-### Phase 2-4: TDDサイクル
+### Phase 2-4: TDD Cycle
 
-#### 環境別の実行方法
+#### Execution Method by Environment
 
-**チャット環境（コード生成のみ）**
+**Chat Environment (Code generation only)**
 ```markdown
-1. AI: 「テストコードを生成します」
-2. 人間: コピーして手動実行
-3. AI: 「実装を生成します」
-4. 人間: 実行して確認
+1. AI: "Generate test code"
+2. Human: Copy and execute manually
+3. AI: "Generate implementation"
+4. Human: Execute and confirm
 ```
 
-**ワークスペース環境（自動実行）**
+**Workspace Environment (Automatic execution)**
 ```markdown
-1. AI: テスト作成 → 自動実行 → 失敗確認
-2. AI: 実装作成 → 自動実行 → 成功確認
-3. AI: リファクタリング → 自動再テスト
+1. AI: Create test → Auto execute → Confirm failure
+2. AI: Create implementation → Auto execute → Confirm success
+3. AI: Refactoring → Auto re-test
 ```
 
-#### TDDの実例
+#### TDD Example
 
 ```python
 # Cycle 1: RED
 def test_judge_game():
-    assert judge_game("rock", "scissors") == "player1"  # 失敗
+    assert judge_game("rock", "scissors") == "player1"  # Fails
 
 # Cycle 2: GREEN
 def judge_game(p1, p2):
-    return "player1"  # 最小実装
+    return "player1"  # Minimal implementation
 
 # Cycle 3: REFACTOR
 def judge_game(p1, p2):
@@ -193,9 +193,9 @@ def judge_game(p1, p2):
     return rules.get((p1, p2), "player2")
 ```
 
-## 🏗️ プロジェクト構成パターン
+## 🏗️ Project Configuration Patterns
 
-### パターン1: 最小構成（CLI・スクリプト）
+### Pattern 1: Minimal Configuration (CLI/Script)
 
 ```
 project/
@@ -206,9 +206,9 @@ project/
 └── README.md
 ```
 
-**必要な手法**: BDD+TDD のみ
+**Required methods**: BDD+TDD only
 
-### パターン2: API構成（バックエンド）
+### Pattern 2: API Configuration (Backend)
 
 ```
 project/
@@ -224,9 +224,9 @@ project/
 └── docker-compose.yml
 ```
 
-**必要な手法**: BDD+TDD+DB設計
+**Required methods**: BDD+TDD+DB design
 
-### パターン3: フルスタック構成
+### Pattern 3: Full Stack Configuration
 
 ```
 project/
@@ -243,225 +243,225 @@ project/
 └── docker-compose.yml
 ```
 
-**必要な手法**: BDD+TDD+DB+UI+CI/CD
+**Required methods**: BDD+TDD+DB+UI+CI/CD
 
-## 🎯 品質保証戦略
+## 🎯 Quality Assurance Strategy
 
-### カバレッジ目標
+### Coverage Goals
 
-| 層 | 最小 | 推奨 | 測定方法 |
-|----|------|------|----------|
-| ユニットテスト | 70% | 90% | `pytest --cov` |
-| 統合テスト | 50% | 80% | API/DBテスト |
-| E2Eテスト | 主要フロー | 全シナリオ | Playwright等 |
+| Layer | Minimum | Recommended | Measurement Method |
+|-------|---------|-------------|-------------------|
+| Unit Tests | 70% | 90% | `pytest --cov` |
+| Integration Tests | 50% | 80% | API/DB tests |
+| E2E Tests | Main flows | All scenarios | Playwright, etc. |
 
-### 継続的品質チェック
-
-```yaml
-自動チェック項目:
-  - テスト実行: すべてのpush時
-  - カバレッジ: PR時に確認
-  - 型チェック: 静的解析
-  - セキュリティ: 依存関係スキャン
-```
-
-## 🔧 技術選択ガイド
-
-### 言語選択マトリックス
-
-| 要件 | 推奨言語 | 理由 |
-|------|----------|------|
-| **高速開発** | Python, JavaScript | 豊富なライブラリ |
-| **型安全性** | TypeScript, Rust | コンパイル時チェック |
-| **高性能** | Rust, Go | システムレベル性能 |
-| **並行処理** | Go, Elixir | 組み込みサポート |
-| **Web UI** | TypeScript + React/Vue | エコシステム |
-
-### データベース選択
+### Continuous Quality Checks
 
 ```yaml
-用途別推奨:
-  シンプル: SQLite（ファイルDB）
-  一般的: PostgreSQL（RDBMS）
-  大規模: PostgreSQL + Redis
-  NoSQL: MongoDB（ドキュメント型）
-  リアルタイム: Firebase/Supabase
+automatic_check_items:
+  - test_execution: On every push
+  - coverage: Confirm on PR
+  - type_check: Static analysis
+  - security: Dependency scan
 ```
 
-## 📝 AIとの効果的な対話
+## 🔧 Technology Selection Guide
 
-### 良い指示の例
+### Language Selection Matrix
+
+| Requirements | Recommended Language | Reason |
+|--------------|---------------------|--------|
+| **Fast Development** | Python, JavaScript | Rich libraries |
+| **Type Safety** | TypeScript, Rust | Compile-time checks |
+| **High Performance** | Rust, Go | System-level performance |
+| **Concurrency** | Go, Elixir | Built-in support |
+| **Web UI** | TypeScript + React/Vue | Ecosystem |
+
+### Database Selection
+
+```yaml
+by_use_case:
+  simple: SQLite (file DB)
+  general: PostgreSQL (RDBMS)
+  large_scale: PostgreSQL + Redis
+  nosql: MongoDB (document type)
+  real_time: Firebase/Supabase
+```
+
+## 📝 Effective AI Dialogue
+
+### Good Instruction Examples
 
 ```markdown
-✅ 具体的で段階的
-「ユーザー認証機能を追加したい。
-まずBDDシナリオを作成し、
-その後JWTを使ったTDD実装を進めてください。」
+✅ Specific and step-by-step
+"I want to add user authentication feature.
+First create BDD scenarios,
+then proceed with TDD implementation using JWT."
 
-✅ 制約を明確に
-「Pythonで、FastAPIを使い、
-PostgreSQLに接続する設定で進めてください。」
+✅ Clear constraints
+"Proceed using Python, FastAPI,
+and PostgreSQL connection settings."
 
-✅ 品質基準を指定
-「カバレッジ90%以上、
-型ヒント必須で実装してください。」
+✅ Specify quality standards
+"Implement with 90%+ coverage,
+type hints mandatory."
 ```
 
-### 避けるべき指示
+### Instructions to Avoid
 
 ```markdown
-❌ 曖昧
-「いい感じのアプリ作って」
+❌ Vague
+"Make a nice app"
 
-❌ 一度に多すぎ
-「全機能を一度に実装して」
+❌ Too much at once
+"Implement all features at once"
 
-❌ 前提なし
-「デプロイして」（環境未指定）
+❌ No prerequisites
+"Deploy it" (environment unspecified)
 ```
 
-## 🚦 フェーズ別チェックリスト
+## 🚦 Phase-by-Phase Checklist
 
-### ✅ Phase 0: 診断
-- [ ] プロジェクトタイプ決定
-- [ ] 技術スタック選択
-- [ ] 必要な手法の特定
+### ✅ Phase 0: Diagnosis
+- [ ] Project type determined
+- [ ] Technology stack selected
+- [ ] Required methods identified
 
-### ✅ Phase 1: 要求
-- [ ] BDDシナリオ作成
-- [ ] 受け入れ条件明確化
-- [ ] 優先順位決定
+### ✅ Phase 1: Requirements
+- [ ] BDD scenarios created
+- [ ] Acceptance criteria clarified
+- [ ] Priorities determined
 
-### ✅ Phase 2-4: 実装
-- [ ] テストファースト徹底
-- [ ] カバレッジ目標達成
-- [ ] リファクタリング完了
+### ✅ Phase 2-4: Implementation
+- [ ] Test-first enforced
+- [ ] Coverage goals achieved
+- [ ] Refactoring completed
 
-### ✅ Phase 5: 統合
-- [ ] 統合テスト実施
-- [ ] E2Eテスト成功
-- [ ] パフォーマンス確認
+### ✅ Phase 5: Integration
+- [ ] Integration tests performed
+- [ ] E2E tests successful
+- [ ] Performance confirmed
 
-### ✅ Phase 6: デプロイ
-- [ ] CI/CDパイプライン
-- [ ] 環境変数設定
-- [ ] モニタリング設定
+### ✅ Phase 6: Deploy
+- [ ] CI/CD pipeline
+- [ ] Environment variables set
+- [ ] Monitoring configured
 
-## 🎓 形式手法の選択的使用
+## 🎓 Selective Use of Formal Methods
 
-### いつ使うか
+### When to Use
 
 ```yaml
-形式手法の適用基準:
+formal_methods_application_criteria:
   
-  不要（90%のプロジェクト）:
-    - 一般的なWebアプリ
-    - CRUD操作中心
-    - UIフォーカス
+  not_needed (90% of projects):
+    - General web applications
+    - CRUD-centered
+    - UI-focused
     
-  検討（8%）:
-    - 複雑な並行処理 → モデル検査
-    - 複雑なデータ構造 → 型システム
+  consider (8%):
+    - Complex concurrency → Model checking
+    - Complex data structures → Type system
     
-  必要（2%）:
-    - 暗号実装 → 形式証明
-    - 金融計算 → 数学的証明
-    - 人命関連 → 完全検証
+  necessary (2%):
+    - Cryptographic implementation → Formal proof
+    - Financial calculations → Mathematical proof
+    - Life-critical → Complete verification
 ```
 
-### 段階的追加
+### Gradual Addition
 
 ```markdown
-問題: 「並行処理でデッドロック」
-→ AI: 「この部分だけTLA+でモデル化しましょう」
+Problem: "Deadlock in concurrent processing"
+→ AI: "Let's model just this part with TLA+"
 
-問題: 「暗号処理の正確性が不安」
-→ AI: 「Dafnyで証明を追加しましょう」
+Problem: "Uncertain about cryptographic processing correctness"
+→ AI: "Let's add proof with Dafny"
 ```
 
-## 💡 トラブルシューティング
+## 💡 Troubleshooting
 
-### よくある問題と解決
+### Common Problems and Solutions
 
-| 問題 | 原因 | 解決方法 |
-|------|------|----------|
-| テスト失敗 | 要求の誤解 | BDDシナリオ見直し |
-| 遅い開発 | 過度な形式化 | 必要最小限に削減 |
-| 統合エラー | 型不一致 | インターフェース明確化 |
-| デプロイ失敗 | 環境差異 | Docker化 |
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Test failures | Requirement misunderstanding | Review BDD scenarios |
+| Slow development | Excessive formalization | Reduce to necessary minimum |
+| Integration errors | Type mismatches | Clarify interfaces |
+| Deployment failures | Environment differences | Dockerization |
 
-## 📈 成功指標
+## 📈 Success Metrics
 
 ```yaml
-品質指標:
-  バグ密度: < 1/KLOC
-  カバレッジ: > 80%
-  技術的負債: 最小
+quality_indicators:
+  bug_density: < 1/KLOC
+  coverage: > 80%
+  technical_debt: Minimal
 
-効率指標:
-  開発速度: 従来比 2x
-  手戻り: < 10%
-  自動化率: > 70%
+efficiency_indicators:
+  development_speed: 2x vs conventional
+  rework: < 10%
+  automation_rate: > 70%
 
-ビジネス指標:
-  要求充足: 100%
-  納期遵守: 95%
-  保守性: 高
+business_indicators:
+  requirement_fulfillment: 100%
+  deadline_adherence: 95%
+  maintainability: High
 ```
 
-## 🔄 継続的改善
+## 🔄 Continuous Improvement
 
-### 振り返りテンプレート
+### Review Template
 
 ```markdown
-「プロジェクトの振り返りを実施してください：
+"Please conduct a project review:
 
-良かった点:
-- [AIが分析]
+Good points:
+- [AI analyzes]
 
-改善点:
-- [AIが提案]
+Improvement points:
+- [AI suggests]
 
-次回への適用:
-- [AIが計画]」
+Application to next time:
+- [AI plans]"
 ```
 
-## 📚 付録: 最小限の前提知識
+## 📚 Appendix: Minimal Prerequisites
 
-### 必須
-- プログラミング基礎
-- Git基本操作
+### Required
+- Programming basics
+- Basic Git operations
 
-### 推奨
-- テストの概念
-- Webの基礎（Webアプリの場合）
+### Recommended
+- Testing concepts
+- Web basics (for web apps)
 
-### 不要
-- 形式手法の詳細
-- 特定フレームワークの深い知識
-- DevOpsツールの詳細
+### Not Required
+- Formal methods details
+- Deep framework knowledge
+- DevOps tool details
 
 ---
 
-**バージョン**: 2.1  
-**最終更新**: 2025年8月8日  
-**ライセンス**: MIT
+**Version**: 2.1  
+**Last Updated**: August 8, 2025  
+**License**: MIT
 
-## まとめ
+## Summary
 
-このガイド1つで、AIとの対話による開発のすべてをカバーします。
+This guide covers everything for AI dialogue-driven development.
 
-**特徴**:
-1. **効率的**: ヒアリングシートで5-10分診断
-2. **実践的**: BDD+TDD中心で実用的
-3. **適応的**: プロジェクトに応じて手法選択
-4. **完全**: CLI〜フルスタックまで対応
-5. **シンプル**: 必要最小限の文書
+**Features**:
+1. **Efficient**: 5-10 minute diagnosis with interview sheet
+2. **Practical**: BDD+TDD centered and practical
+3. **Adaptive**: Method selection according to project
+4. **Complete**: CLI to full stack support
+5. **Simple**: Minimal necessary documentation
 
-**使い方**:
-1. ヒアリングシートで診断（推奨）
-2. またはこのガイドをAIに入力
-3. プロジェクトを説明
-4. AIの指示に従って開発
+**Usage**:
+1. Diagnose with interview sheet (recommended)
+2. Or input this guide to AI
+3. Explain your project
+4. Follow AI instructions for development
 
-以上です。
+That's all.

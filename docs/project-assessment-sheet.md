@@ -1,183 +1,183 @@
-# プロジェクト診断ヒアリングシート
+# Project Diagnosis Interview Sheet
 
-## 使い方
-1. このシートの各項目を記入（選択式は該当するものに ✓）
-2. 記入済みシートをAIチャットに貼り付け
-3. 「このヒアリングシートに基づいて診断してください」と依頼
+## How to Use
+1. Fill out each item in this sheet (checkboxes: mark applicable items with ✓)
+2. Paste completed sheet into AI chat
+3. Request "Please diagnose based on this interview sheet"
 
 ---
 
-## 1. プロジェクト基本情報
+## 1. Basic Project Information
 
-### プロジェクト名
+### Project Name
 ```
 [                                        ]
 ```
 
-### プロジェクト概要（1-3文）
+### Project Overview (1-3 sentences)
 ```
 [                                        ]
 [                                        ]
 [                                        ]
 ```
 
-### プロジェクトタイプ（✓を付ける）
-- [ ] CLI ツール・スクリプト
-- [ ] API・バックエンドサービス
-- [ ] Web アプリケーション（フルスタック）
-- [ ] モバイルアプリケーション
-- [ ] デスクトップアプリケーション
-- [ ] 組み込みシステム
-- [ ] 分散システム・マイクロサービス
-- [ ] データ処理・分析システム
-- [ ] AI/機械学習システム
-- [ ] ブロックチェーン・暗号システム
-- [ ] その他: [                        ]
+### Project Type (mark with ✓)
+- [ ] CLI tools/scripts
+- [ ] API/backend services
+- [ ] Web applications (full stack)
+- [ ] Mobile applications
+- [ ] Desktop applications
+- [ ] Embedded systems
+- [ ] Distributed systems/microservices
+- [ ] Data processing/analytics systems
+- [ ] AI/machine learning systems
+- [ ] Blockchain/cryptographic systems
+- [ ] Other: [                        ]
 
-### 開発フェーズ
-- [ ] アイデア検証（PoC）
-- [ ] プロトタイプ
-- [ ] MVP（最小限の製品）
-- [ ] 本番開発
-- [ ] 既存システムの改修
-- [ ] 既存システムの移行・リプレース
-
----
-
-## 2. ビジネス要件
-
-### システムの重要度
-- [ ] 趣味・学習用
-- [ ] 社内ツール（影響限定的）
-- [ ] 業務システム（業務影響あり）
-- [ ] 顧客向けサービス（収益影響あり）
-- [ ] ミッションクリティカル（停止不可）
-
-### 失敗時の影響（複数選択可）
-- [ ] 影響なし・限定的
-- [ ] 作業の遅延
-- [ ] 金銭的損失（小規模）
-- [ ] 金銭的損失（大規模）
-- [ ] 信用・評判の損失
-- [ ] 法的責任の発生
-- [ ] 人命・安全に関わる
-
-### 想定ユーザー数
-- [ ] 個人利用
-- [ ] ～10人
-- [ ] ～100人
-- [ ] ～1,000人
-- [ ] ～10,000人
-- [ ] 10,000人以上
-- [ ] 不特定多数
-
-### 開発期間
-- [ ] 1週間以内
-- [ ] 1ヶ月以内
-- [ ] 3ヶ月以内
-- [ ] 6ヶ月以内
-- [ ] 1年以内
-- [ ] 1年以上
+### Development Phase
+- [ ] Idea validation (PoC)
+- [ ] Prototype
+- [ ] MVP (minimum viable product)
+- [ ] Production development
+- [ ] Existing system modification
+- [ ] Existing system migration/replacement
 
 ---
 
-## 3. 技術的特性
+## 2. Business Requirements
 
-### システムの複雑度
+### System Importance
+- [ ] Hobby/learning use
+- [ ] Internal tools (limited impact)
+- [ ] Business systems (business impact)
+- [ ] Customer-facing services (revenue impact)
+- [ ] Mission-critical (cannot stop)
 
-#### データ処理
-- [ ] 単純なCRUD操作
-- [ ] 複雑なビジネスロジック
-- [ ] リアルタイムデータ処理
-- [ ] 大量データ処理（ビッグデータ）
-- [ ] 複雑なデータ変換・集計
+### Impact of Failure (multiple selection allowed)
+- [ ] No impact/limited
+- [ ] Work delays
+- [ ] Financial loss (small scale)
+- [ ] Financial loss (large scale)
+- [ ] Credit/reputation loss
+- [ ] Legal liability
+- [ ] Life/safety related
 
-#### 並行性・分散性
-- [ ] シングルスレッド・同期処理のみ
-- [ ] マルチスレッド・並行処理あり
-- [ ] 分散処理・複数ノード
-- [ ] マイクロサービス構成
-- [ ] リアルタイム同期が必要
+### Expected User Count
+- [ ] Personal use
+- [ ] Up to 10 people
+- [ ] Up to 100 people
+- [ ] Up to 1,000 people
+- [ ] Up to 10,000 people
+- [ ] 10,000+ people
+- [ ] General public
 
-#### 外部連携
-- [ ] スタンドアロン（外部連携なし）
-- [ ] 少数のAPI連携
-- [ ] 多数のシステム連携
-- [ ] レガシーシステム連携
-- [ ] サードパーティサービス依存
-
-### セキュリティ要件
-- [ ] 公開情報のみ（セキュリティ不要）
-- [ ] 基本的な認証・認可
-- [ ] 個人情報を扱う
-- [ ] 金融情報を扱う
-- [ ] 医療情報を扱う
-- [ ] 暗号化必須
-- [ ] ゼロ知識証明等の高度な暗号
-
-### パフォーマンス要件
-- [ ] 特に要件なし
-- [ ] レスポンス 1秒以内
-- [ ] レスポンス 100ms以内
-- [ ] 高スループット必要
-- [ ] リアルタイム性必要
-- [ ] 24/365稼働必須
+### Development Period
+- [ ] Within 1 week
+- [ ] Within 1 month
+- [ ] Within 3 months
+- [ ] Within 6 months
+- [ ] Within 1 year
+- [ ] Over 1 year
 
 ---
 
-## 4. 品質・規制要件
+## 3. Technical Characteristics
 
-### 品質要求レベル
-- [ ] 最低限動作すればOK
-- [ ] 一般的な品質（バグは許容）
-- [ ] 高品質（バグ最小限）
-- [ ] 非常に高品質（ほぼバグなし）
-- [ ] 完璧な品質（証明必要）
+### System Complexity
 
-### 規制・コンプライアンス（複数選択可）
-- [ ] 特になし
-- [ ] 社内規定準拠
-- [ ] 業界標準準拠
-- [ ] 個人情報保護法（GDPR等）
-- [ ] 金融規制（PCI DSS等）
-- [ ] 医療規制（HIPAA等）
-- [ ] 監査要件あり
-- [ ] 形式的証明が必要
+#### Data Processing
+- [ ] Simple CRUD operations
+- [ ] Complex business logic
+- [ ] Real-time data processing
+- [ ] Big data processing
+- [ ] Complex data transformation/aggregation
 
-### テスト要件
-- [ ] 最小限のテスト
-- [ ] 一般的なテスト（70%カバレッジ）
-- [ ] 高カバレッジ（90%以上）
-- [ ] 完全なテスト（E2E含む）
-- [ ] 形式的検証必要
+#### Concurrency/Distribution
+- [ ] Single-threaded/synchronous processing only
+- [ ] Multi-threaded/concurrent processing
+- [ ] Distributed processing/multiple nodes
+- [ ] Microservices architecture
+- [ ] Real-time synchronization required
+
+#### External Integration
+- [ ] Standalone (no external integration)
+- [ ] Few API integrations
+- [ ] Many system integrations
+- [ ] Legacy system integration
+- [ ] Third-party service dependencies
+
+### Security Requirements
+- [ ] Public information only (no security needed)
+- [ ] Basic authentication/authorization
+- [ ] Handles personal information
+- [ ] Handles financial information
+- [ ] Handles medical information
+- [ ] Encryption required
+- [ ] Advanced cryptography (zero-knowledge proofs, etc.)
+
+### Performance Requirements
+- [ ] No particular requirements
+- [ ] Response within 1 second
+- [ ] Response within 100ms
+- [ ] High throughput required
+- [ ] Real-time performance required
+- [ ] 24/7 operation required
 
 ---
 
-## 5. チーム・環境情報
+## 4. Quality/Regulatory Requirements
 
-### チーム規模
-- [ ] 1人（個人開発）
-- [ ] 2-3人
-- [ ] 4-10人
-- [ ] 11-30人
-- [ ] 30人以上
+### Quality Requirement Level
+- [ ] Minimum functionality is OK
+- [ ] General quality (bugs acceptable)
+- [ ] High quality (minimal bugs)
+- [ ] Very high quality (almost no bugs)
+- [ ] Perfect quality (proof required)
 
-### チームのスキルレベル
-- [ ] 初心者中心
-- [ ] 中級者中心
-- [ ] 上級者中心
-- [ ] 混在
+### Regulations/Compliance (multiple selection allowed)
+- [ ] None
+- [ ] Internal company standards
+- [ ] Industry standards compliance
+- [ ] Personal data protection laws (GDPR, etc.)
+- [ ] Financial regulations (PCI DSS, etc.)
+- [ ] Medical regulations (HIPAA, etc.)
+- [ ] Audit requirements
+- [ ] Formal proof required
 
-### 形式手法の経験
-- [ ] 経験なし
-- [ ] 聞いたことがある程度
-- [ ] 基礎知識あり
-- [ ] 実践経験あり
-- [ ] エキスパート
+### Testing Requirements
+- [ ] Minimal testing
+- [ ] General testing (70% coverage)
+- [ ] High coverage (90%+)
+- [ ] Complete testing (including E2E)
+- [ ] Formal verification required
 
-### 使用予定/希望の技術（複数選択可）
+---
 
-#### 言語
+## 5. Team/Environment Information
+
+### Team Size
+- [ ] 1 person (individual development)
+- [ ] 2-3 people
+- [ ] 4-10 people
+- [ ] 11-30 people
+- [ ] 30+ people
+
+### Team Skill Level
+- [ ] Beginner-centered
+- [ ] Intermediate-centered
+- [ ] Advanced-centered
+- [ ] Mixed
+
+### Formal Methods Experience
+- [ ] No experience
+- [ ] Heard of it
+- [ ] Basic knowledge
+- [ ] Practical experience
+- [ ] Expert
+
+### Planned/Preferred Technologies (multiple selection allowed)
+
+#### Languages
 - [ ] Python
 - [ ] JavaScript/TypeScript
 - [ ] Java
@@ -186,47 +186,47 @@
 - [ ] C/C++
 - [ ] Ruby
 - [ ] Elixir
-- [ ] その他: [                        ]
-- [ ] 未定（AIに提案してほしい）
+- [ ] Other: [                        ]
+- [ ] Undecided (want AI to suggest)
 
-#### インフラ・環境
-- [ ] ローカル開発のみ
-- [ ] オンプレミス
-- [ ] クラウド（AWS）
-- [ ] クラウド（GCP）
-- [ ] クラウド（Azure）
-- [ ] クラウド（その他）
-- [ ] Docker/コンテナ
+#### Infrastructure/Environment
+- [ ] Local development only
+- [ ] On-premises
+- [ ] Cloud (AWS)
+- [ ] Cloud (GCP)
+- [ ] Cloud (Azure)
+- [ ] Cloud (Other)
+- [ ] Docker/containers
 - [ ] Kubernetes
-- [ ] サーバーレス
+- [ ] Serverless
 
-### 開発環境
-- [ ] AIチャットのみ（コード生成）
-- [ ] ローカル開発環境
-- [ ] Claude Code等（ワークスペース環境）
+### Development Environment
+- [ ] AI chat only (code generation)
+- [ ] Local development environment
+- [ ] Claude Code, etc. (workspace environment)
 - [ ] GitHub Codespaces
-- [ ] その他のクラウドIDE
+- [ ] Other cloud IDEs
 
 ---
 
-## 6. 制約条件
+## 6. Constraints
 
-### 予算制約
-- [ ] 予算上限なし
-- [ ] 厳しい予算制約
-- [ ] 標準的な予算
-- [ ] 余裕のある予算
+### Budget Constraints
+- [ ] No budget limit
+- [ ] Strict budget constraints
+- [ ] Standard budget
+- [ ] Generous budget
 
-### 技術的制約（複数選択可）
-- [ ] 特定の言語必須: [                ]
-- [ ] 特定のフレームワーク必須: [        ]
-- [ ] 既存システムとの互換性必要
-- [ ] 特定のDB使用必須: [              ]
-- [ ] 特定のクラウド必須: [            ]
-- [ ] オンプレミス必須
-- [ ] 特になし
+### Technical Constraints (multiple selection allowed)
+- [ ] Specific language required: [                ]
+- [ ] Specific framework required: [        ]
+- [ ] Compatibility with existing systems required
+- [ ] Specific DB required: [              ]
+- [ ] Specific cloud required: [            ]
+- [ ] On-premises required
+- [ ] None
 
-### その他の制約・要望
+### Other Constraints/Requirements
 ```
 [                                        ]
 [                                        ]
@@ -235,29 +235,29 @@
 
 ---
 
-## 7. 初期診断用サマリー（AIが参照しやすい形式）
+## 7. Initial Diagnosis Summary (AI-friendly format)
 
-### リスクレベル評価（自己評価）
-- [ ] 低リスク（失敗しても影響小）
-- [ ] 中リスク（ある程度の影響）
-- [ ] 高リスク（大きな影響）
-- [ ] 最高リスク（致命的な影響）
+### Risk Level Assessment (self-evaluation)
+- [ ] Low risk (small impact if failed)
+- [ ] Medium risk (moderate impact)
+- [ ] High risk (significant impact)
+- [ ] Highest risk (catastrophic impact)
 
-### 複雑度評価（自己評価）
-- [ ] 単純（CRUD中心）
-- [ ] 標準（一般的なビジネスロジック）
-- [ ] 複雑（並行処理・分散処理）
-- [ ] 非常に複雑（すべての要素が複雑）
+### Complexity Assessment (self-evaluation)
+- [ ] Simple (CRUD-centered)
+- [ ] Standard (general business logic)
+- [ ] Complex (concurrency/distribution)
+- [ ] Very complex (all elements complex)
 
-### 希望する開発アプローチ
-- [ ] 最速で動くものを作りたい（簡易版推奨）
-- [ ] バランス重視（部分的な形式手法OK）
-- [ ] 品質最優先（完全版も検討）
-- [ ] AIに判断を任せる
+### Preferred Development Approach
+- [ ] Want fastest working solution (simple version recommended)
+- [ ] Balance-focused (partial formal methods OK)
+- [ ] Quality priority (consider complete version)
+- [ ] Leave to AI judgment
 
 ---
 
-## 8. AIへの質問事項（あれば）
+## 8. Questions for AI (if any)
 
 ```
 [                                        ]
@@ -267,78 +267,78 @@
 
 ---
 
-## 提出用テンプレート
+## Submission Template
 
-以下をコピーしてAIに貼り付けてください：
+Copy and paste the following to AI:
 
 ```markdown
-# プロジェクト診断依頼
+# Project Diagnosis Request
 
-以下のヒアリングシート記入内容に基づいて、
-適切な開発アプローチ（簡易版/完全版）を診断し、
-開発を開始してください。
+Based on the following completed interview sheet,
+please diagnose the appropriate development approach (simple/complete version)
+and start development.
 
-[ここに記入済みヒアリングシートを貼り付け]
+[Paste completed interview sheet here]
 
-診断後、推奨されたガイドで開発を進めたいです。
+After diagnosis, I want to proceed with the recommended guide.
 ```
 
 ---
 
-## ヒアリングシート記入例
+## Interview Sheet Examples
 
-### 例1: シンプルなWebアプリ（簡易版向け）
+### Example 1: Simple Web App (for simple version)
 ```
-プロジェクト名: 社内勤怠管理システム
-プロジェクト概要: 社員の勤怠を管理するWebアプリケーション
-プロジェクトタイプ: ✓ Web アプリケーション
-開発フェーズ: ✓ MVP
-システムの重要度: ✓ 社内ツール
-失敗時の影響: ✓ 作業の遅延
-想定ユーザー数: ✓ ～100人
-開発期間: ✓ 1ヶ月以内
-（以下略）
+Project Name: Internal attendance management system
+Project Overview: Web application to manage employee attendance
+Project Type: ✓ Web application
+Development Phase: ✓ MVP
+System Importance: ✓ Internal tools
+Impact of Failure: ✓ Work delays
+Expected User Count: ✓ Up to 100 people
+Development Period: ✓ Within 1 month
+(abbreviated)
 ```
 
-### 例2: 金融システム（完全版向け）
+### Example 2: Financial System (for complete version)
 ```
-プロジェクト名: 暗号資産取引システム
-プロジェクト概要: 暗号資産の取引と資産管理を行うシステム
-プロジェクトタイプ: ✓ ブロックチェーン・暗号システム
-開発フェーズ: ✓ 本番開発
-システムの重要度: ✓ ミッションクリティカル
-失敗時の影響: ✓ 金銭的損失（大規模）✓ 信用・評判の損失
-想定ユーザー数: ✓ 10,000人以上
-開発期間: ✓ 6ヶ月以内
-（以下略）
+Project Name: Cryptocurrency trading system
+Project Overview: System for cryptocurrency trading and asset management
+Project Type: ✓ Blockchain/cryptographic systems
+Development Phase: ✓ Production development
+System Importance: ✓ Mission-critical
+Impact of Failure: ✓ Financial loss (large scale) ✓ Credit/reputation loss
+Expected User Count: ✓ 10,000+ people
+Development Period: ✓ Within 6 months
+(abbreviated)
 ```
 
 ---
 
-## ヒアリングシートのメリット
+## Benefits of Interview Sheet
 
-1. **構造化された情報収集**
-   - 必要な情報を漏れなく収集
-   - AIが的確な診断を実施可能
+1. **Structured Information Collection**
+   - Collect necessary information without omission
+   - Enable AI to make accurate diagnosis
 
-2. **時間短縮**
-   - 対話の往復を削減
-   - 初回で適切な判断
+2. **Time Savings**
+   - Reduce dialogue back-and-forth
+   - Appropriate judgment on first attempt
 
-3. **客観的な評価**
-   - チェックボックスで客観化
-   - 感覚的な判断を排除
+3. **Objective Assessment**
+   - Objectify with checkboxes
+   - Eliminate subjective judgment
 
-4. **記録・共有**
-   - プロジェクト特性の文書化
-   - チーム内での認識共有
+4. **Documentation/Sharing**
+   - Document project characteristics
+   - Share understanding within team
 
-5. **継続的な活用**
-   - プロジェクト途中での再評価
-   - 類似プロジェクトでの再利用
+5. **Continuous Use**
+   - Re-evaluate during project
+   - Reuse for similar projects
 
 ---
 
-**ヒアリングシート Version**: 1.0  
-**最終更新**: 2025年8月8日  
-**推定記入時間**: 5-10分
+**Interview Sheet Version**: 1.0  
+**Last Updated**: August 8, 2025  
+**Estimated Completion Time**: 5-10 minutes

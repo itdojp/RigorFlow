@@ -1,46 +1,46 @@
-# ワークスペース実行環境ガイド
+# Workspace Execution Environment Guide
 
-## 概要
+## Overview
 
-Claude Code等のワークスペース実行環境を使用したAIチャット駆動開発のための追加ガイドです。ファイルシステム、実行環境、テスト自動化を活用した実践的な開発手法を説明します。
+An additional guide for AI chat-driven development using workspace execution environments such as Claude Code. Explains practical development methods utilizing file systems, execution environments, and test automation.
 
-## 1. プロジェクト構造の標準化
+## 1. Standardized Project Structure
 
-### 1.1 基本ディレクトリ構造
+### 1.1 Basic Directory Structure
 
 ```
 project-root/
-├── .ai/                    # AI開発用メタデータ
-│   ├── diagnosis.yaml      # プロジェクト診断結果
-│   ├── formal-specs/       # 形式的仕様（必要な場合）
-│   │   ├── tla/           # TLA+仕様
-│   │   └── dafny/         # Dafny仕様
-│   └── decisions.md        # 設計決定記録
+├── .ai/                    # AI development metadata
+│   ├── diagnosis.yaml      # Project diagnosis results
+│   ├── formal-specs/       # Formal specifications (when needed)
+│   │   ├── tla/           # TLA+ specifications
+│   │   └── dafny/         # Dafny specifications
+│   └── decisions.md        # Design decision records
 ├── docs/
-│   ├── requirements/       # 要求仕様
-│   │   └── scenarios.feature  # BDDシナリオ
-│   └── architecture/       # アーキテクチャ文書
-├── src/                    # ソースコード
-├── tests/                  # テストコード
-│   ├── unit/              # ユニットテスト
-│   ├── integration/       # 統合テスト
-│   └── e2e/               # E2Eテスト
-├── scripts/                # 開発支援スクリプト
-│   ├── setup.sh           # 環境セットアップ
-│   ├── test.sh            # テスト実行
-│   └── verify.sh          # 仕様検証
-├── .github/                # CI/CD設定
+│   ├── requirements/       # Requirements specifications
+│   │   └── scenarios.feature  # BDD scenarios
+│   └── architecture/       # Architecture documents
+├── src/                    # Source code
+├── tests/                  # Test code
+│   ├── unit/              # Unit tests
+│   ├── integration/       # Integration tests
+│   └── e2e/               # E2E tests
+├── scripts/                # Development support scripts
+│   ├── setup.sh           # Environment setup
+│   ├── test.sh            # Test execution
+│   └── verify.sh          # Specification verification
+├── .github/                # CI/CD configuration
 │   └── workflows/
-└── README.md              # プロジェクト説明
+└── README.md              # Project description
 ```
 
-### 1.2 初期セットアップコマンド
+### 1.2 Initial Setup Commands
 
 ```bash
-# AIへの指示例
-「プロジェクトの初期構造を作成してください」
+# AI instruction example
+"Please create initial project structure"
 
-# AIが実行するコマンド
+# Commands AI executes
 mkdir -p .ai/{formal-specs/{tla,dafny}} docs/{requirements,architecture}
 mkdir -p src tests/{unit,integration,e2e} scripts
 touch .ai/diagnosis.yaml .ai/decisions.md
@@ -48,12 +48,12 @@ touch docs/requirements/scenarios.feature
 echo "# Project Name" > README.md
 ```
 
-## 2. 診断結果の永続化
+## 2. Persisting Diagnosis Results
 
-### 2.1 診断結果ファイル（.ai/diagnosis.yaml）
+### 2.1 Diagnosis Result File (.ai/diagnosis.yaml)
 
 ```yaml
-# AIが生成・更新する診断ファイル
+# Diagnosis file generated and updated by AI
 project:
   name: "zero-knowledge-janken"
   type: "web-application"
@@ -92,36 +92,36 @@ testing_strategy:
   coverage_target: 90
 ```
 
-### 2.2 AIとの対話での活用
+### 2.2 Utilizing in AI Dialogue
 
 ```markdown
-「診断結果を確認して、現在の設定を教えてください」
+"Please check diagnosis results and tell me current settings"
 
-AI: 「.ai/diagnosis.yaml を読み込みます...
-    現在の設定：
-    - 形式手法: Level 0,1（全体）、Level 4（暗号部分）
-    - 実装言語: Python (FastAPI) + TypeScript (React)
-    - テスト: pytest + playwright」
+AI: "Loading .ai/diagnosis.yaml...
+    Current settings:
+    - Formal methods: Level 0,1 (overall), Level 4 (crypto parts)
+    - Implementation language: Python (FastAPI) + TypeScript (React)
+    - Testing: pytest + playwright"
 ```
 
-## 3. TDDサイクルの実行可能化
+## 3. Making TDD Cycles Executable
 
-### 3.1 RED フェーズ（テスト作成と実行）
+### 3.1 RED Phase (Test Creation and Execution)
 
 ```markdown
-## AIへの指示
-「commitment作成機能のテストを作成して実行してください」
+## AI Instruction
+"Please create and run tests for commitment creation function"
 
-## AIの動作
-1. テストファイル作成
-2. テスト実行
-3. 失敗確認
+## AI Actions
+1. Create test file
+2. Execute test
+3. Confirm failure
 ```
 
 ```python
-# AIが生成: tests/unit/test_crypto.py
+# AI generates: tests/unit/test_crypto.py
 import pytest
-from src.crypto import create_commitment  # まだ存在しない
+from src.crypto import create_commitment  # doesn't exist yet
 
 def test_create_commitment():
     move = "rock"
@@ -134,61 +134,61 @@ def test_create_commitment():
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ python -m pytest tests/unit/test_crypto.py -v
 
-# 結果をAIが解釈
+# AI interprets result
 FAILED: ImportError: cannot import name 'create_commitment'
-→ 期待通りの失敗です。次は最小実装を作成します。
+→ Expected failure. Next, I'll create minimal implementation.
 ```
 
-### 3.2 GREEN フェーズ（実装と成功確認）
+### 3.2 GREEN Phase (Implementation and Success Confirmation)
 
 ```python
-# AIが生成: src/crypto.py
+# AI generates: src/crypto.py
 def create_commitment(move: str, nonce: int) -> str:
-    """最小実装：テストを通すだけ"""
+    """Minimal implementation: just pass the test"""
     return "0" * 64
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ python -m pytest tests/unit/test_crypto.py -v
 
-# 結果
+# Result
 PASSED
-→ テスト成功。次はより現実的なテストを追加します。
+→ Test successful. Next, I'll add more realistic tests.
 ```
 
-### 3.3 REFACTOR フェーズ（改善と再確認）
+### 3.3 REFACTOR Phase (Improvement and Re-confirmation)
 
 ```python
-# AIが改善: src/crypto.py
+# AI improves: src/crypto.py
 import hashlib
 import json
 
 def create_commitment(move: str, nonce: int) -> str:
-    """実際のハッシュ実装"""
+    """Actual hash implementation"""
     data = json.dumps({"move": move, "nonce": nonce}, sort_keys=True)
     return hashlib.sha256(data.encode()).hexdigest()
 ```
 
 ```bash
-# AIが実行して確認
+# AI executes and confirms
 $ python -m pytest tests/unit/test_crypto.py -v
 PASSED
 
-# カバレッジも確認
+# Also check coverage
 $ python -m pytest --cov=src --cov-report=term-missing
 Coverage: 100%
 ```
 
-## 4. 継続的な品質チェック
+## 4. Continuous Quality Checking
 
-### 4.1 自動テスト実行スクリプト
+### 4.1 Automated Test Execution Script
 
 ```bash
-# scripts/test.sh - AIが生成
+# scripts/test.sh - Generated by AI
 #!/bin/bash
 set -e
 
@@ -209,44 +209,44 @@ python -m pytest --cov=src --cov-report=html --cov-fail-under=80
 echo "=== All Tests Passed ==="
 ```
 
-### 4.2 ウォッチモード開発
+### 4.2 Watch Mode Development
 
 ```markdown
-「ファイル変更を監視して自動テストを実行する設定をしてください」
+"Please set up file change monitoring for automatic test execution"
 
-AI: 「watchモードを設定します」
+AI: "Setting up watch mode"
 ```
 
 ```bash
-# AIが実行
+# AI executes
 pip install pytest-watch
 
-# ウォッチモード開始
+# Start watch mode
 ptw -- --verbose
 
-# 別ターミナルで開発を継続
-# ファイル保存時に自動でテスト実行
+# Continue development in another terminal
+# Tests automatically run on file save
 ```
 
-## 5. 形式的仕様の実行可能検証
+## 5. Executable Verification of Formal Specifications
 
-### 5.1 TLA+仕様の検証（Level 3使用時）
+### 5.1 TLA+ Specification Verification (When Using Level 3)
 
 ```bash
-# AIが .ai/formal-specs/tla/game.tla を作成後
+# After AI creates .ai/formal-specs/tla/game.tla
 $ tlc game.tla -config game.cfg
 
-# AIが結果を解釈
-「モデル検査完了：
- - 状態数: 1,234
- - デッドロック: なし
- - 不変条件違反: なし」
+# AI interprets results
+"Model checking complete:
+ - States: 1,234
+ - Deadlocks: none
+ - Invariant violations: none"
 ```
 
-### 5.2 Property Based Testing の実行
+### 5.2 Property Based Testing Execution
 
 ```python
-# AIが生成: tests/unit/test_properties.py
+# AI generates: tests/unit/test_properties.py
 from hypothesis import given, strategies as st
 from src.game import judge_winner
 
@@ -257,25 +257,25 @@ from src.game import judge_winner
 def test_game_properties(move1, move2):
     result = judge_winner(move1, move2)
     
-    # 対称性のチェック
+    # Symmetry check
     if move1 == move2:
         assert result == "draw"
     
-    # 結果の妥当性
+    # Result validity
     assert result in ["player1", "player2", "draw"]
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ python -m pytest tests/unit/test_properties.py --hypothesis-show-statistics
 ```
 
-## 6. 統合テストの実行
+## 6. Integration Test Execution
 
-### 6.1 ローカル環境での統合テスト
+### 6.1 Local Environment Integration Tests
 
 ```python
-# AIが生成: tests/integration/test_api.py
+# AI generates: tests/integration/test_api.py
 import pytest
 from fastapi.testclient import TestClient
 from src.main import app
@@ -304,14 +304,14 @@ def test_full_game_flow():
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ python -m pytest tests/integration/ -v
 ```
 
-### 6.2 Docker環境での統合テスト
+### 6.2 Docker Environment Integration Tests
 
 ```yaml
-# AIが生成: docker-compose.test.yml
+# AI generates: docker-compose.test.yml
 version: '3.8'
 services:
   app:
@@ -331,62 +331,62 @@ services:
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ docker-compose -f docker-compose.test.yml up --abort-on-container-exit
 ```
 
-## 7. 実行環境特有のAI対話パターン
+## 7. AI Dialogue Patterns Specific to Execution Environment
 
-### 7.1 エラー診断と修正
+### 7.1 Error Diagnosis and Correction
 
 ```markdown
-ユーザー: 「テストを実行して」
+User: "Please run the tests"
 
-AI: 「実行します...」
-[実際にテスト実行]
+AI: "Executing..."
+[Actually run tests]
 
-AI: 「エラーが発生しました：
+AI: "Error occurred:
     ```
     AssertionError: Expected 64, got 32
     ```
-    ハッシュ関数の出力長が間違っています。修正します...」
-[ファイルを直接修正]
+    Hash function output length is wrong. Correcting..."
+[Directly modify files]
 
-AI: 「修正完了。再実行します...」
-[再度テスト実行]
+AI: "Correction complete. Re-running..."
+[Run tests again]
 
-AI: 「テスト成功しました。」
+AI: "Tests successful."
 ```
 
-### 7.2 パフォーマンス分析
+### 7.2 Performance Analysis
 
 ```markdown
-「パフォーマンステストを実行してボトルネックを特定して」
+"Please run performance tests and identify bottlenecks"
 
-AI: 「プロファイリングを実行します...」
+AI: "Running profiling..."
 ```
 
 ```bash
-# AIが実行
+# AI executes
 $ python -m cProfile -o profile.stats src/benchmark.py
 $ python -m pstats profile.stats
 
-# AIが結果を分析
-「ボトルネック発見：
- - create_commitment: 45% の時間
- - 最適化案：ハッシュ計算をキャッシュ」
+# AI analyzes results
+"Bottleneck found:
+ - create_commitment: 45% of time
+ - Optimization suggestion: cache hash calculations"
 ```
 
-### 7.3 継続的な監視
+### 7.3 Continuous Monitoring
 
 ```markdown
-「開発を監視モードで進めたい」
+"I want to proceed with development in monitoring mode"
 
-AI: 「以下を並行実行します：
-    1. テストウォッチャー
-    2. タイプチェッカー
-    3. リンター
-    4. カバレッジ監視」
+AI: "Running the following in parallel:
+    1. Test watcher
+    2. Type checker
+    3. Linter
+    4. Coverage monitor"
 ```
 
 ```bash
@@ -403,12 +403,12 @@ $ flake8 --watch src/
 $ python -m pytest --cov --cov-report=html --watch
 ```
 
-## 8. CI/CD との連携
+## 8. CI/CD Integration
 
-### 8.1 GitHub Actions 設定
+### 8.1 GitHub Actions Configuration
 
 ```yaml
-# AIが生成: .github/workflows/test.yml
+# AI generates: .github/workflows/test.yml
 name: Test
 on: [push, pull_request]
 
@@ -436,28 +436,28 @@ jobs:
         uses: codecov/codecov-action@v3
 ```
 
-### 8.2 ローカルでのCI確認
+### 8.2 Local CI Verification
 
 ```bash
-# AIが実行（CI実行前の確認）
-$ act  # GitHub Actions をローカルで実行
+# AI executes (pre-CI verification)
+$ act  # Run GitHub Actions locally
 
-# または
-$ ./scripts/ci-check.sh  # CI相当のチェック
+# Or
+$ ./scripts/ci-check.sh  # CI-equivalent checks
 ```
 
-## 9. プロジェクト状態の可視化
+## 9. Project State Visualization
 
-### 9.1 進捗ダッシュボード
+### 9.1 Progress Dashboard
 
 ```markdown
-「現在のプロジェクト状態をサマリーして」
+"Please summarize current project status"
 
-AI: 「プロジェクト状態を分析します...」
+AI: "Analyzing project status..."
 ```
 
 ```python
-# AIが実行して結果表示
+# AI executes and displays results
 import os
 import subprocess
 
@@ -488,12 +488,12 @@ def project_summary():
 project_summary()
 ```
 
-## 10. ベストプラクティス
+## 10. Best Practices
 
-### 10.1 ファイル変更の追跡
+### 10.1 File Change Tracking
 
 ```yaml
-# .ai/decisions.md に自動記録
+# Auto-recorded in .ai/decisions.md
 ## 2024-01-15: TDD Cycle 1
 - Added: tests/unit/test_crypto.py
 - Added: src/crypto.py
@@ -506,10 +506,10 @@ project_summary()
 - All tests still passing
 ```
 
-### 10.2 バージョン管理との統合
+### 10.2 Version Control Integration
 
 ```bash
-# AIが適切にコミット
+# AI commits appropriately
 $ git add -A
 $ git commit -m "feat: Add commitment creation with TDD
 
@@ -519,10 +519,10 @@ $ git commit -m "feat: Add commitment creation with TDD
 - Coverage: 100%"
 ```
 
-### 10.3 環境の再現性確保
+### 10.3 Environment Reproducibility
 
 ```dockerfile
-# AIが生成: Dockerfile
+# AI generates: Dockerfile
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -535,40 +535,40 @@ COPY . .
 CMD ["pytest", "--cov"]
 ```
 
-## 11. フルスタック開発への拡張
+## 11. Full Stack Development Extension
 
-本ガイドは基本的な実行環境を扱っていますが、実際のプロジェクトでは以下の要素も必要です：
+This guide covers basic execution environments, but actual projects also need the following elements:
 
-### 統合が必要な要素
-- **データベース永続化**: スキーマ設計、マイグレーション、トランザクション
-- **フロントエンド開発**: UI/UXテスト、コンポーネント開発、状態管理
-- **CI/CDパイプライン**: 自動テスト、ビルド、デプロイ
-- **API設計**: OpenAPI/GraphQL仕様、認証・認可
-- **運用考慮**: ロギング、モニタリング、パフォーマンス
+### Elements Requiring Integration
+- **Database persistence**: Schema design, migrations, transactions
+- **Frontend development**: UI/UX testing, component development, state management
+- **CI/CD pipeline**: Automated testing, builds, deployment
+- **API design**: OpenAPI/GraphQL specifications, authentication/authorization
+- **Operations consideration**: Logging, monitoring, performance
 
-これらの詳細は「**フルスタック開発統合ガイド**」を参照してください。
+For details on these, refer to the **"Full Stack Development Integration Guide"**.
 
-### AIへの指示例
+### AI Instruction Example
 ```markdown
-「フルスタック構成で開発を始めたい」
+"I want to start development with full stack configuration"
 
-AI: 「フルスタック開発統合ガイドに基づいて、
-    以下を設定します：
-    - データベース（PostgreSQL）
-    - フロントエンド（React + TypeScript）
-    - バックエンド（FastAPI）
-    - CI/CD（GitHub Actions）」
+AI: "Based on the Full Stack Development Integration Guide,
+    I will set up:
+    - Database (PostgreSQL)
+    - Frontend (React + TypeScript)
+    - Backend (FastAPI)
+    - CI/CD (GitHub Actions)"
 ```
 
-## まとめ
+## Summary
 
-ワークスペース実行環境により：
+Workspace execution environments enable:
 
-1. **実際の実行とフィードバック**: テスト結果を即座に確認
-2. **TDDサイクルの完全実施**: RED-GREEN-REFACTORを実際に体験
-3. **継続的な品質監視**: カバレッジ、パフォーマンスをリアルタイム確認
-4. **エラーの即座の修正**: 実行結果を見て即座に対応
-5. **CI/CDの事前確認**: プッシュ前にローカルで完全検証
-6. **フルスタック対応**: DB、フロントエンド、インフラまで統合可能
+1. **Actual execution and feedback**: Immediate test result confirmation
+2. **Complete TDD cycle implementation**: Actually experience RED-GREEN-REFACTOR
+3. **Continuous quality monitoring**: Real-time coverage and performance confirmation
+4. **Immediate error correction**: Immediate response based on execution results
+5. **Pre-CI/CD verification**: Complete local verification before pushing
+6. **Full stack support**: Integration from DB to frontend to infrastructure
 
-これらにより、AIとの対話がより実践的で生産的になります。
+This makes AI dialogue more practical and productive.

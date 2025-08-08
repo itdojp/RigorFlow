@@ -1,428 +1,428 @@
-# 適応的形式手法選択フレームワーク
+# Adaptive Formal Methods Selection Framework
 
-## 概要
+## Overview
 
-本フレームワークは、プロジェクトの特性に応じて最適な形式手法を動的に選択・追加するためのガイドです。AIとの対話を通じて、最小限の手法から始め、必要に応じて段階的に形式手法を追加します。
+This framework provides a guide for dynamically selecting and adding optimal formal methods based on project characteristics. Through AI dialogue, you start with minimal methods and gradually add formal methods as needed.
 
-## 1. 形式手法の階層モデル
+## 1. Formal Methods Hierarchy Model
 
-### Level 0: 基本構成（全プロジェクト必須）
+### Level 0: Basic Configuration (Required for All Projects)
 ```yaml
-手法:
-  - 自然言語要求定義
-  - 基本的なユニットテスト
+methods:
+  - Natural language requirements definition
+  - Basic unit testing
   
-適用基準: すべてのプロジェクト
-コスト: 最小
-効果: 基本的な品質保証
+application_criteria: All projects
+cost: Minimal
+effect: Basic quality assurance
 ```
 
-### Level 1: 軽量形式手法
+### Level 1: Lightweight Formal Methods
 ```yaml
-手法:
-  - BDD（Behavior Driven Development）
-  - 契約による設計（Design by Contract）
+methods:
+  - BDD (Behavior Driven Development)
+  - Design by Contract
   - Property Based Testing
   
-適用基準:
-  - 要求が複雑
-  - 振る舞いの明確化が重要
-  - エッジケースが多い
+application_criteria:
+  - Complex requirements
+  - Important behavior clarification
+  - Many edge cases
   
-コスト: 学習2-3日、継続的適用
-効果: 要求齟齬50%削減、エッジケースカバー率向上
+cost: 2-3 days learning, continuous application
+effect: 50% reduction in requirement misunderstandings, improved edge case coverage
 ```
 
-### Level 2: 型による仕様
+### Level 2: Type-based Specification
 ```yaml
-手法:
-  - 強い型システム（TypeScript、Rust等）
-  - 代数的データ型
-  - ファントム型
-  - 型レベルプログラミング
+methods:
+  - Strong type systems (TypeScript, Rust, etc.)
+  - Algebraic data types
+  - Phantom types
+  - Type-level programming
   
-適用基準:
-  - データ構造が複雑
-  - 不変条件が重要
-  - コンパイル時保証が必要
+application_criteria:
+  - Complex data structures
+  - Important invariants
+  - Compile-time guarantees needed
   
-コスト: 言語依存、学習1週間
-効果: 型関連バグ80%削減
+cost: Language-dependent, 1 week learning
+effect: 80% reduction in type-related bugs
 ```
 
-### Level 3: モデル検査
+### Level 3: Model Checking
 ```yaml
-手法:
-  - TLA+（時相論理、並行システム）
-  - Alloy（関係論理、構造モデル）
-  - Promela/SPIN（プロトコル検証）
+methods:
+  - TLA+ (temporal logic, concurrent systems)
+  - Alloy (relational logic, structural models)
+  - Promela/SPIN (protocol verification)
   
-適用基準:
-  - 並行処理が複雑
-  - 分散システム
-  - デッドロック・競合状態のリスク
-  - タイミング依存の処理
+application_criteria:
+  - Complex concurrency
+  - Distributed systems
+  - Deadlock/race condition risks
+  - Timing-dependent processing
   
-コスト: 学習2週間、適用1週間/機能
-効果: 並行性バグ90%削減
+cost: 2 weeks learning, 1 week/feature application
+effect: 90% reduction in concurrency bugs
 ```
 
-### Level 4: 定理証明
+### Level 4: Theorem Proving
 ```yaml
-手法:
-  - Dafny（契約＋自動証明）
-  - Coq（対話的証明）
-  - Isabelle（高階論理）
-  - F*（関数型＋証明）
+methods:
+  - Dafny (contracts + automatic proving)
+  - Coq (interactive proving)
+  - Isabelle (higher-order logic)
+  - F* (functional + proving)
   
-適用基準:
-  - 数学的証明が必要
-  - 安全性が極めて重要
-  - 規制要件での証明必要
-  - 暗号実装
+application_criteria:
+  - Mathematical proofs required
+  - Extremely important safety
+  - Regulatory proof requirements
+  - Cryptographic implementation
   
-コスト: 学習3週間、適用2週間/機能
-効果: 論理バグ95%削減、証明による保証
+cost: 3 weeks learning, 2 weeks/feature application
+effect: 95% reduction in logic bugs, proof-based guarantees
 ```
 
-## 2. プロジェクト診断プロトコル
+## 2. Project Diagnosis Protocol
 
-### 初期診断（プロジェクト開始時）
+### Initial Diagnosis (At Project Start)
 
 ```markdown
-## AIへの診断依頼テンプレート
+## AI Diagnosis Request Template
 
-「以下のプロジェクト情報から、適切な形式手法を提案してください：
+"Please suggest appropriate formal methods based on the following project information:
 
-### プロジェクト基本情報
-- システム名：[名称]
-- 概要：[1-3文で説明]
-- 規模：[小規模/中規模/大規模]
-- 期間：[開発期間]
-- チーム：[人数とスキル]
+### Basic Project Information
+- System name: [name]
+- Overview: [1-3 sentence explanation]
+- Scale: [small/medium/large]
+- Duration: [development period]
+- Team: [size and skills]
 
-### システム特性
-- 並行性：[なし/低/中/高]
-- 分散性：[単一/複数ノード/地理分散]
-- リアルタイム性：[不要/ソフト/ハード]
-- データ整合性：[結果整合性/強整合性]
+### System Characteristics
+- Concurrency: [none/low/medium/high]
+- Distribution: [single/multiple nodes/geographically distributed]
+- Real-time: [not required/soft/hard]
+- Data consistency: [eventual consistency/strong consistency]
 
-### 品質要求
-- 信頼性：[通常/高/ミッションクリティカル]
-- セキュリティ：[通常/重要/最重要]
-- 性能：[通常/高速/超高速]
-- 保守性：[短期/長期]
+### Quality Requirements
+- Reliability: [normal/high/mission-critical]
+- Security: [normal/important/critical]
+- Performance: [normal/high-speed/ultra-high-speed]
+- Maintainability: [short-term/long-term]
 
-### リスク要因
-- 失敗時の影響：[軽微/中程度/重大/破滅的]
-- 複雑度：[単純/通常/複雑/非常に複雑]
-- 新規性：[実績あり/一部新規/全く新規]
+### Risk Factors
+- Impact of failure: [minor/moderate/severe/catastrophic]
+- Complexity: [simple/normal/complex/very complex]
+- Novelty: [proven track record/partially new/completely new]
 
-### 制約条件
-- 技術選択：[自由/一部制約/厳格]
-- 予算：[潤沢/通常/限定的]
-- 納期：[余裕/通常/タイト]
+### Constraints
+- Technology choices: [free/partially constrained/strict]
+- Budget: [abundant/normal/limited]
+- Deadline: [flexible/normal/tight]
 
-以下を提案してください：
-1. 開始時の最小構成（Level 0-1）
-2. 推奨される追加手法（Level 2-4）
-3. 段階的追加計画
-4. リスクと対策」
+Please suggest:
+1. Initial minimal configuration (Level 0-1)
+2. Recommended additional methods (Level 2-4)
+3. Staged addition plan
+4. Risks and countermeasures"
 ```
 
-### 診断結果の解釈
+### Diagnosis Result Interpretation
 
 ```yaml
 risk_complexity_matrix:
-  低リスク_低複雑度:
-    例: "社内ツール、プロトタイプ"
-    推奨:
-      開始時: Level 0 + BDD
-      追加検討: 不要
+  low_risk_low_complexity:
+    example: "Internal tools, prototypes"
+    recommendation:
+      initial: Level 0 + BDD
+      additional: Not needed
       
-  低リスク_高複雑度:
-    例: "ゲーム、可視化ツール"
-    推奨:
-      開始時: Level 0-1
-      追加検討: Level 2（型システム）
-      条件付き: Level 3（並行処理部分のみ）
+  low_risk_high_complexity:
+    example: "Games, visualization tools"
+    recommendation:
+      initial: Level 0-1
+      additional: Level 2 (type system)
+      conditional: Level 3 (concurrency parts only)
       
-  高リスク_低複雑度:
-    例: "決済API、認証システム"
-    推奨:
-      開始時: Level 0-1 + Level 2
-      追加検討: Level 4（コア機能のみ）
+  high_risk_low_complexity:
+    example: "Payment API, authentication system"
+    recommendation:
+      initial: Level 0-1 + Level 2
+      additional: Level 4 (core functions only)
       
-  高リスク_高複雑度:
-    例: "金融取引、医療システム、自動運転"
-    推奨:
-      開始時: Level 0-2 フルセット
-      追加必須: Level 3-4（段階的に）
-      継続的: 形式手法の見直し
+  high_risk_high_complexity:
+    example: "Financial trading, medical systems, autonomous driving"
+    recommendation:
+      initial: Level 0-2 full set
+      additional_mandatory: Level 3-4 (gradually)
+      continuous: Review formal methods
 ```
 
-## 3. 動的追加プロトコル
+## 3. Dynamic Addition Protocol
 
-### 問題検出による手法追加
+### Method Addition Based on Problem Detection
 
 ```markdown
-## 問題発生時のAI相談テンプレート
+## AI Consultation Template for Problems
 
-「開発中に以下の問題が発生しました：
+"The following problem occurred during development:
 
-### 問題の詳細
-- 症状：[具体的な現象]
-- 発生条件：[再現手順]
-- 影響範囲：[どこまで影響するか]
-- 頻度：[常に/時々/稀に]
+### Problem Details
+- Symptoms: [specific phenomena]
+- Occurrence conditions: [reproduction steps]
+- Impact scope: [extent of impact]
+- Frequency: [always/sometimes/rarely]
 
-### 現在の対策
-- 実施済み：[試した解決策]
-- 効果：[効果の有無]
+### Current countermeasures
+- Implemented: [tried solutions]
+- Effect: [presence/absence of effect]
 
-### 質問
-1. この問題の根本原因は何か？
-2. 追加の形式手法で解決可能か？
-3. 必要最小限の追加手法は？
-4. 実装への影響は？」
+### Questions
+1. What is the root cause of this problem?
+2. Can additional formal methods solve it?
+3. What is the minimum additional formal method needed?
+4. What is the impact on implementation?"
 ```
 
-### 手法追加の判断基準
+### Criteria for Method Addition
 
 ```mermaid
 graph TD
-    A[問題発生] --> B{問題の種類}
+    A[Problem Occurs] --> B{Problem Type}
     
-    B -->|要求の誤解| C[BDD追加/強化]
-    B -->|型エラー| D[型システム強化]
-    B -->|並行性バグ| E[TLA+追加]
-    B -->|論理エラー| F[Dafny追加]
+    B -->|Requirement Misunderstanding| C[Add/Strengthen BDD]
+    B -->|Type Errors| D[Strengthen Type System]
+    B -->|Concurrency Bugs| E[Add TLA+]
+    B -->|Logic Errors| F[Add Dafny]
     
-    C --> G[最小範囲で適用]
+    C --> G[Apply to Minimum Scope]
     D --> G
     E --> G
     F --> G
     
-    G --> H[効果測定]
-    H --> I{解決?}
-    I -->|Yes| J[完了]
-    I -->|No| K[次レベル検討]
+    G --> H[Measure Effect]
+    H --> I{Solved?}
+    I -->|Yes| J[Complete]
+    I -->|No| K[Consider Next Level]
 ```
 
-## 4. 言語非依存の実装戦略
+## 4. Language-Independent Implementation Strategy
 
-### 形式手法と実装言語のマッピング
+### Mapping of Formal Methods to Implementation Languages
 
 ```yaml
 Level_1_BDD:
-  任意の言語:
-    - Cucumber系ツール
-    - 言語固有のBDDフレームワーク
-    - 最悪、コメントとテストで代替
+  any_language:
+    - Cucumber-family tools
+    - Language-specific BDD frameworks
+    - At worst, substitute with comments and tests
 
-Level_2_型システム:
-  静的型付け言語:
-    - TypeScript、Rust、Haskell、F#、Scala
-  動的型付け言語:
-    - Python（型ヒント）、Ruby（Sorbet）
-    - 実行時契約チェックで補完
+Level_2_type_system:
+  statically_typed_languages:
+    - TypeScript, Rust, Haskell, F#, Scala
+  dynamically_typed_languages:
+    - Python (type hints), Ruby (Sorbet)
+    - Supplement with runtime contract checks
 
 Level_3_TLA+:
-  実装マッピング:
-    並行処理モデル:
+  implementation_mapping:
+    concurrency_models:
       - Go: goroutine + channels
       - Erlang/Elixir: Actor model
-      - Java: CompletableFuture、Akka
-      - Python: asyncio、multiprocessing
-      - JavaScript: async/await、Worker
-      - Rust: async/.await、channels
+      - Java: CompletableFuture, Akka
+      - Python: asyncio, multiprocessing
+      - JavaScript: async/await, Worker
+      - Rust: async/.await, channels
     
 Level_4_Dafny:
-  実装マッピング:
-    契約の実装:
-      - Rust: debug_assert!、型システム
-      - Java: assert、アノテーション
-      - Python: assert、デコレータ
-      - C++: concepts、static_assert
-      - JavaScript: 実行時チェック
+  implementation_mapping:
+    contract_implementation:
+      - Rust: debug_assert!, type system
+      - Java: assert, annotations
+      - Python: assert, decorators
+      - C++: concepts, static_assert
+      - JavaScript: runtime checks
 ```
 
-### 言語選択のAI支援
+### AI Support for Language Selection
 
 ```markdown
-## 言語選択の相談テンプレート
+## Language Selection Consultation Template
 
-「形式手法と実装言語の最適な組み合わせを提案してください：
+"Please suggest the optimal combination of formal methods and implementation languages:
 
-### 形式仕様
-- Level 3: TLA+で並行処理モデル化済み
-- Level 4: Dafnyで暗号部分仕様化済み
+### Formal Specifications
+- Level 3: Concurrency modeled in TLA+
+- Level 4: Cryptographic parts specified in Dafny
 
-### 制約条件
-- チームスキル：[使える言語リスト]
-- 既存システム：[連携必要なシステム]
-- 実行環境：[ブラウザ/サーバー/組み込み]
-- 性能要求：[レスポンス時間等]
+### Constraints
+- Team skills: [list of usable languages]
+- Existing systems: [systems requiring integration]
+- Execution environment: [browser/server/embedded]
+- Performance requirements: [response time, etc.]
 
-### 質問
-1. TLA+仕様の実装に適した言語は？
-2. Dafny仕様の実装に適した言語は？
-3. 言語間の連携方法は？
-4. それぞれの言語での実装パターンは？」
+### Questions
+1. Which language is suitable for implementing TLA+ specifications?
+2. Which language is suitable for implementing Dafny specifications?
+3. How to coordinate between languages?
+4. What are the implementation patterns in each language?"
 ```
 
-## 5. 実践例
+## 5. Practical Examples
 
-### 例1：チャットアプリケーション
+### Example 1: Chat Application
 
 ```yaml
-初期診断:
-  並行性: 中（複数ユーザー）
-  リスク: 低（エンタメ用途）
-  複雑度: 低～中
+initial_diagnosis:
+  concurrency: medium (multiple users)
+  risk: low (entertainment use)
+  complexity: low to medium
 
-Phase_1_開始時:
-  - Level 0: 基本テスト
-  - Level 1: BDD（主要フロー）
-  言語: 任意（Node.js、Python等）
+Phase_1_initial:
+  - Level 0: Basic testing
+  - Level 1: BDD (main flows)
+  language: Any (Node.js, Python, etc.)
 
-Phase_2_問題発生時:
-  問題: "メッセージ順序が乱れる"
-  追加: Level 3: TLA+（メッセージ順序モデル）
-  実装: チャネル順序保証の追加
+Phase_2_problem_occurrence:
+  problem: "Message order gets scrambled"
+  addition: Level 3: TLA+ (message ordering model)
+  implementation: Add channel ordering guarantees
 
-Phase_3_スケール時:
-  問題: "1000人同時接続で破綻"
-  追加: 負荷テスト＋アーキテクチャ見直し
-  ※形式手法追加は不要と判断
+Phase_3_scaling:
+  problem: "System breaks with 1000 simultaneous connections"
+  addition: Load testing + architecture review
+  note: No additional formal methods needed
 ```
 
-### 例2：暗号資産ウォレット
+### Example 2: Cryptocurrency Wallet
 
 ```yaml
-初期診断:
-  セキュリティ: 最重要
-  リスク: 最高（資産損失）
-  複雑度: 高（暗号処理）
+initial_diagnosis:
+  security: critical
+  risk: highest (asset loss)
+  complexity: high (cryptographic processing)
 
-Phase_1_開始時:
-  - Level 0-1: 基本＋BDD
-  - Level 2: 強い型（Rust/TypeScript）
-  - Level 4: Dafny（暗号コア）
-  言語: Rust（安全性重視）
+Phase_1_initial:
+  - Level 0-1: Basic + BDD
+  - Level 2: Strong types (Rust/TypeScript)
+  - Level 4: Dafny (crypto core)
+  language: Rust (safety-focused)
 
-Phase_2_実装時:
-  すべての暗号操作をDafny仕様化
-  Rustで証明可能な実装
-  Property Based Testingで補完
+Phase_2_implementation:
+  all_crypto_operations: Specify in Dafny
+  rust_implementation: Provably correct implementation
+  supplement: Property Based Testing
 
-Phase_3_監査前:
-  Level 3: TLA+で全体フロー検証
-  形式的証明の完全性確認
+Phase_3_pre_audit:
+  Level 3: TLA+ for overall flow verification
+  formal_proof: Verify completeness
 ```
 
-### 例3：ECサイト
+### Example 3: E-commerce Site
 
 ```yaml
-初期診断:
-  並行性: 中（在庫管理）
-  リスク: 中（金銭扱い）
-  複雑度: 中
+initial_diagnosis:
+  concurrency: medium (inventory management)
+  risk: medium (handles money)
+  complexity: medium
 
-Phase_1_開始時:
-  - Level 0-1: 基本＋BDD
-  - Level 2: 型システム（TypeScript）
-  言語: TypeScript + Node.js
+Phase_1_initial:
+  - Level 0-1: Basic + BDD
+  - Level 2: Type system (TypeScript)
+  language: TypeScript + Node.js
 
-Phase_2_在庫問題:
-  問題: "同時購入で在庫不整合"
-  追加: トランザクション設計
-  ※TLA+は過剰と判断、DBレベルで解決
+Phase_2_inventory_problem:
+  problem: "Inventory inconsistency with simultaneous purchases"
+  addition: Transaction design
+  note: TLA+ deemed excessive, solved at DB level
 
-Phase_3_決済追加:
-  追加: Level 2強化（決済の型安全性）
-  外部APIは契約による設計
+Phase_3_payment_addition:
+  addition: Strengthen Level 2 (payment type safety)
+  external_api: Design by Contract
 ```
 
-## 6. 効果測定とフィードバック
+## 6. Effect Measurement and Feedback
 
-### メトリクス収集
+### Metrics Collection
 
 ```yaml
-測定項目:
-  形式手法の効果:
-    - バグ検出率の変化
-    - 開発速度への影響
-    - 保守性の向上度
+measurement_items:
+  formal_method_effects:
+    - Change in bug detection rate
+    - Impact on development speed
+    - Degree of maintainability improvement
     
-  コスト:
-    - 学習時間
-    - 適用時間
-    - 保守コスト
+  cost:
+    - Learning time
+    - Application time
+    - Maintenance cost
     
-  ROI:
-    - (削減されたバグ修正コスト) / (形式手法導入コスト)
+  roi:
+    - (Saved bug fixing cost) / (Formal method introduction cost)
 ```
 
-### 継続的改善
+### Continuous Improvement
 
 ```markdown
-## 定期レビューテンプレート
+## Regular Review Template
 
-「現在の形式手法の使用状況をレビューしてください：
+"Please review the current usage of formal methods:
 
-### 使用中の手法
-- Level 0-1: [使用状況]
-- Level 2: [使用状況]
-- Level 3: [使用状況]
-- Level 4: [使用状況]
+### Methods in Use
+- Level 0-1: [usage status]
+- Level 2: [usage status]
+- Level 3: [usage status]
+- Level 4: [usage status]
 
-### 効果測定
-- 発見されたバグ：[種類と数]
-- 防げたバグ：[推定]
-- 開発速度：[影響]
+### Effect Measurement
+- Bugs found: [type and count]
+- Bugs prevented: [estimate]
+- Development speed: [impact]
 
-### 質問
-1. 過剰な形式手法はあるか？
-2. 不足している手法はあるか？
-3. より軽量な代替手法はあるか？
-4. 次フェーズでの調整は？」
+### Questions
+1. Are there excessive formal methods?
+2. Are there insufficient methods?
+3. Are there lighter alternative methods?
+4. What adjustments for the next phase?"
 ```
 
-## 7. アンチパターンと対策
+## 7. Anti-patterns and Countermeasures
 
-### よくある失敗
+### Common Failures
 
 ```yaml
-過剰な形式化:
-  症状: "すべてをTLA+で書こうとする"
-  問題: 開発速度低下、保守困難
-  対策: リスクベースで選択、段階的導入
+excessive_formalization:
+  symptom: "Trying to write everything in TLA+"
+  problem: Reduced development speed, difficult maintenance
+  countermeasure: Risk-based selection, staged introduction
 
-形式手法の放置:
-  症状: "仕様を書いたが更新しない"
-  問題: 仕様と実装の乖離
-  対策: 最小限の仕様、生きた文書化
+abandoned_formal_methods:
+  symptom: "Wrote specifications but don't update them"
+  problem: Divergence between specifications and implementation
+  countermeasure: Minimal specifications, living documentation
 
-不適切な手法選択:
-  症状: "UIロジックをDafnyで証明"
-  問題: 投資対効果が悪い
-  対策: 適材適所、AIに相談
+inappropriate_method_selection:
+  symptom: "Proving UI logic with Dafny"
+  problem: Poor return on investment
+  countermeasure: Right tool for the job, consult AI
 
-チーム能力無視:
-  症状: "難しい手法を強制"
-  問題: 理解不足、間違った適用
-  対策: 段階的学習、必要最小限
+ignoring_team_capability:
+  symptom: "Forcing difficult methods"
+  problem: Lack of understanding, incorrect application
+  countermeasure: Staged learning, necessary minimum
 ```
 
-## まとめ
+## Summary
 
-このフレームワークにより：
+This framework enables:
 
-1. **適応的選択**: プロジェクトに最適な手法を選択
-2. **段階的導入**: 最小から始めて必要に応じて追加
-3. **言語非依存**: 任意の言語で実装可能
-4. **費用対効果**: 過剰な形式化を避け、実用性重視
-5. **継続的改善**: フィードバックによる最適化
+1. **Adaptive Selection**: Choose optimal methods for the project
+2. **Staged Introduction**: Start minimal and add as needed
+3. **Language Independence**: Implementable in any language
+4. **Cost Effectiveness**: Avoid excessive formalization, focus on practicality
+5. **Continuous Improvement**: Optimization through feedback
 
-AIとの対話を通じて、各プロジェクトに最適な形式手法の組み合わせを実現します。
+Through AI dialogue, achieve the optimal combination of formal methods for each project.

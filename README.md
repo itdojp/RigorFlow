@@ -1,8 +1,271 @@
-# README - AIチャット駆動開発フレームワーク
+# RigorFlow - AI-Driven Development Framework with Formal Methods
+
+[日本語版はこちら](#rigorflow---ai駆動開発フレームワーク)
+
+## 🎯 Overview
+
+A comprehensive framework for developing software from PoC to mission-critical systems through dialogue with AI assistants (Claude, etc.), progressively applying formal methods based on project complexity.
+
+## 📊 Two Editions
+
+### 🚀 Quick Start Edition
+- **Use Cases**: PoC, prototypes, general applications
+- **Methods**: BDD+TDD centric
+- **Start Time**: 30 seconds
+- **Documentation**: 1 document
+
+### 🏗️ Enterprise Edition
+- **Use Cases**: Mission-critical systems, finance, healthcare, distributed systems
+- **Methods**: BDD+TDD+Formal Methods (TLA+/Dafny)
+- **Quality**: Mathematical proof guarantees
+- **Documentation**: 6 documents
+
+## 🔄 Progressive Approach
+
+```mermaid
+graph LR
+    A[PoC<br/>Quick Start] --> B[Prototype<br/>Quick Start]
+    B --> C{Complexity<br/>Assessment}
+    C -->|Simple| D[Production<br/>Continue Quick Start]
+    C -->|Complex| E[Partial Migration<br/>Formal methods for critical parts]
+    C -->|Critical| F[Full Migration<br/>Adopt Enterprise Edition]
+```
+
+**Important**: All created artifacts (BDD scenarios, tests, code) are **100% reused** during migration.
+
+## 📚 Document Structure
+
+### Diagnostic Support Document
+```
+📄 Project Assessment Interview Sheet ⭐NEW
+   → Streamlines initial diagnosis (5-10 min completion)
+   → Structured information gathering
+   → Enables accurate AI diagnosis
+```
+
+### Common Document
+```
+📄 AI Chat-Driven Development Guide - Overview & Selection Guide
+   → This README and selection guidelines
+```
+
+### Quick Start Edition Document
+```
+📄 AI Chat-Driven Development Unified Guide v2.0
+   → Single document, BDD+TDD focused
+```
+
+### Enterprise Edition Document Set
+```
+📁 Formal Methods Framework/
+  📄 1. Adaptive Formal Methods Selection Framework
+  📄 2. AI Chat-Driven Development Complete Guide
+  📄 3. AI Chat-Driven Formal Specification Practice Guide
+  📄 4. Formal Specification Correctness Verification Framework
+  📄 5. Workspace Execution Environment Guide
+  📄 6. Full-Stack Development Integration Guide
+```
+
+## 🚀 Quick Start
+
+### Method 1: Using Interview Sheet (Recommended) ⭐
+
+```markdown
+1. Complete the Project Assessment Interview Sheet (5-10 min)
+2. Open AI chat (Claude, etc.)
+3. Paste the completed sheet and input:
+
+"Please diagnose based on this interview sheet 
+and start development."
+
+→ AI automatically selects appropriate edition
+```
+
+### Method 2: Interactive Dialogue (Quick Start)
+
+```markdown
+1. Open AI chat (Claude, etc.)
+2. Input:
+
+"I want to develop [your idea] based on 
+AI Chat-Driven Development Unified Guide v2.0.
+Please start with diagnosis."
+```
+
+### Method 3: Mission-Critical System (Enterprise Edition)
+
+```markdown
+1. Open AI chat (Claude, etc.)
+2. Input all 6 Enterprise documents
+3. Execute:
+
+"I want to develop [system overview] as 
+a mission-critical system.
+Please conduct full diagnosis including formal methods."
+```
+
+## 📈 Progressive Migration Example
+
+### Phase 1: PoC (1 week)
+```yaml
+Using: Quick Start Edition
+Deliverables:
+  - BDD scenarios: 10
+  - Tests: 50
+  - Working prototype
+```
+
+### Phase 2: Issue Discovery
+```yaml
+Issue: Data races in concurrent processing
+Action: Add partial formal methods
+Additional work:
+  - TLA+ specs for affected parts: 2 days
+  - Property tests addition: 1 day
+Existing assets: All continued use
+```
+
+### Phase 3: Production
+```yaml
+Decision: Partial application sufficient
+Final configuration:
+  - 90%: BDD+TDD (Quick Start)
+  - 10%: Formal methods (critical parts only)
+Quality: Sufficient reliability assured
+```
+
+## 🎯 Selection Guidelines
+
+### Use Quick Start Edition for:
+
+- ✅ Startup initial development
+- ✅ Internal tools
+- ✅ General web applications
+- ✅ PoC/Prototypes
+- ✅ Limited time and budget
+
+### Use Enterprise Edition for:
+
+- ✅ Financial/Payment systems
+- ✅ Medical device software
+- ✅ Autonomous vehicles/Aerospace
+- ✅ Cryptography/Security products
+- ✅ Regulatory compliance requirements
+
+### When in Doubt
+
+```markdown
+Principle: Start with Quick Start Edition
+Reason: 
+  - Migrate after needs become clear
+  - Don't waste existing assets
+  - Avoid excessive formalization
+```
+
+## 💡 Frequently Asked Questions
+
+**Q: Where should I start?**
+```
+A: Start with the Project Assessment Interview Sheet.
+   5-10 minutes of completion enables AI to diagnose
+   the optimal approach.
+```
+
+**Q: Will Quick Start work be wasted?**
+```
+A: No. BDD scenarios, tests, and code are
+   100% inherited. Formal methods are "additions."
+```
+
+**Q: When should I consider migration?**
+```
+A: When you see these signs:
+   - Hard-to-debug concurrency bugs
+   - Uncertainty about computational correctness
+   - New regulatory requirements
+```
+
+**Q: Is partial migration possible?**
+```
+A: Yes. We recommend hybrid operation:
+   Apply formal methods to critical 10%,
+   Keep remaining 90% as Quick Start.
+```
+
+**Q: Team lacks formal methods knowledge?**
+```
+A: AI generates and explains formal specs.
+   Deep understanding unnecessary - ability to
+   review and utilize AI output is sufficient.
+```
+
+## 📊 Edition Comparison
+
+| Item | Quick Start | Enterprise |
+|------|-------------|------------|
+| **Start Time** | 30 seconds | 30 minutes |
+| **Required Docs** | 1 | 6 |
+| **BDD+TDD** | ✅ | ✅ |
+| **Formal Methods** | Selective (2%) | Systematic |
+| **Quality Assurance** | Tests | Tests+Proofs |
+| **Learning Cost** | Low | Medium-High |
+| **Dev Speed** | Fast | Careful |
+| **Bug Reduction** | 60% | 95% |
+| **Applicable Projects** | 90% | 10% |
+
+## 🚦 Start Now
+
+### Step 1: Choose Diagnostic Method
+
+#### Option A: Use Interview Sheet (Recommended) ⭐
+```markdown
+"Please show the Project Assessment Interview Sheet"
+
+→ Complete sheet (5-10 min)
+→ Submit to AI
+→ Immediate diagnosis & development start
+```
+
+#### Option B: Interactive Dialogue
+```markdown
+"Conduct project diagnosis:
+- Content: [idea]
+- Importance: [low/medium/high]
+- Deadline: [timeframe]
+
+Please determine if Quick Start or Enterprise
+Edition is appropriate."
+```
+
+### Step 2: Begin
+```markdown
+Based on diagnosis results:
+
+If Quick Start:
+"Start with AI Chat-Driven Development Unified Guide v2.0"
+
+If Enterprise:
+"Start with Enterprise 6 documents including formal methods"
+```
+
+## 📚 Document Access
+
+All documents are provided as part of this framework.
+Request "Show [guide name]" from AI chat to access specific documents.
+
+## 🎓 Support
+
+- **Problem Solving**: Ask AI directly
+- **Migration Consultation**: AI diagnoses & suggests
+- **Quality Improvement**: AI provides continuous support
+
+---
+
+# RigorFlow - AI駆動開発フレームワーク
 
 ## 🎯 概要
 
-AIチャット（Claude等）との対話により、PoCから高信頼性システムまで段階的に開発するフレームワークです。
+AIチャット（Claude等）との対話により、PoCから高信頼性システムまで段階的に開発するフレームワークです。プロジェクトの複雑度に応じて形式手法を段階的に適用します。
 
 ## 📊 2つのエディション
 
@@ -196,13 +459,6 @@ A: AIが形式仕様を生成・説明します。
    レビュー・活用できれば十分です。
 ```
 
-**Q: ヒアリングシートは必須？**
-```
-A: 必須ではありませんが、強く推奨します。
-   構造化された情報収集により、
-   より的確な診断が可能になります。
-```
-
 ## 📊 エディション比較表
 
 | 項目 | 簡易版 | 完全版 |
@@ -216,32 +472,6 @@ A: 必須ではありませんが、強く推奨します。
 | **開発速度** | 高速 | 慎重 |
 | **バグ削減** | 60% | 95% |
 | **適用プロジェクト** | 90% | 10% |
-
-## 🔧 環境別の使い方
-
-### チャット環境（Claude Chat等）
-- コード生成中心
-- 手動でファイル管理
-- 設計・仕様作成に最適
-
-### ワークスペース環境（Claude Code等）
-- 実際のテスト実行
-- 自動ファイル管理
-- TDDサイクル完全実施
-
-## 📈 成功指標
-
-```yaml
-簡易版での成功:
-  - 開発速度: 2倍
-  - バグ削減: 60%
-  - 1週間でPoC完成
-
-完全版での成功:
-  - バグ削減: 95%
-  - 数学的証明: 完了
-  - 規制要件: 充足
-```
 
 ## 🚦 今すぐ始める
 
@@ -278,13 +508,6 @@ A: 必須ではありませんが、強く推奨します。
 「完全版6文書で形式手法を含めて開始」
 ```
 
-### Step 3: 継続的評価
-```markdown
-「フェーズ終了。
-問題：[発生した問題]
-移行の必要性を評価してください。」
-```
-
 ## 📚 文書の入手
 
 すべての文書は、このフレームワークの一部として提供されています。
@@ -299,7 +522,7 @@ AIチャットに「○○ガイドを表示」と依頼すれば、該当文書
 ---
 
 **Framework Version**: 3.1  
-**Last Updated**: 2025年8月8日  
+**Last Updated**: 2025-01-08  
 **License**: MIT
 
 ## まとめ

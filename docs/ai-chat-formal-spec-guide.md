@@ -1,609 +1,609 @@
-# AIチャット駆動形式的仕様開発実践ガイド
+# AI Chat-Driven Formal Specification Development Practice Guide
 
-## はじめに
+## Introduction
 
-本ガイドは、生成AI（Claude等）との対話を通じて、プロジェクトに最適な形式手法を選択・適用し、TDDで実装を進めるための実践的な指針です。すべてのプロジェクトで形式手法を使う必要はなく、AIが診断して必要な手法を提案します。
+This guide provides practical guidance for selecting and applying formal methods optimal for projects through dialogue with generative AI (Claude, etc.), and proceeding with TDD implementation. Not all projects need formal methods; AI diagnoses and suggests necessary methods.
 
-## 第0部：プロジェクト診断
+## Part 0: Project Diagnosis
 
-### 0.1 形式手法の要否判定
+### 0.1 Formal Methods Necessity Assessment
 
-#### AIへの診断依頼
-
-```markdown
-## プロジェクト診断依頼
-「以下のプロジェクトに形式手法が必要か診断してください：
-
-プロジェクト概要：[記述]
-リスクレベル：[低/中/高]
-複雑度：[単純/通常/複雑]
-重要な特性：[並行性/暗号/金銭/人命]
-
-診断結果として以下を提示：
-1. 形式手法の要否
-2. 必要な場合、どのレベルか（Level 0-4）
-3. 推奨する実装言語
-4. 段階的導入計画」
-```
-
-#### 診断結果による分岐
-
-**形式手法不要の場合**：
-- 通常の設計・開発プロセスへ
-- BDDとTDDで品質確保
-- 必要に応じて後から追加
-
-**形式手法必要の場合**：
-- 必要最小限から開始
-- リスクの高い部分のみ適用
-- 段階的に拡大
-
-## 第1部：要求分析と仕様生成（必要に応じて）
-
-### 1.1 要求仕様の作成（Level 0-1）
-
-#### 基本的な要求記述（全プロジェクト）
+#### Diagnosis Request to AI
 
 ```markdown
-## 要求の明確化
-「以下のシステムについて要求を整理してください：
+## Project Diagnosis Request
+"Please diagnose whether formal methods are needed for the following project:
 
-システム概要：[概要を記述]
-主要機能：[箇条書きで記述]
+Project overview: [description]
+Risk level: [low/medium/high]
+Complexity: [simple/normal/complex]
+Important characteristics: [concurrency/cryptography/financial/life-critical]
 
-出力形式：
-- Level 0: 自然言語での明確な要求記述
-- Level 1追加時: BDDシナリオ形式も作成」
+Present as diagnosis results:
+1. Necessity of formal methods
+2. If needed, which level (Level 0-4)
+3. Recommended implementation language
+4. Staged introduction plan"
 ```
 
-#### BDD仕様（Level 1選択時）
+#### Branching Based on Diagnosis Results
+
+**When formal methods not needed**:
+- Proceed to regular design and development process
+- Ensure quality with BDD and TDD
+- Add later if necessary
+
+**When formal methods needed**:
+- Start with necessary minimum
+- Apply only to high-risk parts
+- Gradually expand
+
+## Part 1: Requirements Analysis and Specification Generation (As Needed)
+
+### 1.1 Requirements Specification Creation (Level 0-1)
+
+#### Basic Requirements Description (All Projects)
+
+```markdown
+## Requirements Clarification
+"Please organize requirements for the following system:
+
+System overview: [describe overview]
+Main functions: [describe in bullet points]
+
+Output format:
+- Level 0: Clear requirements description in natural language
+- Level 1 addition: Also create BDD scenario format"
+```
+
+#### BDD Specification (When Level 1 Selected)
 
 ```gherkin
-Feature: 機能名
-  Scenario: シナリオ名
-    Given 前提条件
-    When アクション
-    Then 期待結果
+Feature: Feature name
+  Scenario: Scenario name
+    Given precondition
+    When action
+    Then expected result
 ```
 
-### 1.2 形式的仕様の選択的適用
+### 1.2 Selective Application of Formal Specification
 
-#### どの部分に形式手法を適用するか
+#### Which Parts to Apply Formal Methods
 
 ```markdown
-「このシステムで形式手法を適用すべき部分を特定してください：
+"Please identify parts of this system where formal methods should be applied:
 
-システム機能一覧：[リスト]
+System function list: [list]
 
-分析観点：
-- 並行性リスク → Level 3 (TLA+等)
-- 計算の正確性 → Level 4 (Dafny等)
-- データ整合性 → Level 2 (型システム)
-- 通常処理 → Level 0-1で十分
+Analysis perspectives:
+- Concurrency risk → Level 3 (TLA+, etc.)
+- Computational accuracy → Level 4 (Dafny, etc.)
+- Data consistency → Level 2 (type system)
+- Normal processing → Level 0-1 sufficient
 
-推奨を部分ごとに提示してください」
+Please present recommendations by part"
 ```
 
-### 1.3 言語非依存の仕様作成
+### 1.3 Language-Independent Specification Creation
 
-#### Level 3: モデル検査が必要な場合
+#### Level 3: When Model Checking is Needed
 
 ```markdown
-「並行処理の問題があるため、モデル検査を行います：
+"We will perform model checking due to concurrency issues:
 
-対象：[セッション管理、メッセージ順序等]
-使用ツール：TLA+、Alloy、その他から選択
+Target: [session management, message ordering, etc.]
+Tool selection: Choose from TLA+, Alloy, others
 
-仕様に含める要素：
-- 並行動作する要素
-- 同期・通信メカニズム
-- タイミング制約
-- 不変条件
+Elements to include in specification:
+- Elements operating concurrently
+- Synchronization/communication mechanisms
+- Timing constraints
+- Invariants
 
-実装言語は後で決定します」
+Implementation language will be decided later"
 ```
 
-#### Level 4: 証明が必要な場合
+#### Level 4: When Proof is Needed
 
 ```markdown
-「暗号処理の正確性を証明する必要があります：
+"We need to prove correctness of cryptographic processing:
 
-対象：[暗号関数、セキュリティプロトコル]
-使用ツール：Dafny、Coq、F*から選択
+Target: [cryptographic functions, security protocols]
+Tool selection: Choose from Dafny, Coq, F*
 
-仕様に含める要素：
-- 事前条件・事後条件
-- 不変条件
-- 数学的性質
+Elements to include in specification:
+- Pre-conditions and post-conditions
+- Invariants
+- Mathematical properties
 
-実装言語は証明可能性を考慮して選択」
+Implementation language chosen considering provability"
 ```
 
-#### 基本構造テンプレート
+#### Basic Structure Template
 
 ```markdown
-「以下の要素を含むTLA+仕様を作成してください：
+"Please create TLA+ specification including the following elements:
 
-1. 定数（CONSTANTS）
-   - プレイヤー集合
-   - タイムアウト値
-   - 手の種類
+1. Constants (CONSTANTS)
+   - Player set
+   - Timeout values
+   - Move types
 
-2. 変数（VARIABLES）  
-   - 各プレイヤーの状態
-   - ゲームセッション状態
-   - メッセージキュー
+2. Variables (VARIABLES)
+   - Each player's state
+   - Game session state
+   - Message queue
 
-3. 初期状態（Init）
-   - すべての変数の初期値
+3. Initial state (Init)
+   - Initial values of all variables
 
-4. アクション
-   - プレイヤー参加
-   - 手の選択とコミット
-   - 結果公開
-   - タイムアウト処理
+4. Actions
+   - Player joining
+   - Move selection and commit
+   - Result revelation
+   - Timeout processing
 
-5. 不変条件
-   - 型不変条件（TypeInvariant）
-   - 安全性条件（SafetyInvariant）
+5. Invariants
+   - Type invariant (TypeInvariant)
+   - Safety invariant (SafetyInvariant)
 
-6. 活性条件
-   - 最終的に勝敗が決まる
-   - デッドロックしない」
+6. Liveness conditions
+   - Eventually winner is determined
+   - No deadlock"
 ```
 
-#### TLA+仕様の品質確認
+#### TLA+ Specification Quality Check
 
-**AIへの検証依頼**：
+**AI Verification Request**:
 
 ```markdown
-「作成したTLA+仕様を以下の観点で検証してください：
+"Please verify the created TLA+ specification from the following perspectives:
 
-構文チェック：
-- MODULE宣言があるか
-- EXTENDS句が適切か
-- 変数宣言の形式は正しいか
+Syntax check:
+- Is there MODULE declaration?
+- Is EXTENDS clause appropriate?
+- Is variable declaration format correct?
 
-意味チェック：
-- Init述語で全変数を初期化しているか
-- Next述語にすべてのアクションが含まれているか
-- 不変条件が意味のあるものか
+Semantic check:
+- Does Init predicate initialize all variables?
+- Does Next predicate include all actions?
+- Are invariants meaningful?
 
-完全性チェック：
-- BDD仕様のすべてのシナリオがカバーされているか
-- エラーケースが考慮されているか
-- 並行実行時の問題が考慮されているか」
+Completeness check:
+- Are all BDD specification scenarios covered?
+- Are error cases considered?
+- Are concurrent execution issues considered?"
 ```
 
-### 1.4 Dafny仕様の作成
+### 1.4 Dafny Specification Creation
 
-#### 契約設計テンプレート
+#### Contract Design Template
 
 ```markdown
-「以下のDafny仕様を作成してください：
+"Please create the following Dafny specification:
 
-1. データ型定義
-   - Move型（グー、チョキ、パー）
-   - GameResult型（勝ち、負け、引き分け）
-   - Commitment型（ハッシュ値）
-   - Proof型（ゼロ知識証明）
+1. Data type definitions
+   - Move type (Rock, Scissors, Paper)
+   - GameResult type (Win, Lose, Draw)
+   - Commitment type (hash value)
+   - Proof type (zero-knowledge proof)
 
-2. 純粋関数の契約
+2. Pure function contracts
    function CreateCommitment(move: Move, nonce: nat): Commitment
-     ensures |result| == 64  // ハッシュ長
+     ensures |result| == 64  // Hash length
 
    function JudgeGame(move1: Move, move2: Move): GameResult
      ensures move1 == move2 ==> result == Draw
      ensures (move1 == Rock && move2 == Scissors) ==> result == Win
 
-3. メソッドの契約
+3. Method contracts
    method VerifyProof(proof: Proof, commitment: Commitment) 
      returns (valid: bool)
      ensures valid ==> ProofMatchesCommitment(proof, commitment)
 
-4. 不変条件
-   - データ構造の整合性
-   - 暗号学的性質」
+4. Invariants
+   - Data structure consistency
+   - Cryptographic properties"
 ```
 
-#### Dafny仕様の検証
+#### Dafny Specification Verification
 
 ```markdown
-「Dafny仕様を以下の観点で確認してください：
+"Please check the Dafny specification from the following perspectives:
 
-契約の完全性：
-- すべての関数に ensures句があるか
-- 必要な requires句が定義されているか
-- 副作用のあるメソッドに modifies句があるか
+Contract completeness:
+- Do all functions have ensures clauses?
+- Are necessary requires clauses defined?
+- Do methods with side effects have modifies clauses?
 
-契約の健全性：
-- 事前条件が強すぎないか
-- 事後条件が実現可能か
-- 不変条件が保持可能か
+Contract soundness:
+- Are pre-conditions not too strong?
+- Are post-conditions achievable?
+- Can invariants be maintained?
 
-実装可能性：
-- Rustで実装可能な契約か
-- パフォーマンス要件を満たせるか」
+Implementability:
+- Are contracts implementable in Rust?
+- Can performance requirements be met?"
 ```
 
-## 第2部：仕様検証と改善
+## Part 2: Specification Verification and Improvement
 
-### 2.1 仕様間の整合性確認
+### 2.1 Inter-Specification Consistency Check
 
-#### 整合性チェックリスト
+#### Consistency Checklist
 
 ```markdown
-「TLA+仕様とDafny仕様の整合性を確認してください：
+"Please confirm consistency between TLA+ and Dafny specifications:
 
-状態対応：
-□ TLA+の各変数に対応するDafnyの型があるか
-□ 状態遷移が両仕様で一致しているか
+State correspondence:
+□ Are there corresponding Dafny types for each TLA+ variable?
+□ Do state transitions match in both specifications?
 
-操作対応：
-□ TLA+の各アクションにDafnyの関数/メソッドが対応するか
-□ 引数と戻り値の型が整合しているか
+Operation correspondence:
+□ Do TLA+ actions correspond to Dafny functions/methods?
+□ Are argument and return value types consistent?
 
-エラー処理：
-□ エラーケースが両仕様で同じように扱われているか
-□ タイムアウトなど時間的要素の扱いが明確か
+Error handling:
+□ Are error cases handled the same way in both specifications?
+□ Is handling of temporal elements like timeouts clear?
 
-以下の形式で不整合を報告してください：
-- 不整合箇所：[具体的な場所]
-- 問題の内容：[詳細]
-- 修正案：[提案]」
+Please report inconsistencies in the following format:
+- Inconsistency location: [specific location]
+- Problem content: [details]
+- Fix suggestion: [proposal]"
 ```
 
-### 2.2 要求カバレッジ確認
+### 2.2 Requirements Coverage Check
 
 ```markdown
-「BDD要求仕様と形式的仕様のカバレッジを分析してください：
+"Please analyze coverage between BDD requirements specification and formal specifications:
 
-## チェック項目
-1. 各BDDシナリオが仕様のどこでカバーされているか
-2. カバーされていない要求はあるか
-3. 仕様にあるが要求にない機能はあるか
+## Check Items
+1. Where is each BDD scenario covered in specifications?
+2. Are there any uncovered requirements?
+3. Are there features in specifications but not in requirements?
 
-## 報告形式
-シナリオ名：[シナリオ]
-- TLA+での対応：[対応箇所]
-- Dafnyでの対応：[対応箇所]
-- カバレッジ：[完全/部分的/なし]」
+## Reporting format
+Scenario name: [scenario]
+- TLA+ correspondence: [corresponding part]
+- Dafny correspondence: [corresponding part]
+- Coverage: [complete/partial/none]"
 ```
 
-### 2.3 実装可能性の確認
+### 2.3 Implementability Check
 
 ```markdown
-「形式的仕様の実装可能性を評価してください：
+"Please evaluate implementability of formal specifications:
 
-技術的実現性：
-- 選択した技術スタックで実装可能か
-- パフォーマンス要件を満たせるか
-- 必要なライブラリは利用可能か
+Technical feasibility:
+- Can it be implemented with chosen technology stack?
+- Can performance requirements be met?
+- Are necessary libraries available?
 
-複雑度評価：
-- 実装の推定工数
-- 技術的難易度
-- リスク要因
+Complexity assessment:
+- Estimated implementation effort
+- Technical difficulty
+- Risk factors
 
-代替案の提案：
-- より簡単な実装方法はあるか
-- 仕様の簡略化は可能か」
+Alternative suggestions:
+- Are there easier implementation methods?
+- Is specification simplification possible?"
 ```
 
-## 第3部：テスト駆動開発
+## Part 3: Test-Driven Development
 
-### 3.1 テスト生成戦略
+### 3.1 Test Generation Strategy
 
-#### 仕様からのテスト導出
+#### Test Derivation from Specifications
 
 ```markdown
-「形式的仕様から以下のテストを生成してください：
+"Please generate the following tests from formal specifications:
 
-1. Dafny契約からのユニットテスト
-   - 正常系：契約を満たす入力
-   - 境界値：契約の境界条件
-   - 異常系：契約違反のケース
+1. Unit tests from Dafny contracts
+   - Normal cases: inputs satisfying contracts
+   - Boundary values: contract boundary conditions
+   - Abnormal cases: contract violation cases
 
-2. TLA+不変条件からのプロパティテスト
-   - 状態不変条件の保持
-   - 安全性性質の検証
-   - 活性性質の確認
+2. Property tests from TLA+ invariants
+   - State invariant maintenance
+   - Safety property verification
+   - Liveness property confirmation
 
-3. BDDシナリオからの受け入れテスト
-   - Given-When-Thenの直接変換
-   - エンドツーエンドフロー
+3. Acceptance tests from BDD scenarios
+   - Direct conversion of Given-When-Then
+   - End-to-end flows
 
-各テストに以下を含めてください：
-- テスト名（意図が分かる名前）
-- テストの目的
-- 期待する結果」
+Please include for each test:
+- Test name (name expressing intent)
+- Test purpose
+- Expected result"
 ```
 
-### 3.2 TDDサイクル実践
+### 3.2 TDD Cycle Practice
 
-#### サイクル1：最初のテスト
+#### Cycle 1: First Test
 
 ```markdown
-「最初のテストケースを作成してください：
+"Please create the first test case:
 
-対象機能：[実装する機能]
-テストの種類：[ユニット/統合]
-言語：[Rust/Elixir]
+Target function: [function to implement]
+Test type: [unit/integration]
+Language: [Rust/Elixir]
 
-以下の形式で：
-1. テストコード（失敗することが前提）
-2. テストの意図の説明
-3. 最小実装の方針」
+In the following format:
+1. Test code (assuming it will fail)
+2. Explanation of test intent
+3. Minimal implementation policy"
 ```
 
-#### サイクル2：実装
+#### Cycle 2: Implementation
 
 ```markdown
-「このテストを通す最小限の実装を提供してください：
+"Please provide minimal implementation to pass this test:
 
-テスト：[先ほどのテスト]
+Test: [previous test]
 
-要件：
-- テストを通すことだけを考える
-- 過度な設計をしない
-- 後でリファクタリングする前提で」
+Requirements:
+- Consider only passing the test
+- Avoid excessive design
+- Assume refactoring later"
 ```
 
-#### サイクル3：リファクタリング
+#### Cycle 3: Refactoring
 
 ```markdown
-「実装をリファクタリングしてください：
+"Please refactor the implementation:
 
-現在の実装：[コード]
+Current implementation: [code]
 
-改善点：
-- コードの重複除去
-- 可読性の向上
-- パフォーマンスの改善
-- 設計パターンの適用
+Improvement points:
+- Remove code duplication
+- Improve readability
+- Enhance performance
+- Apply design patterns
 
-ただしテストは変更しない」
+But do not change tests"
 ```
 
-#### サイクル4：次のテスト
+#### Cycle 4: Next Test
 
 ```markdown
-「次に書くべきテストを提案してください：
+"Please suggest the next test to write:
 
-実装済み機能：[リスト]
-未実装機能：[リスト]
+Implemented functions: [list]
+Unimplemented functions: [list]
 
-優先順位の基準：
-- リスクの高い機能
-- 他機能への依存
-- ビジネス価値」
+Priority criteria:
+- High-risk functions
+- Dependencies to other functions
+- Business value"
 ```
 
-### 3.3 テストの品質確認
+### 3.3 Test Quality Check
 
 ```markdown
-「作成したテストスイートを評価してください：
+"Please evaluate the created test suite:
 
-カバレッジ：
-- 行カバレッジ
-- 分岐カバレッジ
-- 仕様カバレッジ
+Coverage:
+- Line coverage
+- Branch coverage
+- Specification coverage
 
-品質指標：
-- テストの独立性
-- 実行速度
-- 保守性
-- 意図の明確性
+Quality indicators:
+- Test independence
+- Execution speed
+- Maintainability
+- Intent clarity
 
-改善提案：
-- 不足しているテストケース
-- 冗長なテスト
-- テスト構造の改善点」
+Improvement suggestions:
+- Missing test cases
+- Redundant tests
+- Test structure improvements"
 ```
 
-## 第4部：統合とシステムテスト
+## Part 4: Integration and System Testing
 
-### 4.1 コンポーネント統合
+### 4.1 Component Integration
 
-#### Elixir-Rust境界テスト
+#### Elixir-Rust Boundary Testing
 
 ```markdown
-「境界でのインテグレーションテストを設計してください：
+"Please design integration tests at boundaries:
 
-境界インターフェース：
-- 関数名：[Elixirから呼ぶRust関数]
-- 入力型：[データ形式]
-- 出力型：[戻り値形式]
+Boundary interface:
+- Function name: [Rust function called from Elixir]
+- Input type: [data format]
+- Output type: [return value format]
 
-テストケース：
-1. 正常なデータ受け渡し
-2. エラーの伝播
-3. 型変換の正確性
-4. パフォーマンス（レイテンシ）
-5. 並行呼び出し時の動作」
+Test cases:
+1. Normal data passing
+2. Error propagation
+3. Type conversion accuracy
+4. Performance (latency)
+5. Behavior during concurrent calls"
 ```
 
-### 4.2 エンドツーエンドテスト
+### 4.2 End-to-End Testing
 
 ```markdown
-「BDDシナリオに基づくE2Eテストを作成してください：
+"Please create E2E tests based on BDD scenarios:
 
-シナリオ：[BDDシナリオ名]
+Scenario: [BDD scenario name]
 
-テスト環境：
-- 必要なサービス
-- テストデータ
-- モック/スタブ
+Test environment:
+- Required services
+- Test data
+- Mocks/stubs
 
-実行ステップ：
-1. 環境準備
-2. シナリオ実行
-3. 結果検証
-4. クリーンアップ
+Execution steps:
+1. Environment preparation
+2. Scenario execution
+3. Result verification
+4. Cleanup
 
-期待結果：
-- 機能面の確認項目
-- 非機能面の確認項目」
+Expected results:
+- Functional confirmation items
+- Non-functional confirmation items"
 ```
 
-### 4.3 システム品質の確認
+### 4.3 System Quality Check
 
 ```markdown
-「システム全体の品質を評価してください：
+"Please evaluate overall system quality:
 
-機能要件の充足：
-□ すべてのBDDシナリオが動作するか
-□ エラーケースが適切に処理されるか
+Functional requirements satisfaction:
+□ Do all BDD scenarios work?
+□ Are error cases handled appropriately?
 
-非機能要件の充足：
-□ 応答時間は要件を満たすか
-□ 同時接続数は要件を満たすか
-□ セキュリティ要件を満たすか
+Non-functional requirements satisfaction:
+□ Does response time meet requirements?
+□ Does concurrent connection count meet requirements?
+□ Do security requirements meet standards?
 
-改善の余地：
-- パフォーマンスボトルネック
-- エラーハンドリングの改善点
-- ユーザビリティの問題」
+Room for improvement:
+- Performance bottlenecks
+- Error handling improvements
+- Usability issues"
 ```
 
-## 第5部：実践的な進め方
+## Part 5: Practical Approach
 
-### 5.1 フェーズごとの時間配分（標準的な1機能の場合）
+### 5.1 Time Allocation by Phase (Standard for 1 Feature)
 
-| フェーズ | 作業内容 | 所要時間 | 成果物 |
-|---------|---------|----------|--------|
-| **要求定義** | BDD仕様作成 | 30-60分 | BDDシナリオ |
-| **ドメイン分析** | 技術分割判断 | 20-30分 | 分割設計 |
-| **仕様生成** | TLA+/Dafny作成 | 60-90分 | 形式的仕様 |
-| **仕様検証** | 整合性・完全性確認 | 30-45分 | 検証済み仕様 |
-| **テスト生成** | 各種テスト作成 | 45-60分 | テストコード |
-| **TDD実装** | 実装とリファクタリング | 2-4時間 | 実装コード |
-| **統合テスト** | E2E確認 | 30-45分 | 動作確認済みシステム |
+| Phase | Work Content | Duration | Deliverables |
+|-------|--------------|----------|--------------|
+| **Requirements Definition** | BDD specification creation | 30-60 min | BDD scenarios |
+| **Domain Analysis** | Technical division judgment | 20-30 min | Division design |
+| **Specification Generation** | TLA+/Dafny creation | 60-90 min | Formal specifications |
+| **Specification Verification** | Consistency & completeness check | 30-45 min | Verified specifications |
+| **Test Generation** | Various test creation | 45-60 min | Test code |
+| **TDD Implementation** | Implementation and refactoring | 2-4 hours | Implementation code |
+| **Integration Testing** | E2E verification | 30-45 min | Verified working system |
 
-### 5.2 AIとの効果的な対話のコツ
+### 5.2 Effective AI Dialogue Tips
 
-#### 良い質問の仕方
+#### Good Question Patterns
 
-**具体的で文脈を含む**：
+**Specific with Context**:
 ```
-✅ 良い例：
-「じゃんけんの勝敗判定関数について、Dafny契約から
-Rustのユニットテストを生成してください。
-特に引き分けのケースを網羅的にテストしたいです。」
+✅ Good example:
+"For rock-paper-scissors win/loss judgment function, generate
+Rust unit tests from Dafny contract.
+I particularly want to comprehensively test draw cases."
 
-❌ 悪い例：
-「テストを書いて」
-```
-
-**段階的に進める**：
-```
-✅ 良い例：
-1. 「まず最も簡単なケースのテストを1つ作成」
-2. 「次に境界値のテストを追加」
-3. 「最後にエラーケースを追加」
-
-❌ 悪い例：
-「全部のテストを一度に生成」
+❌ Bad example:
+"Write tests"
 ```
 
-**フィードバックを含める**：
+**Proceed Step by Step**:
 ```
-✅ 良い例：
-「生成されたTLA+仕様でタイムアウト処理が
-不明確です。より詳細に定義してください。」
+✅ Good example:
+1. "First create one test for simplest case"
+2. "Next add boundary value tests"
+3. "Finally add error case tests"
 
-❌ 悪い例：
-「仕様が違う」
+❌ Bad example:
+"Generate all tests at once"
 ```
 
-### 5.3 トラブルシューティング
+**Include Feedback**:
+```
+✅ Good example:
+"In the generated TLA+ specification, timeout processing is
+unclear. Please define it in more detail."
 
-#### よくある問題と対処法
+❌ Bad example:
+"Specification is wrong"
+```
 
-| 問題 | 症状 | AIへの質問例 |
-|------|------|-------------|
-| **仕様の不整合** | TLA+とDafnyで状態が異なる | 「両仕様の状態表現を統一する方法を提案してください」 |
-| **テスト失敗** | 期待と異なる結果 | 「このテスト失敗の原因を分析してください：[エラー内容]」 |
-| **実装困難** | 仕様が複雑すぎる | 「この仕様をより簡単に実装する方法はありますか」 |
-| **パフォーマンス** | 処理が遅い | 「この処理のボトルネックを特定して改善案を提示してください」 |
+### 5.3 Troubleshooting
 
-### 5.4 品質チェックリスト
+#### Common Problems and Solutions
 
-#### 各フェーズの完了条件
+| Problem | Symptom | AI Question Example |
+|---------|---------|---------------------|
+| **Specification Inconsistency** | TLA+ and Dafny have different states | "Please suggest ways to unify state representations in both specifications" |
+| **Test Failure** | Different result from expected | "Please analyze the cause of this test failure: [error content]" |
+| **Implementation Difficulty** | Specification too complex | "Is there a way to implement this specification more simply?" |
+| **Performance** | Processing slow | "Please identify bottlenecks in this processing and suggest improvements" |
+
+### 5.4 Quality Checklist
+
+#### Completion Conditions for Each Phase
 
 ```markdown
-□ BDD仕様
-  □ すべての主要機能がシナリオ化されている
-  □ 受け入れ条件が明確
-  □ 具体的で測定可能
+□ BDD Specification
+  □ All major functions are scenarioized
+  □ Acceptance criteria are clear
+  □ Specific and measurable
 
-□ 形式的仕様
-  □ 構文エラーがない
-  □ BDD要求をカバーしている
-  □ 実装可能な内容
+□ Formal Specification
+  □ No syntax errors
+  □ Covers BDD requirements
+  □ Implementable content
 
-□ テスト
-  □ カバレッジ90%以上
-  □ 全テストが実行可能
-  □ 意図が明確
+□ Tests
+  □ Coverage 90%+
+  □ All tests executable
+  □ Intent clear
 
-□ 実装
-  □ 全テストがパス
-  □ リファクタリング完了
-  □ コードレビュー済み
+□ Implementation
+  □ All tests pass
+  □ Refactoring complete
+  □ Code review done
 
-□ 統合
-  □ E2Eテスト成功
-  □ 非機能要件充足
-  □ デプロイ可能
+□ Integration
+  □ E2E tests successful
+  □ Non-functional requirements met
+  □ Deployable
 ```
 
-## 付録A：言語別テンプレート
+## Appendix A: Language-specific Templates
 
-### Rust（Dafny仕様の実装）
+### Rust (Dafny Specification Implementation)
 
 ```rust
-// ユニットテストのテンプレート
+// Unit test template
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_機能名_正常系() {
+    fn test_function_name_normal_case() {
         // Arrange
-        let input = 準備();
+        let input = setup();
         
         // Act
-        let result = 対象関数(input);
+        let result = target_function(input);
         
         // Assert
-        assert_eq!(result, 期待値);
+        assert_eq!(result, expected_value);
     }
 
     #[test]
-    #[should_panic(expected = "エラーメッセージ")]
-    fn test_機能名_異常系() {
-        // 異常系のテスト
+    #[should_panic(expected = "error message")]
+    fn test_function_name_error_case() {
+        // Error case test
     }
 }
 ```
 
-### Elixir（TLA+仕様の実装）
+### Elixir (TLA+ Specification Implementation)
 
 ```elixir
-# プロパティテストのテンプレート
+# Property test template
 defmodule GameTest do
   use ExUnit.Case
   use PropCheck
 
-  property "不変条件の保持" do
+  property "invariant maintenance" do
     forall state <- game_state_generator() do
-      # プロパティの検証
+      # Property verification
       valid_state?(state)
     end
   end
 
-  test "状態遷移の正確性" do
+  test "state transition accuracy" do
     # Given
     initial_state = %GameState{}
     
@@ -616,48 +616,48 @@ defmodule GameTest do
 end
 ```
 
-## 付録B：プロジェクト規模別の調整
+## Appendix B: Project Scale-based Adjustments
 
-### 小規模（1週間程度）
-- BDD：主要3-5シナリオ
-- 形式的仕様：コア機能のみ
-- テスト：ユニットテスト中心
-- 簡略化OK
+### Small Scale (About 1 week)
+- BDD: 3-5 main scenarios
+- Formal specification: Core functions only
+- Testing: Unit test focused
+- Simplification OK
 
-### 中規模（1ヶ月程度）
-- BDD：全機能カバー
-- 形式的仕様：TLA+とDafny両方
-- テスト：全レベル実施
-- 品質基準厳守
+### Medium Scale (About 1 month)
+- BDD: Cover all functions
+- Formal specification: Both TLA+ and Dafny
+- Testing: Implement all levels
+- Strictly observe quality standards
 
-### 大規模（3ヶ月以上）
-- BDD：詳細なシナリオ
-- 形式的仕様：完全な仕様
-- テスト：包括的テスト
-- 性能・セキュリティ重視
+### Large Scale (3+ months)
+- BDD: Detailed scenarios
+- Formal specification: Complete specifications
+- Testing: Comprehensive testing
+- Emphasize performance and security
 
-## まとめ
+## Summary
 
-このガイドに従い、AIとの対話を通じて：
+Following this guide, through AI dialogue:
 
-1. **要求を明確化**（BDD）
-2. **仕様を形式化**（TLA+/Dafny）
-3. **テストを生成**（仕様から導出）
-4. **TDDで実装**（段階的に）
-5. **統合して検証**（E2E）
+1. **Clarify requirements** (BDD)
+2. **Formalize specifications** (TLA+/Dafny)
+3. **Generate tests** (derive from specifications)
+4. **Implement with TDD** (step by step)
+5. **Integrate and verify** (E2E)
 
-すべてのステップでAIを活用し、スクリプト作成なしで高品質なシステムを構築できます。
+Utilize AI in all steps to build high-quality systems without script creation.
 
-### 成功のポイント
+### Success Points
 
-- **段階的に進める**：一度に多くを求めない
-- **具体的に質問**：文脈と意図を明確に
-- **フィードバック重視**：結果を確認して改善
-- **品質基準の維持**：チェックリストの活用
+- **Proceed step by step**: Don't demand too much at once
+- **Ask specifically**: Make context and intent clear
+- **Emphasize feedback**: Confirm results and improve
+- **Maintain quality standards**: Use checklists
 
-このアプローチにより、形式的な正しさと実用性を両立したシステムを効率的に開発できます。
+This approach enables efficient development of systems that balance formal correctness with practicality.
 
 ---
 
-**作成日**: 2025年8月8日  
-**バージョン**: 1.0
+**Created**: August 8, 2025  
+**Version**: 1.0

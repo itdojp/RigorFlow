@@ -1,187 +1,187 @@
-# AIチャット駆動開発フレームワーク - 文書体系完全版
+# AI Chat-Driven Development Framework - Complete Documentation System
 
-## 🎯 フレームワーク概要
+## 🎯 Framework Overview
 
-### ミッション
-AIチャット（Claude、ChatGPT等）との対話により、PoCから高信頼性システムまで体系的に開発するための完全なフレームワークです。BDD（振る舞い駆動開発）とTDD（テスト駆動開発）を基盤とし、必要に応じて形式手法を段階的に適用します。
+### Mission
+A complete framework for systematically developing from PoC to high-reliability systems through dialogue with AI chat (Claude, ChatGPT, etc.). Based on BDD (Behavior Driven Development) and TDD (Test Driven Development), with staged application of formal methods as needed.
 
-### 特徴
-- **効率的な開始**: ヒアリングシートで5-10分の診断 ⭐NEW
-- **適応的**: プロジェクトの性質に応じて手法を選択
-- **段階的**: 簡易版から完全版への無駄のない移行
-- **実践的**: 実際の開発で即座に使用可能
-- **AI最適化**: AI との対話に特化した構成
+### Features
+- **Efficient Start**: 5-10 minute diagnosis with interview sheet ⭐NEW
+- **Adaptive**: Select methods according to project nature
+- **Staged**: Seamless transition from simple to complete versions
+- **Practical**: Immediately usable in actual development
+- **AI Optimized**: Structure specialized for AI dialogue
 
-## 📚 文書体系の全体構造
+## 📚 Complete Document System Structure
 
 ```
-AIチャット駆動開発フレームワーク v3.1/
+AI Chat-Driven Development Framework v3.1/
 │
-├── 📄 【診断支援】プロジェクト診断ヒアリングシート ⭐NEW
-│   ├── 構造化された質問項目
-│   ├── チェックボックス形式
-│   ├── 5-10分で記入可能
-│   └── AIの的確な診断を支援
+├── 📄 【Diagnosis Support】Project Diagnosis Interview Sheet ⭐NEW
+│   ├── Structured question items
+│   ├── Checkbox format
+│   ├── Completable in 5-10 minutes
+│   └── Supports accurate AI diagnosis
 │
-├── 📄 【共通】フレームワーク文書体系（本文書）
-│   ├── 全体概要
-│   ├── 文書一覧と役割
-│   ├── 選択指針
-│   └── 移行パス
+├── 📄 【Common】Framework Document System (this document)
+│   ├── Overall overview
+│   ├── Document list and roles
+│   ├── Selection guidelines
+│   └── Migration paths
 │
-├── 📁 簡易版（Quick Start Edition）/
+├── 📁 Quick Start Edition (Simple Version)/
 │   │
-│   └── 📄 AIチャット駆動開発統合ガイド v2.0
-│       ├── 用途: PoC、プロトタイプ、一般アプリケーション
-│       ├── 手法: BDD+TDD中心
-│       ├── 形式手法: 選択的（2%のケースのみ）
-│       └── 特徴: 1文書完結、30秒で開始可能
+│   └── 📄 AI Chat-Driven Development Unified Guide v2.0
+│       ├── Use: PoC, prototypes, general applications
+│       ├── Methods: BDD+TDD centered
+│       ├── Formal methods: Selective (2% of cases only)
+│       └── Features: One-document complete, 30-second start
 │
-└── 📁 完全版（Enterprise Edition）/
+└── 📁 Enterprise Edition (Complete Version)/
     │
-    ├── 📄 1. 適応的形式手法選択フレームワーク
-    │   ├── 形式手法の階層モデル（Level 0-4）
-    │   ├── プロジェクト診断プロトコル
-    │   └── 動的追加プロトコル
+    ├── 📄 1. Adaptive Formal Methods Selection Framework
+    │   ├── Formal methods hierarchy model (Level 0-4)
+    │   ├── Project diagnosis protocol
+    │   └── Dynamic addition protocol
     │
-    ├── 📄 2. AIチャット駆動開発完全ガイド
-    │   ├── Phase 0-7の詳細プロセス
-    │   ├── TDDサイクルの実践
-    │   └── 統合テスト実施方法
+    ├── 📄 2. AI Chat-Driven Development Complete Guide
+    │   ├── Phase 0-7 detailed process
+    │   ├── TDD cycle practice
+    │   └── Integration test implementation methods
     │
-    ├── 📄 3. AIチャット駆動形式的仕様開発実践ガイド
-    │   ├── BDD要求仕様の作成
-    │   ├── TLA+仕様の作成
-    │   ├── Dafny仕様の作成
-    │   └── 仕様からのテスト生成
+    ├── 📄 3. AI Chat-Driven Formal Specification Development Practice Guide
+    │   ├── BDD requirements specification creation
+    │   ├── TLA+ specification creation
+    │   ├── Dafny specification creation
+    │   └── Test generation from specifications
     │
-    ├── 📄 4. 形式的仕様書正しさ検証フレームワーク
-    │   ├── Layer 1-5の検証構造
-    │   ├── TLA+/Dafny整合性確認
-    │   └── 要求カバレッジ分析
+    ├── 📄 4. Formal Specification Correctness Verification Framework
+    │   ├── Layer 1-5 verification structure
+    │   ├── TLA+/Dafny consistency confirmation
+    │   └── Requirements coverage analysis
     │
-    ├── 📄 5. ワークスペース実行環境ガイド
-    │   ├── プロジェクト構造標準
-    │   ├── TDDサイクルの実行
-    │   └── CI/CD統合
+    ├── 📄 5. Workspace Execution Environment Guide
+    │   ├── Project structure standards
+    │   ├── TDD cycle execution
+    │   └── CI/CD integration
     │
-    └── 📄 6. フルスタック開発統合ガイド
-        ├── データベース永続化
-        ├── フロントエンド開発
-        ├── API設計
-        └── 本番運用考慮
+    └── 📄 6. Full Stack Development Integration Guide
+        ├── Database persistence
+        ├── Frontend development
+        ├── API design
+        └── Production operation considerations
 ```
 
-## 🔄 2つのエディションの使い分け
+## 🔄 Using the Two Editions
 
-### 簡易版（Quick Start Edition）
+### Quick Start Edition (Simple Version)
 
-#### 対象プロジェクト
-- Proof of Concept（PoC）
-- プロトタイプ開発
-- スタートアップの初期製品
-- 一般的なWebアプリケーション
-- 社内ツール・業務システム
-- 信頼性要求が中程度以下
+#### Target Projects
+- Proof of Concept (PoC)
+- Prototype development
+- Startup initial products
+- General web applications
+- Internal tools and business systems
+- Medium or lower reliability requirements
 
-#### 含まれる要素
+#### Included Elements
 ```yaml
-必須:
-  - BDD（振る舞い駆動開発）
-  - TDD（テスト駆動開発）
-  - 基本的なテスト戦略
+required:
+  - BDD (Behavior Driven Development)
+  - TDD (Test Driven Development)
+  - Basic testing strategy
 
-選択的:
-  - 型システムによる仕様
+selective:
+  - Type-based specification
   - Property Based Testing
-  - 簡単なCI/CD
+  - Simple CI/CD
 
-除外:
-  - TLA+（時相論理）
-  - Dafny（形式証明）
-  - 多層検証プロセス
+excluded:
+  - TLA+ (temporal logic)
+  - Dafny (formal proof)
+  - Multi-layer verification process
 ```
 
-#### メリット
-- **即座に開始**: 30秒でプロジェクト開始
-- **学習コスト最小**: BDD+TDDの基本のみ
-- **高速開発**: 従来比2倍の開発速度
-- **実用的**: 90%のプロジェクトに十分
+#### Benefits
+- **Immediate start**: Project start in 30 seconds
+- **Minimal learning cost**: Only BDD+TDD basics
+- **Fast development**: 2x development speed vs conventional
+- **Practical**: Sufficient for 90% of projects
 
-### 完全版（Enterprise Edition）
+### Enterprise Edition (Complete Version)
 
-#### 対象プロジェクト
-- ミッションクリティカルシステム
-- 金融・銀行・決済システム
-- 医療機器・ヘルスケアシステム
-- 航空宇宙・自動運転
-- 暗号・セキュリティ製品
-- 規制要件での証明が必要
-- 複雑な分散システム
+#### Target Projects
+- Mission-critical systems
+- Financial/banking/payment systems
+- Medical devices/healthcare systems
+- Aerospace/autonomous driving
+- Cryptography/security products
+- Regulatory proof requirements
+- Complex distributed systems
 
-#### 含まれる要素
+#### Included Elements
 ```yaml
-基礎:
-  - BDD+TDD（簡易版と同じ）
+foundation:
+  - BDD+TDD (same as simple version)
   
-追加:
-  - TLA+: 並行性・分散性の形式的モデル化
-  - Dafny: アルゴリズムの数学的証明
-  - 多層検証: 5層の体系的検証
-  - 仕様間整合性: TLA+/Dafny対応確認
-  - 要求トレーサビリティ: 完全な追跡
+additional:
+  - TLA+: Formal modeling of concurrency/distribution
+  - Dafny: Mathematical proof of algorithms
+  - Multi-layer verification: Systematic 5-layer verification
+  - Inter-specification consistency: TLA+/Dafny correspondence check
+  - Requirements traceability: Complete tracking
 ```
 
-#### メリット
-- **数学的保証**: バグ削減率95%
-- **規制対応**: 証明による品質保証
-- **完全性**: あらゆる側面の検証
-- **信頼性**: ミッションクリティカル対応
+#### Benefits
+- **Mathematical guarantee**: 95% bug reduction rate
+- **Regulatory compliance**: Quality assurance through proof
+- **Completeness**: Verification of all aspects
+- **Reliability**: Mission-critical support
 
-## 📊 エディション選択フローチャート
+## 📊 Edition Selection Flowchart
 
-### 効率的な診断方法
+### Efficient Diagnosis Method
 
-#### 方法1: ヒアリングシート使用（推奨）⭐
-1. プロジェクト診断ヒアリングシートに記入（5-10分）
-2. AIに提出して即座に診断
-3. 構造化された情報で的確な判断
+#### Method 1: Using Interview Sheet (Recommended) ⭐
+1. Fill out project diagnosis interview sheet (5-10 minutes)
+2. Submit to AI for immediate diagnosis
+3. Accurate judgment with structured information
 
-#### 方法2: 対話形式
-1. AIと質疑応答形式で診断（15-30分）
-2. 段階的に情報を提供
-3. 柔軟だが時間がかかる
+#### Method 2: Dialogue Format
+1. Diagnosis through Q&A with AI (15-30 minutes)
+2. Provide information step by step
+3. Flexible but time-consuming
 
-### 診断フローチャート
+### Diagnosis Flowchart
 
 ```mermaid
 graph TD
-    Start[プロジェクト開始] --> Method{診断方法}
+    Start[Project Start] --> Method{Diagnosis Method}
     
-    Method -->|ヒアリングシート| Sheet[シート記入<br/>5-10分]
-    Method -->|対話形式| Dialog[AIと対話<br/>15-30分]
+    Method -->|Interview Sheet| Sheet[Fill Sheet<br/>5-10 min]
+    Method -->|Dialogue| Dialog[Dialogue with AI<br/>15-30 min]
     
-    Sheet --> Q1{失敗時の影響}
+    Sheet --> Q1{Impact of Failure}
     Dialog --> Q1
     
-    Q1 -->|限定的| Simple[簡易版]
-    Q1 -->|金銭的損失| Q2{金額規模}
-    Q1 -->|人命に関わる| Full[完全版]
+    Q1 -->|Limited| Simple[Simple Version]
+    Q1 -->|Financial Loss| Q2{Scale}
+    Q1 -->|Life-Critical| Full[Complete Version]
     
-    Q2 -->|小〜中| Q3{技術的複雑度}
-    Q2 -->|大規模| Full
+    Q2 -->|Small-Medium| Q3{Technical Complexity}
+    Q2 -->|Large Scale| Full
     
-    Q3 -->|CRUD中心| Simple
-    Q3 -->|複雑な並行処理| Partial[部分移行を検討]
-    Q3 -->|分散システム| Full
+    Q3 -->|CRUD Centered| Simple
+    Q3 -->|Complex Concurrency| Partial[Consider Partial Migration]
+    Q3 -->|Distributed System| Full
     
-    Partial --> Q4{リスク箇所}
-    Q4 -->|限定的| Hybrid[ハイブリッド運用]
-    Q4 -->|全体的| Full
+    Partial --> Q4{Risk Areas}
+    Q4 -->|Limited| Hybrid[Hybrid Operation]
+    Q4 -->|Overall| Full
     
-    Simple --> Monitor1[継続的評価]
-    Hybrid --> Monitor2[継続的評価]
-    Full --> Monitor3[継続的評価]
+    Simple --> Monitor1[Continuous Evaluation]
+    Hybrid --> Monitor2[Continuous Evaluation]
+    Full --> Monitor3[Continuous Evaluation]
     
     style Sheet fill:#90EE90
     style Simple fill:#90EE90
@@ -189,443 +189,443 @@ graph TD
     style Full fill:#FFB6C1
 ```
 
-## 🚀 段階的移行パス
+## 🚀 Staged Migration Path
 
-### Phase 1: PoC開発（簡易版）
-
-```yaml
-期間: 1週間
-使用文書: AIチャット駆動開発統合ガイド v2.0
-
-成果物:
-  - BDDシナリオ: 10-20個
-  - ユニットテスト: 50-100個
-  - 動作するプロトタイプ
-  - 基本的なCI/CD
-
-品質:
-  - テストカバレッジ: 70%
-  - バグ削減: 60%
-```
-
-### Phase 2: 評価と判定
+### Phase 1: PoC Development (Simple Version)
 
 ```yaml
-評価項目:
-  - 技術的複雑度の確認
-  - リスク要因の特定
-  - 規制要件の確認
-  - チーム能力の評価
+duration: 1 week
+documents_used: AI Chat-Driven Development Unified Guide v2.0
 
-判定:
-  A. 簡易版継続 → Phase 3A
-  B. 部分移行 → Phase 3B
-  C. 完全移行 → Phase 3C
+deliverables:
+  - BDD scenarios: 10-20
+  - Unit tests: 50-100
+  - Working prototype
+  - Basic CI/CD
+
+quality:
+  - Test coverage: 70%
+  - Bug reduction: 60%
 ```
 
-### Phase 3A: 簡易版での製品化
+### Phase 2: Evaluation and Judgment
 
 ```yaml
-追加作業: 最小限
-既存資産: 100%活用
+evaluation_items:
+  - Technical complexity confirmation
+  - Risk factor identification
+  - Regulatory requirement confirmation
+  - Team capability assessment
 
-追加要素:
-  - E2Eテスト
-  - パフォーマンステスト
-  - セキュリティ対策
-  - 本番環境設定
+judgment:
+  A. Continue simple version → Phase 3A
+  B. Partial migration → Phase 3B
+  C. Complete migration → Phase 3C
 ```
 
-### Phase 3B: 部分移行（推奨パス）
+### Phase 3A: Productization with Simple Version
 
 ```yaml
-移行範囲: リスクの高い10-20%のみ
-既存資産: 100%活用
+additional_work: Minimal
+existing_assets: 100% utilization
 
-追加作業:
-  - 重要部分のTLA+仕様: 3-5日
-  - 暗号部分のDafny仕様: 2-3日
-  - プロパティテスト追加: 2-3日
-  - 形式検証のCI統合: 1日
-
-最終構成:
-  - 80%: BDD+TDD（簡易版）
-  - 20%: 形式手法（重要部分）
+additional_elements:
+  - E2E testing
+  - Performance testing
+  - Security measures
+  - Production environment setup
 ```
 
-### Phase 3C: 完全移行
+### Phase 3B: Partial Migration (Recommended Path)
 
 ```yaml
-移行範囲: システム全体
-既存資産: 100%活用（拡張・補強）
+migration_scope: Only high-risk 10-20%
+existing_assets: 100% utilization
 
-追加作業:
-  - 全体のTLA+モデル化: 2-3週間
-  - Dafny契約の完全定義: 1-2週間
-  - 多層検証の実施: 1週間
-  - ドキュメント整備: 1週間
+additional_work:
+  - TLA+ specification for critical parts: 3-5 days
+  - Dafny specification for crypto parts: 2-3 days
+  - Add property tests: 2-3 days
+  - CI integration for formal verification: 1 day
 
-最終構成:
-  - 完全な形式手法適用
-  - 数学的証明による保証
+final_configuration:
+  - 80%: BDD+TDD (simple version)
+  - 20%: Formal methods (critical parts)
 ```
 
-## 📋 各文書の詳細説明
+### Phase 3C: Complete Migration
 
-### 簡易版文書
+```yaml
+migration_scope: Entire system
+existing_assets: 100% utilization (expanded and reinforced)
 
-#### AIチャット駆動開発統合ガイド v2.0
+additional_work:
+  - Overall TLA+ modeling: 2-3 weeks
+  - Complete Dafny contract definition: 1-2 weeks
+  - Multi-layer verification implementation: 1 week
+  - Documentation preparation: 1 week
 
-**構成**:
-1. クイックスタート（30秒で開始）
-2. プロジェクト診断フロー
-3. BDD要求定義
-4. TDDサイクル
-5. プロジェクト構成パターン
-6. 品質保証戦略
-7. トラブルシューティング
+final_configuration:
+  - Complete formal methods application
+  - Mathematical proof guarantees
+```
 
-**特徴**:
-- 1文書で完結
-- 実践的な例が豊富
-- 形式手法は最小限
-- すぐに使える
+## 📋 Detailed Document Descriptions
 
-### 完全版文書セット
+### Simple Version Documents
 
-#### 1. 適応的形式手法選択フレームワーク
+#### AI Chat-Driven Development Unified Guide v2.0
 
-**内容**:
-- Level 0-4の形式手法階層
-- プロジェクト診断プロトコル
-- 動的追加プロトコル
-- 言語非依存の実装戦略
+**Structure**:
+1. Quick start (30-second start)
+2. Project diagnosis flow
+3. BDD requirements definition
+4. TDD cycle
+5. Project configuration patterns
+6. Quality assurance strategy
+7. Troubleshooting
 
-**使用タイミング**:
-- Phase 0: 初期診断
-- 問題発生時の手法追加判断
+**Features**:
+- Complete in one document
+- Rich practical examples
+- Minimal formal methods
+- Immediately usable
 
-#### 2. AIチャット駆動開発完全ガイド
+### Complete Version Document Set
 
-**内容**:
-- Phase 0-7の詳細プロセス
-- 各フェーズの成果物
-- TDDサイクルの詳細
-- 統合テスト戦略
+#### 1. Adaptive Formal Methods Selection Framework
 
-**使用タイミング**:
-- 全開発フェーズ
-- プロセス管理
+**Content**:
+- Level 0-4 formal methods hierarchy
+- Project diagnosis protocol
+- Dynamic addition protocol
+- Language-independent implementation strategies
 
-#### 3. AIチャット駆動形式的仕様開発実践ガイド
+**Usage timing**:
+- Phase 0: Initial diagnosis
+- Method addition judgment when problems occur
 
-**内容**:
-- BDD仕様の作成方法
-- TLA+仕様の作成
-- Dafny仕様の作成
-- 仕様検証方法
+#### 2. AI Chat-Driven Development Complete Guide
 
-**使用タイミング**:
-- Phase 1-3: 仕様作成
-- Phase 4: 検証
+**Content**:
+- Phase 0-7 detailed process
+- Deliverables for each phase
+- Detailed TDD cycles
+- Integration test strategies
 
-#### 4. 形式的仕様書正しさ検証フレームワーク
+**Usage timing**:
+- All development phases
+- Process management
 
-**内容**:
-- 5層の検証構造
-- 自動検証スクリプト
-- 整合性チェック
-- カバレッジ分析
+#### 3. AI Chat-Driven Formal Specification Development Practice Guide
 
-**使用タイミング**:
-- Phase 3: 仕様検証
-- 継続的品質確認
+**Content**:
+- BDD specification creation methods
+- TLA+ specification creation
+- Dafny specification creation
+- Specification verification methods
 
-#### 5. ワークスペース実行環境ガイド
+**Usage timing**:
+- Phase 1-3: Specification creation
+- Phase 4: Verification
 
-**内容**:
-- プロジェクト構造
-- ファイル管理
-- テスト自動実行
-- CI/CD設定
+#### 4. Formal Specification Correctness Verification Framework
 
-**使用タイミング**:
-- Claude Code等の使用時
-- 実装フェーズ
+**Content**:
+- 5-layer verification structure
+- Automatic verification scripts
+- Consistency checks
+- Coverage analysis
 
-#### 6. フルスタック開発統合ガイド
+**Usage timing**:
+- Phase 3: Specification verification
+- Continuous quality confirmation
 
-**内容**:
-- DB設計とTDD
-- フロントエンド開発
-- API設計
-- 本番運用
+#### 5. Workspace Execution Environment Guide
 
-**使用タイミング**:
-- Webアプリケーション開発
-- フルスタック構成時
+**Content**:
+- Project structure
+- File management
+- Test auto-execution
+- CI/CD setup
 
-## 🎯 実践的な使用方法
+**Usage timing**:
+- When using Claude Code, etc.
+- Implementation phases
 
-### 新規プロジェクト開始（推奨フロー）
+#### 6. Full Stack Development Integration Guide
+
+**Content**:
+- DB design and TDD
+- Frontend development
+- API design
+- Production operations
+
+**Usage timing**:
+- Web application development
+- Full stack configurations
+
+## 🎯 Practical Usage Methods
+
+### New Project Start (Recommended Flow)
 
 ```markdown
-# Step 1: AIチャットを開く（Claude推奨）
+# Step 1: Open AI chat (Claude recommended)
 
-# Step 2: ヒアリングシートで診断（推奨）⭐
-「プロジェクト診断ヒアリングシートを表示してください」
+# Step 2: Diagnose with interview sheet (recommended) ⭐
+"Please display the project diagnosis interview sheet"
 
-→ シートに記入（5-10分）
-→ 以下のテンプレートで提出：
+→ Fill sheet (5-10 minutes)
+→ Submit with following template:
 
-「以下のヒアリングシートに基づいて診断し、
-適切なエディションで開発を開始してください。
+"Please diagnose based on the following interview sheet
+and start development with appropriate edition.
 
-[記入済みヒアリングシート]」
+[Completed interview sheet]"
 
-# または、対話形式で診断
-「新規プロジェクトを開始します。
-概要: [あなたのアイデア]
-重要度: [低/中/高]
-期限: [期間]
+# Or diagnose through dialogue
+"I want to start a new project.
+Overview: [your idea]
+Importance: [low/medium/high]
+Deadline: [period]
 
-適切なエディションを診断してください。」
+Please diagnose the appropriate edition."
 
-# Step 3: 推奨に従って開始
-簡易版の場合:
-「AIチャット駆動開発統合ガイド v2.0に基づいて開始」
+# Step 3: Start according to recommendation
+For simple version:
+"Start based on AI Chat-Driven Development Unified Guide v2.0"
 
-完全版の場合:
-「完全版6文書セットで形式手法を含めて開始」
+For complete version:
+"Start with complete 6-document set including formal methods"
 ```
 
-### 既存プロジェクトの評価
+### Existing Project Evaluation
 
 ```markdown
-「既存プロジェクトの強化を検討しています。
+"I'm considering strengthening an existing project.
 
-現状:
-- 使用中: 簡易版
-- 開発済み: [成果物リスト]
-- 問題: [具体的な問題]
+Current status:
+- Using: Simple version
+- Developed: [deliverables list]
+- Problems: [specific problems]
 
-部分移行または完全移行が必要か診断してください。」
+Please diagnose whether partial or complete migration is needed."
 ```
 
-### 移行の実施
+### Migration Implementation
 
 ```markdown
-「部分移行を実施します。
+"Implementing partial migration.
 
-対象: [移行対象モジュール]
-理由: [移行理由]
+Target: [migration target modules]
+Reason: [migration reasons]
 
-既存の以下を維持しながら:
-- BDDシナリオ
-- テストコード
-- 実装
+While maintaining the following:
+- BDD scenarios
+- Test code
+- Implementation
 
-形式手法を追加する手順を教えてください。」
+Please teach the procedure to add formal methods."
 ```
 
-## 📊 選択基準マトリックス
+## 📊 Selection Criteria Matrix
 
-| プロジェクト特性 | 簡易版 | 部分移行 | 完全版 | 理由 |
-|-----------------|--------|---------|--------|------|
-| **PoC/MVP** | ◎ | - | - | 速度優先 |
-| **一般Webアプリ** | ◎ | △ | - | 十分な品質 |
-| **社内システム** | ◎ | ○ | - | コスト効率 |
-| **ECサイト** | ○ | ◎ | △ | 決済部分のみ強化 |
-| **銀行システム** | - | ○ | ◎ | 規制要件 |
-| **医療システム** | - | △ | ◎ | 人命優先 |
-| **ゲーム（課金あり）** | ○ | ◎ | △ | 課金部分強化 |
-| **IoTデバイス** | ○ | ◎ | ○ | セキュリティ重視 |
-| **ブロックチェーン** | - | ○ | ◎ | 暗号の正確性 |
-| **AI/ML システム** | ◎ | ○ | △ | データ処理中心 |
+| Project Characteristics | Simple | Partial Migration | Complete | Reason |
+|------------------------|---------|------------------|----------|---------|
+| **PoC/MVP** | ◎ | - | - | Speed priority |
+| **General Web Apps** | ◎ | △ | - | Sufficient quality |
+| **Internal Systems** | ◎ | ○ | - | Cost efficiency |
+| **E-commerce Sites** | ○ | ◎ | △ | Strengthen payment parts only |
+| **Banking Systems** | - | ○ | ◎ | Regulatory requirements |
+| **Medical Systems** | - | △ | ◎ | Life priority |
+| **Games (with billing)** | ○ | ◎ | △ | Strengthen billing parts |
+| **IoT Devices** | ○ | ◎ | ○ | Security focus |
+| **Blockchain** | - | ○ | ◎ | Cryptographic accuracy |
+| **AI/ML Systems** | ◎ | ○ | △ | Data processing focused |
 
-凡例: ◎最適 ○適合 △過剰 -非推奨
+Legend: ◎Optimal ○Suitable △Excessive -Not recommended
 
-## 💡 成功のためのベストプラクティス
+## 💡 Best Practices for Success
 
-### 原則
+### Principles
 
-1. **Start Simple**: 常に簡易版から開始
-2. **Evolve Gradually**: 必要に応じて段階的に強化
-3. **Reuse Everything**: 既存資産は100%活用
-4. **Measure Continuously**: 継続的に評価・調整
-5. **Avoid Over-Engineering**: 過度な形式化を避ける
+1. **Start Simple**: Always begin with simple version
+2. **Evolve Gradually**: Strengthen step by step as needed
+3. **Reuse Everything**: Utilize 100% of existing assets
+4. **Measure Continuously**: Continuously evaluate and adjust
+5. **Avoid Over-Engineering**: Avoid excessive formalization
 
-### アンチパターン
+### Anti-patterns
 
-❌ **最初から完全版**
-- 問題: 過剰な初期投資
-- 解決: 簡易版から開始
+❌ **Start with Complete Version**
+- Problem: Excessive initial investment
+- Solution: Start with simple version
 
-❌ **全面移行**
-- 問題: 既存資産の破棄
-- 解決: 部分移行を優先
+❌ **Complete Migration**
+- Problem: Discarding existing assets
+- Solution: Prioritize partial migration
 
-❌ **形式手法の強制**
-- 問題: チームの抵抗
-- 解決: 必要性を実証してから
+❌ **Forcing Formal Methods**
+- Problem: Team resistance
+- Solution: Demonstrate necessity first
 
-## 📈 期待される成果
+## 📈 Expected Outcomes
 
-### 簡易版使用時
+### When Using Simple Version
 
 ```yaml
-開発効率:
-  速度向上: 2倍
-  手戻り削減: 50%
+development_efficiency:
+  speed_improvement: 2x
+  rework_reduction: 50%
   
-品質:
-  バグ削減: 60%
-  テストカバレッジ: 80%
+quality:
+  bug_reduction: 60%
+  test_coverage: 80%
   
-コスト:
-  開発期間: 50%短縮
-  保守コスト: 30%削減
+cost:
+  development_period: 50% shorter
+  maintenance_cost: 30% reduction
 ```
 
-### 完全版使用時
+### When Using Complete Version
 
 ```yaml
-品質保証:
-  バグ削減: 95%
-  数学的証明: 完了
+quality_assurance:
+  bug_reduction: 95%
+  mathematical_proof: Complete
   
-信頼性:
-  システム停止: ほぼゼロ
-  データ不整合: なし
+reliability:
+  system_downtime: Nearly zero
+  data_inconsistency: None
   
-規制対応:
-  監査要件: 完全充足
-  証明書類: 自動生成
+regulatory_compliance:
+  audit_requirements: Complete fulfillment
+  proof_documents: Auto-generated
 ```
 
-## 🔧 技術サポート
+## 🔧 Technical Support
 
-### AIチャットでの質問例
+### AI Chat Question Examples
 
 ```markdown
-# 診断・選択
-「このプロジェクトに適したエディションは？」
+# Diagnosis/Selection
+"Which edition is suitable for this project?"
 
-# 移行相談
-「簡易版から部分移行すべきタイミングは？」
+# Migration consultation
+"When should I migrate from simple to partial version?"
 
-# 技術的質問
-「TLA+でデッドロックを検出する方法は？」
+# Technical questions
+"How to detect deadlocks with TLA+?"
 
-# トラブルシューティング
-「並行処理でデータ不整合が発生。形式手法で解決可能？」
+# Troubleshooting
+"Data inconsistency in concurrent processing. Can formal methods solve this?"
 ```
 
-### 継続的サポート
+### Continuous Support
 
-- プロジェクト診断: AIが自動実施
-- 手法選択: AIが最適提案
-- 問題解決: AIが段階的に支援
-- 品質向上: AIが継続的に提案
+- Project diagnosis: AI performs automatically
+- Method selection: AI provides optimal suggestions
+- Problem solving: AI provides step-by-step support
+- Quality improvement: AI continuously suggests
 
-## 🎓 必要な前提知識
+## 🎓 Required Prerequisites
 
-### 簡易版に必要
+### Required for Simple Version
 
-- プログラミング基礎
-- テストの基本概念
-- Git操作
+- Programming basics
+- Basic testing concepts
+- Git operations
 
-### 完全版に追加で推奨
+### Additionally Recommended for Complete Version
 
-- 並行処理の基礎
-- 分散システムの概念
-- 数学的思考（AIが補助）
+- Concurrency basics
+- Distributed system concepts
+- Mathematical thinking (AI assists)
 
-### 不要な知識
+### Unnecessary Knowledge
 
-- TLA+/Dafnyの詳細（AIが生成）
-- 形式手法の理論（AIが説明）
-- 複雑な数学（AIが証明）
+- TLA+/Dafny details (AI generates)
+- Formal methods theory (AI explains)
+- Complex mathematics (AI proves)
 
-## 📅 ロードマップ
+## 📅 Roadmap
 
 ### Week 1: PoC
-- 簡易版でスタート
-- BDDシナリオ作成
-- 基本機能実装
+- Start with simple version
+- Create BDD scenarios
+- Implement basic functions
 
-### Week 2-4: プロトタイプ
-- 機能拡張
-- 問題の特定
-- 移行判定
+### Week 2-4: Prototype
+- Expand functions
+- Identify problems
+- Migration judgment
 
-### Month 2-3: 製品化
-- 必要に応じて部分移行
-- 品質強化
-- 本番準備
+### Month 2-3: Productization
+- Partial migration as needed
+- Quality strengthening
+- Production preparation
 
-### 継続的改善
-- 定期評価
-- 段階的強化
-- 最適化
+### Continuous Improvement
+- Regular evaluation
+- Gradual strengthening
+- Optimization
 
-## 🚦 今すぐ始める3ステップ
+## 🚦 Start Now in 3 Steps
 
-### 1️⃣ 診断方法を選択
+### 1️⃣ Select Diagnosis Method
 ```
-Option A: 「プロジェクト診断ヒアリングシートを表示」（推奨）⭐
-Option B: 「このフレームワークで開発を始めたい」（対話形式）
-```
-
-### 2️⃣ プロジェクト情報を提供
-```
-Option A: ヒアリングシート記入（5-10分）→ AIに提出
-Option B: AIの質問に回答
+Option A: "Display project diagnosis interview sheet" (recommended) ⭐
+Option B: "I want to start development with this framework" (dialogue format)
 ```
 
-### 3️⃣ 診断結果に基づいて開発開始
+### 2️⃣ Provide Project Information
 ```
-「診断結果に基づいて開発を開始」
+Option A: Fill interview sheet (5-10 minutes) → Submit to AI
+Option B: Answer AI questions
+```
+
+### 3️⃣ Start Development Based on Diagnosis Results
+```
+"Start development based on diagnosis results"
 ```
 
 ---
 
-## 📌 まとめ
+## 📌 Summary
 
-このフレームワークは、**シンプルなPoCから複雑な高信頼性システムまで**、段階的に成長できる完全な開発体系です。
+This framework is a complete development system that can grow stepwise from **simple PoC to complex high-reliability systems**.
 
-**特徴**:
-- 🚀 **簡易版で素早く開始**（30秒）
-- 📈 **必要に応じて段階的強化**
-- ♻️ **既存資産100%活用**
-- 🎯 **最適な品質レベル達成**
-- 🤖 **AI が全工程を支援**
+**Features**:
+- 🚀 **Quick start with simple version** (30 seconds)
+- 📈 **Gradual strengthening as needed**
+- ♻️ **100% utilization of existing assets**
+- 🎯 **Achieve optimal quality level**
+- 🤖 **AI supports entire process**
 
-**成功の鍵**:
-1. まず作る（簡易版）
-2. 問題を見つける
-3. 必要な部分だけ強化
-4. 継続的に改善
+**Keys to Success**:
+1. Build first (simple version)
+2. Find problems
+3. Strengthen only necessary parts
+4. Continuously improve
 
 ---
 
 **Framework Version**: 3.0  
 **Created**: 2025  
 **License**: MIT  
-**Support**: AIチャットで直接質問
+**Support**: Ask directly in AI chat
 
-## 付録: 文書一覧クイックリファレンス
+## Appendix: Document List Quick Reference
 
-| # | 文書名 | エディション | 主な用途 |
-|---|--------|-------------|----------|
-| 0 | フレームワーク文書体系（本文書） | 共通 | 全体理解・選択 |
-| 1 | AIチャット駆動開発統合ガイド v2.0 | 簡易版 | PoC・一般開発 |
-| 2 | 適応的形式手法選択フレームワーク | 完全版 | 手法選択・診断 |
-| 3 | AIチャット駆動開発完全ガイド | 完全版 | プロセス管理 |
-| 4 | AIチャット駆動形式的仕様開発実践ガイド | 完全版 | 仕様作成 |
-| 5 | 形式的仕様書正しさ検証フレームワーク | 完全版 | 仕様検証 |
-| 6 | ワークスペース実行環境ガイド | 完全版 | 実行環境 |
-| 7 | フルスタック開発統合ガイド | 完全版 | Web開発 |
+| # | Document Name | Edition | Main Use |
+|---|---------------|---------|----------|
+| 0 | Framework Document System (this document) | Common | Overall understanding/selection |
+| 1 | AI Chat-Driven Development Unified Guide v2.0 | Simple | PoC/general development |
+| 2 | Adaptive Formal Methods Selection Framework | Complete | Method selection/diagnosis |
+| 3 | AI Chat-Driven Development Complete Guide | Complete | Process management |
+| 4 | AI Chat-Driven Formal Specification Development Practice Guide | Complete | Specification creation |
+| 5 | Formal Specification Correctness Verification Framework | Complete | Specification verification |
+| 6 | Workspace Execution Environment Guide | Complete | Execution environment |
+| 7 | Full Stack Development Integration Guide | Complete | Web development |
 
-**使い方**: AIに「○番の文書を参照」と伝えれば、該当文書の内容が提示されます。
+**Usage**: Tell AI "Refer to document #○" and the corresponding document content will be presented.

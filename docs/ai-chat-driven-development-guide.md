@@ -1,216 +1,208 @@
-# AIチャット駆動開発完全ガイド
+# AI Chat-Driven Development Complete Guide
 
-## 1. AIチャット駆動開発プロセス全体フロー
+## 1. AI Chat-Driven Development Process Overall Flow
 
-### 1.1 プロセス概要
+### 1.1 Process Overview
 
 ```mermaid
 graph TD
-    A[Phase 0: 準備・診断] --> B[Phase 1: 要求定義]
-    B --> C{形式手法要否判定}
-    C -->|不要| E1[Phase 2A: 設計・実装]
-    C -->|必要| D[Phase 2B: 形式的仕様生成]
-    D --> E[Phase 3: 仕様検証・改善]
-    E --> F[Phase 4: テスト生成]
+    A[Phase 0: Preparation & Diagnosis] --> B[Phase 1: Requirements Definition]
+    B --> C{Formal Methods Necessity Assessment}
+    C -->|Not Required| E1[Phase 2A: Design & Implementation]
+    C -->|Required| D[Phase 2B: Formal Specification Generation]
+    D --> E[Phase 3: Specification Verification & Improvement]
+    E --> F[Phase 4: Test Generation]
     E1 --> F
-    F --> G[Phase 5: TDD実装]
-    G --> H[Phase 6: 統合テスト]
-    H --> I[Phase 7: デプロイ・運用]
+    F --> G[Phase 5: TDD Implementation]
+    G --> H[Phase 6: Integration Testing]
+    H --> I[Phase 7: Deploy & Operations]
     
-    E -->|検証失敗| D
-    G -->|要求変更| B
-    H -->|統合失敗| G
+    E -->|Verification Failed| D
+    G -->|Requirements Change| B
+    H -->|Integration Failed| G
     
     style C fill:#ffe0b2
 ```
 
-### 1.2 各フェーズの詳細
+### 1.2 Phase Details
 
-#### Phase 0: 準備・診断（30分-2時間）
+#### Phase 0: Preparation & Diagnosis (30 minutes - 2 hours)
 
-**目的**: プロジェクトの土台作成と適切な手法の選択
+**Purpose**: Create project foundation and select appropriate methods
 
-**AIとの対話例**:
+**AI Dialogue Example**:
 ```
-ユーザー: 「ゼロ知識証明を使ったじゃんけんゲームを作りたい」
+User: "I want to create a rock-paper-scissors game using zero-knowledge proofs"
 
-AI: プロジェクトを診断します。以下を教えてください：
-1. システムの重要度（POC/業務/ミッションクリティカル）
-2. 並行性・分散性の度合い
-3. セキュリティ要件（暗号処理の有無）
-4. チームのスキルセット
-5. 技術的制約
+AI: I will diagnose the project. Please provide:
+1. System importance (PoC/Business/Mission-critical)
+2. Degree of concurrency/distribution
+3. Security requirements (presence of cryptographic processing)
+4. Team skill set
+5. Technical constraints
 
-診断結果：
-- 推奨開始手法：Level 0-1（基本＋BDD）
-- 暗号部分：Level 4（Dafny）を推奨
-- 実装言語：制約に応じて提案
-```
-
-**成果物**:
-- プロジェクト診断結果
-- 形式手法の選択計画
-- 初期要求リスト
-
-#### Phase 1: 要求定義（1-3時間）
-
-**目的**: ビジネス要求の明確化（形式手法のレベルに応じた記述）
-
-**AIとの対話例**:
-```
-ユーザー: 「じゃんけんの基本フローを定義したい」
-
-AI: 診断結果に基づいて以下を作成します：
-- Level 0: 自然言語での要求記述
-- Level 1選択時: BDDシナリオ追加
-
-Scenario: 正常なじゃんけん対戦
-  Given プレイヤー2人がマッチング済み
-  When 両プレイヤーが手を選択し提出
-  Then 勝敗が判定され結果が表示される
+Diagnosis Result:
+- Recommended starting methods: Level 0-1 (Basic + BDD)
+- Cryptographic parts: Level 4 (Dafny) recommended
+- Implementation language: Suggested based on constraints
 ```
 
-**成果物**:
-- 要求仕様書（選択したレベルに応じた形式）
-- 受け入れ条件リスト
+**Deliverables**:
+- Project diagnosis results
+- Formal methods selection plan
+- Initial requirements list
 
-#### Phase 2A: 設計・実装（形式手法不要の場合）
+#### Phase 1: Requirements Definition (1-3 hours)
 
-**目的**: 通常の設計と実装
+**Purpose**: Clarify business requirements (described according to formal method levels)
 
-**AIとの対話例**:
+**AI Dialogue Example**:
 ```
-ユーザー: 「アーキテクチャ設計を進めたい」
+User: "I want to define the basic flow of rock-paper-scissors"
 
-AI: 形式手法を使わない開発を進めます：
-- アーキテクチャ設計
-- API設計
-- データモデル設計
-直接実装フェーズへ
-```
+AI: Based on diagnosis results, I will create:
+- Level 0: Natural language requirement description
+- Level 1 when selected: Add BDD scenarios
 
-#### Phase 2B: 形式的仕様生成（必要な場合のみ）
-
-**目的**: 選択された形式手法での仕様作成
-
-**AIとの対話例**:
-```
-ユーザー: 「診断でLevel 3, 4が推奨された部分の仕様を作成」
-
-AI: 必要な部分のみ形式化します：
-- Level 3選択: TLA+で並行処理部分のみモデル化
-- Level 4選択: Dafnyで暗号処理のみ仕様化
-- その他: 通常の設計文書
+Scenario: Normal rock-paper-scissors match
+  Given two players are matched
+  When both players select and submit moves
+  Then winner is determined and result is displayed
 ```
 
-**成果物**:
-- 必要最小限の形式的仕様
-- 実装言語への変換ガイド下のシナリオを作成しました：
+**Deliverables**:
+- Requirements specification (in format according to selected level)
+- Acceptance criteria list
 
-Scenario: 正常なじゃんけん対戦
-  Given プレイヤー2人がマッチング済み
-  When 両プレイヤーが手を選択し提出
-  Then 勝敗が判定され結果が表示される
+#### Phase 2A: Design & Implementation (When formal methods not required)
+
+**Purpose**: Regular design and implementation
+
+**AI Dialogue Example**:
+```
+User: "I want to proceed with architecture design"
+
+AI: I will proceed with development without formal methods:
+- Architecture design
+- API design
+- Data model design
+Directly to implementation phase
 ```
 
-**成果物**:
-- BDD要求仕様書（Feature/Scenario形式）
-- 受け入れ条件リスト
+#### Phase 2B: Formal Specification Generation (Only when necessary)
 
-#### Phase 2: 形式的仕様生成（2-4時間）
+**Purpose**: Create specifications with selected formal methods
 
-**目的**: BDD仕様から TLA+/Dafny の形式的仕様を生成
-
-**AIとの対話例**:
+**AI Dialogue Example**:
 ```
-ユーザー: 「このBDD仕様からTLA+仕様を生成して」
+User: "Create specifications for parts where Level 3, 4 were recommended in diagnosis"
 
-AI: TLA+/Elixir と Dafny/Rust の分割を行います：
-- TLA+: ゲームセッション管理、タイムアウト処理
-- Dafny: 暗号学的操作、勝敗判定ロジック
+AI: I will formalize only necessary parts:
+- Level 3 selection: Model only concurrency parts in TLA+
+- Level 4 selection: Specify only cryptographic processing in Dafny
+- Others: Regular design documents
 ```
 
-**成果物**:
-- TLA+仕様書
-- Dafny仕様書
-- 領域分割設計書
+**Deliverables**:
+- Minimal formal specifications
+- Implementation language conversion guide
+- BDD requirement specification (Feature/Scenario format)
+- Acceptance criteria list
 
-#### Phase 3: 仕様検証・改善（1-2時間）
+#### Phase 2: Formal Specification Generation (2-4 hours)
 
-**目的**: 生成された仕様の正確性・完全性を検証
+**Purpose**: Generate TLA+/Dafny formal specifications from BDD specifications
 
-**AIとの対話例**:
+**AI Dialogue Example**:
 ```
-ユーザー: 「TLA+仕様の型不変条件をチェックして」
+User: "Generate TLA+ specification from this BDD specification"
 
-AI: 以下の問題を発見しました：
-1. プレイヤー状態遷移に不整合
-2. タイムアウト処理の欠落
-修正版を提示します...
-```
-
-**成果物**:
-- 検証済み形式的仕様
-- 検証レポート
-
-#### Phase 4: テスト生成（2-3時間）
-
-**目的**: 仕様から包括的なテストスイートを生成
-
-**AIとの対話例**:
-```
-ユーザー: 「Dafny仕様から Rust のユニットテストを生成して」
-
-AI: 以下のテストを生成しました：
-- 正常系テスト: 15件
-- 境界値テスト: 8件
-- エラーケース: 10件
+AI: I will perform TLA+/Elixir and Dafny/Rust division:
+- TLA+: Game session management, timeout processing
+- Dafny: Cryptographic operations, win/loss determination logic
 ```
 
-**成果物**:
-- ユニットテストコード
-- プロパティテストコード
-- 統合テストシナリオ
+**Deliverables**:
+- TLA+ specifications
+- Dafny specifications
+- Domain division design document
 
-#### Phase 5: TDD実装（実装規模による）
+#### Phase 3: Specification Verification & Improvement (1-2 hours)
 
-**目的**: テスト駆動で実装を進める
+**Purpose**: Verify accuracy and completeness of generated specifications
 
-**詳細は次章「2. TDD実践ガイド」参照**
+**AI Dialogue Example**:
+```
+User: "Check type invariants of TLA+ specification"
 
-#### Phase 6: 統合テスト（1-2時間）
+AI: I found the following issues:
+1. Inconsistency in player state transitions
+2. Missing timeout processing
+I will present a corrected version...
+```
 
-**目的**: システム全体の動作確認
+**Deliverables**:
+- Verified formal specifications
+- Verification report
 
-**詳細は「3. 統合テスト実施ガイド」参照**
+#### Phase 4: Test Generation (2-3 hours)
 
-#### Phase 7: デプロイ・運用（30分-1時間）
+**Purpose**: Generate comprehensive test suite from specifications
 
-**目的**: 本番環境へのデプロイと運用開始
+**AI Dialogue Example**:
+```
+User: "Generate Rust unit tests from Dafny specification"
 
-### 1.3 フェーズ間の移行基準
+AI: I generated the following tests:
+- Normal case tests: 15 items
+- Boundary value tests: 8 items
+- Error cases: 10 items
+```
 
-| フェーズ | 次フェーズへの移行条件 | 品質ゲート |
-|---------|------------------------|-------------|
-| Phase 0→1 | 要求の明確化完了 | ステークホルダー合意 |
-| Phase 1→2 | BDD仕様の完成 | シナリオカバレッジ90% |
-| Phase 2→3 | 形式的仕様の生成 | 構文エラーなし |
-| Phase 3→4 | 仕様検証合格 | 整合性スコア80%以上 |
-| Phase 4→5 | テスト生成完了 | テストカバレッジ95% |
-| Phase 5→6 | 実装完了 | 全ユニットテスト合格 |
-| Phase 6→7 | 統合テスト合格 | E2Eテスト100%合格 |
+**Deliverables**:
+- Unit test code
+- Property test code
+- Integration test scenarios
 
-## 2. TDD実践ガイド
+#### Phase 5: TDD Implementation (depends on implementation scale)
 
-### 2.1 TDDサイクルの基本
+**Purpose**: Proceed with implementation in test-driven manner
+
+**Details refer to next chapter "2. TDD Practice Guide"**
+
+#### Phase 6: Integration Testing (1-2 hours)
+
+**Purpose**: Verify overall system operation
+
+**Details refer to "3. Integration Test Implementation Guide"**
+
+#### Phase 7: Deploy & Operations (30 minutes - 1 hour)
+
+**Purpose**: Deploy to production environment and start operations
+
+### 1.3 Phase Transition Criteria
+
+| Phase | Next Phase Transition Condition | Quality Gate |
+|-------|--------------------------------|--------------|
+| Phase 0→1 | Requirements clarification complete | Stakeholder agreement |
+| Phase 1→2 | BDD specification complete | 90% scenario coverage |
+| Phase 2→3 | Formal specification generation | No syntax errors |
+| Phase 3→4 | Specification verification passed | Consistency score 80%+ |
+| Phase 4→5 | Test generation complete | 95% test coverage |
+| Phase 5→6 | Implementation complete | All unit tests pass |
+| Phase 6→7 | Integration tests pass | 100% E2E tests pass |
+
+## 2. TDD Practice Guide
+
+### 2.1 TDD Cycle Basics
 
 ```mermaid
 graph LR
-    A[1. RED<br/>テスト作成] --> B[2. 失敗確認<br/>テスト実行]
-    B --> C[3. GREEN<br/>最小実装]
-    C --> D[4. パス確認<br/>テスト実行]
-    D --> E[5. REFACTOR<br/>リファクタリング]
-    E --> F[6. 品質確認<br/>テスト実行]
+    A[1. RED<br/>Create Test] --> B[2. Confirm Failure<br/>Run Test]
+    B --> C[3. GREEN<br/>Minimal Implementation]
+    C --> D[4. Confirm Pass<br/>Run Test]
+    D --> E[5. REFACTOR<br/>Refactoring]
+    E --> F[6. Quality Check<br/>Run Test]
     F --> A
     
     style A fill:#ffcccc
@@ -221,22 +213,22 @@ graph LR
     style F fill:#ccccff
 ```
 
-### 2.2 各ステップの詳細実践
+### 2.2 Detailed Practice for Each Step
 
-#### ステップ1: RED - テスト作成
+#### Step 1: RED - Test Creation
 
-**目的**: 実装前に期待動作を定義
+**Purpose**: Define expected behavior before implementation
 
-**AIとの対話パターン**:
+**AI Dialogue Pattern**:
 ```
-ユーザー: 「commitment作成機能のテストを書きたい」
+User: "I want to write a test for commitment creation function"
 
-AI: 以下のテストを提案します：
+AI: I suggest the following test:
 
 #[test]
 fn test_create_commitment() {
     // Arrange
-    let move_val = 1; // グー
+    let move_val = 1; // Rock
     let nonce = 12345;
     
     // Act
@@ -248,72 +240,72 @@ fn test_create_commitment() {
 }
 ```
 
-**チェックポイント**:
-- [ ] テストが仕様を正確に反映している
-- [ ] テスト名が意図を明確に表現している
-- [ ] Arrange-Act-Assert パターンに従っている
+**Checkpoints**:
+- [ ] Test accurately reflects specifications
+- [ ] Test name clearly expresses intent
+- [ ] Follows Arrange-Act-Assert pattern
 
-#### ステップ2: 失敗確認
+#### Step 2: Confirm Failure
 
-**目的**: テストが正しく失敗することを確認
+**Purpose**: Confirm test fails correctly
 
-**AIとの対話パターン**:
+**AI Dialogue Pattern**:
 ```
-ユーザー: 「このテストを実行したら『create_commitment関数が未定義』エラーが出た」
+User: "When I ran this test, I got a 'create_commitment function undefined' error"
 
-AI: 正常です。これは期待される失敗です。
-次に最小限の実装を作成しましょう。
+AI: That's normal. This is the expected failure.
+Next, let's create minimal implementation.
 ```
 
-**確認事項**:
-- コンパイルエラー（関数未定義）
-- 実行時エラー（未実装）
-- アサーションエラー（誤った結果）
+**Confirmation Items**:
+- Compile error (function undefined)
+- Runtime error (not implemented)
+- Assertion error (incorrect result)
 
-#### ステップ3: GREEN - 最小実装
+#### Step 3: GREEN - Minimal Implementation
 
-**目的**: テストを通す最小限のコード作成
+**Purpose**: Create minimal code to pass the test
 
-**AIとの対話パターン**:
+**AI Dialogue Pattern**:
 ```
-ユーザー: 「create_commitment関数の最小実装を作って」
+User: "Create minimal implementation for create_commitment function"
 
-AI: テストを通すための最小実装：
+AI: Minimal implementation to pass the test:
 
 fn create_commitment(move_val: u8, nonce: u64) -> String {
-    // 最小実装：固定長の文字列を返す
+    // Minimal implementation: return fixed-length string
     "0".repeat(64)
 }
 ```
 
-**原則**:
-- 過度な設計を避ける
-- テストを通すことだけに集中
-- 後でリファクタリングすることを前提
+**Principles**:
+- Avoid excessive design
+- Focus only on passing the test
+- Assume refactoring later
 
-#### ステップ4: パス確認
+#### Step 4: Confirm Pass
 
-**目的**: テストが成功することを確認
+**Purpose**: Confirm test succeeds
 
-**AIとの対話パターン**:
+**AI Dialogue Pattern**:
 ```
-ユーザー: 「テストが通った。次は？」
+User: "Test passed. What's next?"
 
-AI: 素晴らしい！次により現実的なテストケースを追加しましょう：
-- 異なる入力での結果の違い
-- エッジケース
-- エラーケース
+AI: Excellent! Next, let's add more realistic test cases:
+- Different results with different inputs
+- Edge cases
+- Error cases
 ```
 
-#### ステップ5: REFACTOR - リファクタリング
+#### Step 5: REFACTOR - Refactoring
 
-**目的**: コードの品質向上（動作は変えない）
+**Purpose**: Improve code quality (without changing behavior)
 
-**AIとの対話パターン**:
+**AI Dialogue Pattern**:
 ```
-ユーザー: 「create_commitment の実装を改善したい」
+User: "I want to improve the create_commitment implementation"
 
-AI: 以下のリファクタリングを提案：
+AI: I suggest the following refactoring:
 
 fn create_commitment(move_val: u8, nonce: u64) -> String {
     use sha2::{Sha256, Digest};
@@ -326,25 +318,25 @@ fn create_commitment(move_val: u8, nonce: u64) -> String {
 }
 ```
 
-**リファクタリング観点**:
-- コードの重複除去
-- 可読性向上
-- パフォーマンス改善
-- 設計パターン適用
+**Refactoring Aspects**:
+- Remove code duplication
+- Improve readability
+- Enhance performance
+- Apply design patterns
 
-#### ステップ6: 品質確認
+#### Step 6: Quality Check
 
-**目的**: リファクタリング後も動作が変わらないことを確認
+**Purpose**: Confirm behavior hasn't changed after refactoring
 
-### 2.3 TDDのベストプラクティス
+### 2.3 TDD Best Practices
 
-#### テストの粒度
+#### Test Granularity
 
 ```yaml
 unit_test_granularity:
-  tiny: "1つの関数の1つの振る舞い"
-  small: "1つのクラスの公開メソッド"
-  medium: "複数クラスの協調動作"
+  tiny: "One behavior of one function"
+  small: "Public methods of one class"
+  medium: "Collaborative behavior of multiple classes"
   
 recommended_distribution:
   tiny: 60%
@@ -352,41 +344,41 @@ recommended_distribution:
   medium: 10%
 ```
 
-#### テスト命名規則
+#### Test Naming Convention
 
 ```
-テスト名 = [テスト対象]_[条件]_[期待結果]
+Test name = [Test target]_[Condition]_[Expected result]
 
-例:
+Examples:
 - create_commitment_with_valid_input_returns_64_char_hash
 - judge_moves_with_same_moves_returns_draw
 - verify_proof_with_invalid_proof_returns_error
 ```
 
-#### AIとの効果的な対話
+#### Effective AI Dialogue
 
-**良い質問例**:
+**Good Question Examples**:
 ```
-✅ 「この関数の境界値テストケースを提案して」
-✅ 「このテストが失敗する実装のバグを見つけて」
-✅ 「このコードのテスタビリティを改善する方法は？」
-```
-
-**避けるべき質問例**:
-```
-❌ 「全部のテストを書いて」（粒度が大きすぎる）
-❌ 「正しい実装を教えて」（TDDの順序が逆）
-❌ 「テストなしで実装したい」（TDDの原則違反）
+✅ "Suggest boundary value test cases for this function"
+✅ "Find implementation bugs that would cause this test to fail"
+✅ "How to improve testability of this code?"
 ```
 
-### 2.4 TDD実装フロー例
+**Questions to Avoid**:
+```
+❌ "Write all tests" (granularity too large)
+❌ "Tell me the correct implementation" (TDD order reversed)
+❌ "I want to implement without tests" (violates TDD principles)
+```
+
+### 2.4 TDD Implementation Flow Example
 
 ```markdown
-## じゃんけん判定機能のTDD実装
+## TDD Implementation for Rock-Paper-Scissors Judgment Function
 
-### サイクル1: 基本的な勝敗判定
+### Cycle 1: Basic Win/Loss Judgment
 
-1. **RED**: グーがチョキに勝つテスト作成
+1. **RED**: Create test for rock beats scissors
    ```rust
    #[test]
    fn test_rock_beats_scissors() {
@@ -394,18 +386,18 @@ recommended_distribution:
    }
    ```
 
-2. **失敗確認**: judge_moves未定義エラー
+2. **Confirm Failure**: judge_moves undefined error
 
-3. **GREEN**: 最小実装
+3. **GREEN**: Minimal implementation
    ```rust
    fn judge_moves(p1: Move, p2: Move) -> Result {
-       WIN  // とりあえず勝ちを返す
+       WIN  // For now, return win
    }
    ```
 
-4. **パス確認**: テスト成功
+4. **Confirm Pass**: Test succeeds
 
-5. **REFACTOR**: より汎用的な実装へ
+5. **REFACTOR**: More generic implementation
    ```rust
    fn judge_moves(p1: Move, p2: Move) -> Result {
        match (p1, p2) {
@@ -415,32 +407,32 @@ recommended_distribution:
    }
    ```
 
-### サイクル2: 引き分けケース追加
-（同様のサイクルを繰り返す）
+### Cycle 2: Add Draw Case
+(Repeat similar cycle)
 
-### サイクル3: 全パターン網羅
-（9パターンすべてをカバー）
+### Cycle 3: Cover All Patterns
+(Cover all 9 patterns)
 ```
 
-## 3. 統合テスト実施ガイド
+## 3. Integration Test Implementation Guide
 
-### 3.1 統合テストの階層
+### 3.1 Integration Test Hierarchy
 
 ```mermaid
 graph TB
-    subgraph "Level 1: コンポーネント統合"
-        A[Elixir内統合]
-        B[Rust内統合]
+    subgraph "Level 1: Component Integration"
+        A[Elixir Internal Integration]
+        B[Rust Internal Integration]
     end
     
-    subgraph "Level 2: 境界統合"
-        C[Elixir-Rust連携]
-        D[API境界テスト]
+    subgraph "Level 2: Boundary Integration"
+        C[Elixir-Rust Coordination]
+        D[API Boundary Tests]
     end
     
-    subgraph "Level 3: システム統合"
-        E[E2Eシナリオ]
-        F[負荷テスト]
+    subgraph "Level 3: System Integration"
+        E[E2E Scenarios]
+        F[Load Testing]
     end
     
     A --> C
@@ -450,13 +442,13 @@ graph TB
     E --> F
 ```
 
-### 3.2 統合テスト設計
+### 3.2 Integration Test Design
 
-#### Level 1: コンポーネント統合テスト
+#### Level 1: Component Integration Tests
 
-**目的**: 同一技術スタック内の統合確認
+**Purpose**: Verify integration within same technology stack
 
-**Elixir側の例**:
+**Elixir Side Example**:
 ```elixir
 describe "GameSession and MatchmakingQueue integration" do
   test "matched players are correctly assigned to session" do
@@ -474,7 +466,7 @@ describe "GameSession and MatchmakingQueue integration" do
 end
 ```
 
-**Rust側の例**:
+**Rust Side Example**:
 ```rust
 #[test]
 fn test_proof_generation_and_verification_integration() {
@@ -492,15 +484,15 @@ fn test_proof_generation_and_verification_integration() {
 }
 ```
 
-#### Level 2: 境界統合テスト
+#### Level 2: Boundary Integration Tests
 
-**目的**: 異なる技術スタック間の連携確認
+**Purpose**: Verify coordination between different technology stacks
 
-**AIとの対話例**:
+**AI Dialogue Example**:
 ```
-ユーザー: 「Elixir から Rust の暗号関数を呼ぶ統合テストを作って」
+User: "Create integration test for calling Rust crypto functions from Elixir"
 
-AI: NIF（Native Implemented Function）経由の統合テスト：
+AI: Integration test via NIF (Native Implemented Function):
 
 defmodule CryptoIntegrationTest do
   test "Elixir calls Rust crypto functions via NIF" do
@@ -508,7 +500,7 @@ defmodule CryptoIntegrationTest do
     move_val = 1
     nonce = 12345
     
-    # Act - Rust関数呼び出し
+    # Act - Call Rust function
     {:ok, commitment} = RustCrypto.create_commitment(move_val, nonce)
     
     # Assert
@@ -518,17 +510,17 @@ defmodule CryptoIntegrationTest do
 end
 ```
 
-**テスト観点**:
-- データ型変換の正確性
-- エラー伝播の適切性
-- パフォーマンス劣化の確認
-- メモリリークの検出
+**Test Aspects**:
+- Data type conversion accuracy
+- Proper error propagation
+- Performance degradation confirmation
+- Memory leak detection
 
-#### Level 3: システム統合テスト
+#### Level 3: System Integration Tests
 
-**目的**: エンドツーエンドの動作確認
+**Purpose**: End-to-end operation confirmation
 
-**E2Eシナリオテスト例**:
+**E2E Scenario Test Example**:
 ```gherkin
 Feature: Complete game flow
   
@@ -545,268 +537,268 @@ Feature: Complete game flow
     And both players can start a new game
 ```
 
-### 3.3 統合テスト実行戦略
+### 3.3 Integration Test Execution Strategy
 
-#### 環境構成
+#### Environment Configuration
 
 ```yaml
 test_environments:
   local:
-    description: "開発者ローカル環境"
-    scope: "基本的な統合テスト"
-    data: "モックデータ"
+    description: "Developer local environment"
+    scope: "Basic integration tests"
+    data: "Mock data"
     
   ci:
-    description: "CI/CD環境"
-    scope: "全統合テスト"
-    data: "テスト専用DB"
+    description: "CI/CD environment"
+    scope: "All integration tests"
+    data: "Test-specific DB"
     
   staging:
-    description: "ステージング環境"
-    scope: "本番相当テスト"
-    data: "本番類似データ"
+    description: "Staging environment"
+    scope: "Production-equivalent tests"
+    data: "Production-like data"
 ```
 
-#### 実行順序とタイミング
+#### Execution Order and Timing
 
 ```mermaid
 graph LR
-    A[コミット時] --> B[Unit Tests<br/>1分以内]
-    B --> C[Component Integration<br/>3分以内]
+    A[On Commit] --> B[Unit Tests<br/>Within 1 min]
+    B --> C[Component Integration<br/>Within 3 min]
     
-    D[PR時] --> E[Boundary Integration<br/>5分以内]
-    E --> F[Critical E2E<br/>10分以内]
+    D[On PR] --> E[Boundary Integration<br/>Within 5 min]
+    E --> F[Critical E2E<br/>Within 10 min]
     
-    G[デプロイ前] --> H[Full E2E<br/>30分以内]
-    H --> I[Performance Tests<br/>1時間以内]
+    G[Pre-Deploy] --> H[Full E2E<br/>Within 30 min]
+    H --> I[Performance Tests<br/>Within 1 hour]
 ```
 
-### 3.4 統合テストのトラブルシューティング
+### 3.4 Integration Test Troubleshooting
 
-#### よくある問題と対処法
+#### Common Problems and Solutions
 
-| 問題 | 原因 | 対処法 | AIへの質問例 |
-|------|------|--------|--------------|
-| テストが不安定 | 非同期処理の競合 | 適切な待機処理追加 | 「このテストを安定化する方法は？」 |
-| 実行時間が長い | 不要な待機・DB操作 | 並列実行・モック活用 | 「このテストを高速化する方法は？」 |
-| 環境依存エラー | 設定・依存の差異 | Docker化・設定外部化 | 「環境差異を吸収する方法は？」 |
-| データ競合 | テスト間の干渉 | データ分離・クリーンアップ | 「テストデータを分離する方法は？」 |
+| Problem | Cause | Solution | AI Question Example |
+|---------|-------|----------|---------------------|
+| Unstable tests | Concurrency conflicts | Add proper waiting | "How to stabilize this test?" |
+| Long execution time | Unnecessary waits/DB operations | Parallel execution, use mocks | "How to speed up this test?" |
+| Environment-dependent errors | Configuration/dependency differences | Dockerize, externalize configuration | "How to absorb environment differences?" |
+| Data conflicts | Inter-test interference | Data isolation, cleanup | "How to isolate test data?" |
 
-## 4. BDD要求仕様記述ガイド
+## 4. BDD Requirements Specification Writing Guide
 
-### 4.1 効果的なFeature記述
+### 4.1 Effective Feature Description
 
-#### 基本構造
+#### Basic Structure
 
 ```gherkin
-Feature: [機能名]
-  As a [ユーザー種別]
-  I want [実現したいこと]
-  So that [ビジネス価値]
+Feature: [Feature name]
+  As a [User type]
+  I want [What to achieve]
+  So that [Business value]
   
   Background:
-    Given [すべてのシナリオ共通の前提条件]
+    Given [Common preconditions for all scenarios]
   
-  Scenario: [シナリオ名]
-    Given [前提条件]
-    When [アクション]
-    Then [期待結果]
+  Scenario: [Scenario name]
+    Given [Preconditions]
+    When [Action]
+    Then [Expected result]
 ```
 
-#### 良い例と悪い例
+#### Good and Bad Examples
 
-**良い例 ✅**:
+**Good Example ✅**:
 ```gherkin
-Scenario: プレイヤーが制限時間内に手を提出
-  Given プレイヤーがゲームセッションに参加済み
-  And 制限時間が30秒に設定されている
-  When プレイヤーが「グー」を選択
-  And 10秒後に提出ボタンを押す
-  Then 手の提出が正常に受理される
-  And 「提出完了」メッセージが表示される
+Scenario: Player submits move within time limit
+  Given player has joined game session
+  And time limit is set to 30 seconds
+  When player selects "Rock"
+  And presses submit button after 10 seconds
+  Then move submission is accepted normally
+  And "Submission complete" message is displayed
 ```
 
-**悪い例 ❌**:
+**Bad Example ❌**:
 ```gherkin
-Scenario: ゲームする
-  Given ユーザーがいる
-  When 何かする
-  Then うまくいく
+Scenario: Play game
+  Given user exists
+  When do something
+  Then works well
 ```
 
-### 4.2 仕様の粒度管理
+### 4.2 Specification Granularity Management
 
 ```yaml
 specification_granularity:
   epic:
-    description: "大規模機能群"
-    example: "ゼロ知識じゃんけんゲーム"
+    description: "Large feature groups"
+    example: "Zero-knowledge rock-paper-scissors game"
     scenarios: 20-50
     
   feature:
-    description: "機能単位"
-    example: "マッチメイキング機能"
+    description: "Feature units"
+    example: "Matchmaking function"
     scenarios: 5-15
     
   scenario:
-    description: "具体的な使用例"
-    example: "2人のプレイヤーがマッチング"
+    description: "Specific use cases"
+    example: "Two players get matched"
     steps: 3-10
 ```
 
-## 5. AIとの対話テンプレート集
+## 5. AI Dialogue Template Collection
 
-### 5.1 フェーズ別対話テンプレート
+### 5.1 Phase-specific Dialogue Templates
 
-#### Phase 1: BDD要求仕様作成
-
-```markdown
-## 基本的な機能要求の引き出し
-「[機能名]について、以下の観点でBDDシナリオを作成してください：
-- 正常系の基本フロー
-- 主要な異常系（3パターン）
-- エッジケース（2パターン）」
-
-## 受け入れ条件の明確化
-「このシナリオの受け入れ条件を、測定可能な形で定義してください」
-
-## シナリオの詳細化
-「このシナリオのGiven句をより具体的にしてください。
-特にデータの初期状態を明確にしてください」
-```
-
-#### Phase 2: 形式的仕様生成
+#### Phase 1: BDD Requirements Specification Creation
 
 ```markdown
-## TLA+/Dafny分割の決定
-「このBDD仕様を分析して、TLA+で記述すべき部分とDafnyで記述すべき部分を分けてください」
+## Basic Functional Requirement Elicitation
+"Please create BDD scenarios for [feature name] from the following aspects:
+- Normal case basic flow
+- Main abnormal cases (3 patterns)
+- Edge cases (2 patterns)"
 
-## TLA+仕様の生成
-「以下のBDDシナリオからTLA+仕様を生成してください：
-- 並行性の観点を重視
-- タイムアウト処理を含める
-- 活性条件を明示」
+## Acceptance Criteria Clarification
+"Please define acceptance criteria for this scenario in measurable form"
 
-## Dafny仕様の生成
-「以下の処理についてDafny契約を生成してください：
-- 事前条件・事後条件を明確に
-- 不変条件を定義
-- 型安全性を保証」
+## Scenario Detailing
+"Please make the Given clauses of this scenario more specific.
+Particularly clarify the initial state of data"
 ```
 
-#### Phase 3: 仕様検証
+#### Phase 2: Formal Specification Generation
 
 ```markdown
-## 整合性チェック
-「TLA+仕様とDafny仕様の間で、状態表現と操作の対応関係をチェックしてください」
+## TLA+/Dafny Division Decision
+"Please analyze this BDD specification and divide parts that should be described in TLA+ and parts that should be described in Dafny"
 
-## 完全性チェック
-「この仕様がBDD要求をすべてカバーしているか確認してください。
-カバーされていない要求があれば指摘してください」
+## TLA+ Specification Generation
+"Please generate TLA+ specification from the following BDD scenarios:
+- Emphasize concurrency aspects
+- Include timeout processing
+- Specify liveness conditions"
 
-## 実装可能性チェック
-「この仕様が実際に実装可能か、技術的な観点から評価してください」
+## Dafny Specification Generation
+"Please generate Dafny contracts for the following processing:
+- Clearly specify pre-conditions and post-conditions
+- Define invariants
+- Guarantee type safety"
 ```
 
-#### Phase 4: テスト生成
+#### Phase 3: Specification Verification
 
 ```markdown
-## ユニットテスト生成
-「このDafny契約から、Rustのユニットテストを生成してください。
-正常系、境界値、異常系を網羅してください」
+## Consistency Check
+"Please check correspondence relationships between state representations and operations between TLA+ and Dafny specifications"
 
-## プロパティテスト生成
-「このTLA+不変条件から、プロパティベーステストを生成してください」
+## Completeness Check
+"Please confirm whether this specification covers all BDD requirements.
+Point out any uncovered requirements"
 
-## 統合テストシナリオ
-「システム境界でのデータフローを確認する統合テストを設計してください」
+## Implementability Check
+"Please evaluate whether this specification is actually implementable from a technical perspective"
 ```
 
-#### Phase 5: TDD実装
+#### Phase 4: Test Generation
 
 ```markdown
-## 次のテストケース提案
-「現在のテストカバレッジを踏まえて、次に書くべきテストを提案してください」
+## Unit Test Generation
+"Please generate Rust unit tests from this Dafny contract.
+Cover normal cases, boundary values, and abnormal cases"
 
-## 最小実装の作成
-「このテストを通すための最小限の実装を提供してください」
+## Property Test Generation
+"Please generate property-based tests from this TLA+ invariant"
 
-## リファクタリング提案
-「このコードの可読性と保守性を改善する方法を提案してください」
+## Integration Test Scenarios
+"Please design integration tests to verify data flow at system boundaries"
 ```
 
-### 5.2 トラブルシューティング用対話
+#### Phase 5: TDD Implementation
 
 ```markdown
-## テスト失敗の原因分析
-「このテストが失敗しています。エラーメッセージは[エラー内容]です。
-考えられる原因と対処法を教えてください」
+## Next Test Case Suggestion
+"Based on current test coverage, please suggest the next test to write"
 
-## パフォーマンス問題
-「この処理が遅いです。プロファイル結果は[結果]です。
-最適化の方法を提案してください」
+## Minimal Implementation Creation
+"Please provide minimal implementation to pass this test"
 
-## 設計の改善
-「この設計に違和感があります。[懸念点]
-より良い設計パターンを提案してください」
+## Refactoring Suggestion
+"Please suggest ways to improve readability and maintainability of this code"
 ```
 
-### 5.3 品質向上のための対話
+### 5.2 Troubleshooting Dialogues
 
 ```markdown
-## コードレビュー依頼
-「このコードをレビューしてください。
-特に[観点]について重点的に見てください」
+## Test Failure Cause Analysis
+"This test is failing. Error message is [error content].
+Please tell me possible causes and solutions"
 
-## ベストプラクティス確認
-「この実装は[言語/フレームワーク]のベストプラクティスに従っていますか？」
+## Performance Issues
+"This processing is slow. Profile results are [results].
+Please suggest optimization methods"
 
-## セキュリティチェック
-「このコードにセキュリティ上の問題がないか確認してください」
+## Design Improvement
+"I feel something is wrong with this design. [concerns]
+Please suggest better design patterns"
 ```
 
-## 6. 品質保証チェックリスト
+### 5.3 Quality Improvement Dialogues
 
-### 6.1 フェーズ完了基準
+```markdown
+## Code Review Request
+"Please review this code.
+Focus particularly on [aspects]"
 
-#### Phase 1 完了基準
-- [ ] すべての主要機能にBDDシナリオがある
-- [ ] 各シナリオに受け入れ条件が定義されている
-- [ ] ステークホルダーのレビュー完了
+## Best Practice Confirmation
+"Does this implementation follow [language/framework] best practices?"
 
-#### Phase 2 完了基準
-- [ ] TLA+仕様の構文チェック合格
-- [ ] Dafny仕様の型チェック合格
-- [ ] 領域分割の妥当性確認
+## Security Check
+"Please check if there are security issues in this code"
+```
 
-#### Phase 3 完了基準
-- [ ] 仕様間の整合性スコア80%以上
-- [ ] 要求カバレッジ90%以上
-- [ ] 実装可能性の確認
+## 6. Quality Assurance Checklist
 
-#### Phase 4 完了基準
-- [ ] テストカバレッジ95%以上
-- [ ] すべてのテストが実行可能
-- [ ] CI/CDへの統合完了
+### 6.1 Phase Completion Criteria
 
-#### Phase 5 完了基準
-- [ ] すべてのユニットテスト合格
-- [ ] コードカバレッジ90%以上
-- [ ] リファクタリング完了
+#### Phase 1 Completion Criteria
+- [ ] All major features have BDD scenarios
+- [ ] Acceptance criteria defined for each scenario
+- [ ] Stakeholder review completed
 
-#### Phase 6 完了基準
-- [ ] すべての統合テスト合格
-- [ ] E2Eシナリオ100%成功
-- [ ] パフォーマンス基準達成
+#### Phase 2 Completion Criteria
+- [ ] TLA+ specification syntax check passed
+- [ ] Dafny specification type check passed
+- [ ] Domain division validity confirmed
 
-### 6.2 継続的改善指標
+#### Phase 3 Completion Criteria
+- [ ] Inter-specification consistency score 80%+
+- [ ] Requirements coverage 90%+
+- [ ] Implementability confirmed
+
+#### Phase 4 Completion Criteria
+- [ ] Test coverage 95%+
+- [ ] All tests executable
+- [ ] CI/CD integration completed
+
+#### Phase 5 Completion Criteria
+- [ ] All unit tests pass
+- [ ] Code coverage 90%+
+- [ ] Refactoring completed
+
+#### Phase 6 Completion Criteria
+- [ ] All integration tests pass
+- [ ] E2E scenarios 100% successful
+- [ ] Performance criteria achieved
+
+### 6.2 Continuous Improvement Metrics
 
 ```yaml
 quality_metrics:
   process_efficiency:
-    cycle_time: "要求から実装までの時間"
-    rework_rate: "手戻り発生率"
-    automation_rate: "自動化率"
+    cycle_time: "Time from requirements to implementation"
+    rework_rate: "Rework occurrence rate"
+    automation_rate: "Automation rate"
     
   code_quality:
     test_coverage: "> 95%"
@@ -819,14 +811,14 @@ quality_metrics:
     consistency: "> 90%"
 ```
 
-## 7. プロジェクト規模別ガイドライン
+## 7. Project Scale-based Guidelines
 
-### 7.1 小規模プロジェクト（1-2週間）
+### 7.1 Small Projects (1-2 weeks)
 
 ```yaml
 small_project:
-  team_size: 1-2人
-  features: 3-5個
+  team_size: 1-2 people
+  features: 3-5 items
   
   time_allocation:
     planning: 10%
@@ -835,17 +827,17 @@ small_project:
     testing: 20%
     
   simplifications:
-    - BDD: 主要シナリオのみ
-    - 形式的仕様: 重要部分のみ
-    - テスト: ユニットテスト中心
+    - BDD: Main scenarios only
+    - Formal specification: Important parts only
+    - Testing: Unit test focused
 ```
 
-### 7.2 中規模プロジェクト（1-3ヶ月）
+### 7.2 Medium Projects (1-3 months)
 
 ```yaml
 medium_project:
-  team_size: 3-5人
-  features: 10-20個
+  team_size: 3-5 people
+  features: 10-20 items
   
   time_allocation:
     planning: 15%
@@ -854,17 +846,17 @@ medium_project:
     testing: 20%
     
   full_process:
-    - BDD: 全機能カバー
-    - 形式的仕様: TLA+とDafny両方
-    - テスト: 全レベル実施
+    - BDD: Cover all features
+    - Formal specification: Both TLA+ and Dafny
+    - Testing: Implement all levels
 ```
 
-### 7.3 大規模プロジェクト（3ヶ月以上）
+### 7.3 Large Projects (3+ months)
 
 ```yaml
 large_project:
-  team_size: 5人以上
-  features: 20個以上
+  team_size: 5+ people
+  features: 20+ items
   
   time_allocation:
     planning: 20%
@@ -873,59 +865,59 @@ large_project:
     testing: 15%
     
   additional_practices:
-    - アーキテクチャ検証
-    - パフォーマンステスト
-    - セキュリティ監査
-    - 段階的リリース
+    - Architecture verification
+    - Performance testing
+    - Security audit
+    - Staged releases
 ```
 
-## 8. よくある課題と対処法
+## 8. Common Issues and Solutions
 
-### 8.1 仕様作成の課題
+### 8.1 Specification Creation Issues
 
-| 課題 | 症状 | 対処法 |
-|------|------|--------|
-| 仕様の曖昧性 | AIが異なる解釈をする | 具体例を追加、数値化 |
-| 仕様の不完全性 | エッジケース未考慮 | 体系的なケース分析 |
-| 仕様の不整合 | TLA+とDafnyが矛盾 | 境界定義の明確化 |
+| Issue | Symptom | Solution |
+|-------|---------|----------|
+| Specification ambiguity | AI makes different interpretations | Add concrete examples, quantify |
+| Specification incompleteness | Edge cases not considered | Systematic case analysis |
+| Specification inconsistency | TLA+ and Dafny contradict | Clarify boundary definitions |
 
-### 8.2 実装の課題
+### 8.2 Implementation Issues
 
-| 課題 | 症状 | 対処法 |
-|------|------|--------|
-| テスト作成の遅延 | 実装が先行 | TDD原則の徹底 |
-| リファクタリング不足 | 技術的負債蓄積 | 定期的なコードレビュー |
-| 統合の困難 | 境界でのエラー多発 | インターフェース仕様強化 |
+| Issue | Symptom | Solution |
+|-------|---------|----------|
+| Test creation delays | Implementation proceeds first | Enforce TDD principles |
+| Insufficient refactoring | Technical debt accumulation | Regular code reviews |
+| Integration difficulties | Frequent errors at boundaries | Strengthen interface specifications |
 
-### 8.3 プロセスの課題
+### 8.3 Process Issues
 
-| 課題 | 症状 | 対処法 |
-|------|------|--------|
-| AIとの対話効率 | 質問の繰り返し | テンプレート活用 |
-| 品質基準の未達 | カバレッジ不足 | 段階的な基準引き上げ |
-| 進捗の遅延 | 見積もり超過 | バッファ時間の確保 |
+| Issue | Symptom | Solution |
+|-------|---------|----------|
+| AI dialogue inefficiency | Repeated questions | Use templates |
+| Quality standards not met | Insufficient coverage | Gradually raise standards |
+| Progress delays | Estimate exceeded | Secure buffer time |
 
-## まとめ
+## Summary
 
-このガイドに従うことで、AIチャットを活用した体系的な開発プロセスを実現できます。
+By following this guide, you can achieve systematic development processes utilizing AI chat.
 
-### 成功のポイント
+### Success Points
 
-1. **段階的アプローチ**: 各フェーズを着実に完了
-2. **品質ゲート**: 次フェーズへの移行基準を厳守
-3. **継続的対話**: AIとの効果的なコミュニケーション
-4. **測定と改善**: メトリクスに基づく継続的改善
+1. **Staged Approach**: Complete each phase steadily
+2. **Quality Gates**: Strictly observe transition criteria to next phase
+3. **Continuous Dialogue**: Effective communication with AI
+4. **Measurement and Improvement**: Continuous improvement based on metrics
 
-### 期待される成果
+### Expected Outcomes
 
-- **開発速度**: 従来比 2-3倍の高速化
-- **品質向上**: バグ密度 90%削減
-- **保守性**: 技術的負債の最小化
-- **知識蓄積**: 仕様と実装の完全な対応
+- **Development Speed**: 2-3x faster than conventional methods
+- **Quality Improvement**: 90% reduction in bug density
+- **Maintainability**: Minimized technical debt
+- **Knowledge Accumulation**: Complete correspondence between specifications and implementation
 
-このプロセスにより、理論的正しさと実用性を両立した高品質なソフトウェアを効率的に開発できます。
+This process enables efficient development of high-quality software that balances theoretical correctness with practicality.
 
 ---
 
-**作成日**: 2025年8月8日  
-**バージョン**: 1.0
+**Created**: August 8, 2025  
+**Version**: 1.0
